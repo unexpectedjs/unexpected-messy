@@ -1,0 +1,43 @@
+{
+  "name": "unexpected-messy",
+  "version": "0.0.0",
+  "description": "Unexpected plugin for the messy library",
+  "main": "lib/unexpectedMessy.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "jshint .",
+    "test": "mocha && npm run lint",
+    "travis": "npm test && npm run coverage && <coverage/lcov.info coveralls",
+    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/papandreou/unexpected-messy.git"
+  },
+  "keywords": [
+    "HTTP",
+    "request",
+    "response",
+    "assertion",
+    "unexpected",
+    "test",
+    "mocha"
+  ],
+  "author": "Andreas Lind <andreas@one.com>",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/papandreou/unexpected-messy/issues"
+  },
+  "homepage": "https://github.com/papandreou/unexpected-messy",
+  "peerDependencies": {
+    "messy": "~0.8",
+    "unexpected": "~5.0"
+  },
+  "devDependencies": {
+    "messy": "=0.7.3",
+    "mocha": "=1.21.4",
+    "unexpected": "~5.0"
+  }
+}
