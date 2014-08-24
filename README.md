@@ -3,7 +3,7 @@ Unexpected-messy
 
 Plugin for [Unexpected](https://github.com/sunesimonsen/unexpected) that adds the ability to inspect and match instances of the HttpRequest and HttpResponse classes from the [Messy library](https://github.com/papandreou/messy).
 
-It's originally built for [Messy library](https://github.com/papandreou/unexpected-express), but can also be used standalone.
+It's originally built for [unexpected-express](https://github.com/papandreou/unexpected-express), but can also be used standalone.
 
 Right now it depends on some unreleased features that are due to land in unexpected 5, so stay tuned.
 
