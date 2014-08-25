@@ -36,7 +36,7 @@
     "unexpected": "~5.0"
   },
   "devDependencies": {
-    "messy": "=0.7.3",
+    "messy": "=1.0.1",
     "mocha": "=1.21.4",
     "unexpected": "~5.0"
   }
