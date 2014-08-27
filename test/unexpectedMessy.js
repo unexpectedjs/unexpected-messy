@@ -8,8 +8,72 @@ var messy = require('messy'),
     unexpectedMessy = require('../lib/unexpectedMessy');
 
 describe('unexpected-messy', function () {
-    var expect = unexpected.clone().installPlugin(unexpectedMessy);
+    var expect = unexpected.clone()
+        .installPlugin(unexpectedMessy)
+        .addAssertion('to produce a diff of', function (expect, subject, value) {
+            expect(expect.diff(
+                subject[0],
+                subject[1],
+                expect.output.clone(),
+                expect.diff,
+                expect.inspect
+            ).diff.toString(), 'to equal', value);
+        });
     describe('Headers', function () {
+        describe.skip('#diff', function () {
+            it('must show missing headers', function () {
+                expect([
+                    new Headers('Foo: Bar\nQuux: Baz'),
+                    new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz')
+                ], 'to produce a diff of',
+                    'Foo: Bar\n' +
+                    'Quux: Baz\n' +
+                    '// missing: Baz: Blah\n'
+                );
+            });
+
+            it('must show extraneous headers', function () {
+                expect([
+                    new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz'),
+                    new Headers('Foo: Bar\nQuux: Baz')
+                ], 'to produce a diff of',
+                    'Foo: Bar\n' +
+                    'Baz: Blah // should be removed\n' +
+                    'Quux: Baz\n'
+                );
+            });
+
+            it('must show headers that have a wrong value', function () {
+                expect([
+                    new Headers('Foo: Bar\nQuux: Baz'),
+                    new Headers('Foo: Baz\nQuux: Blaz')
+                ], 'to produce a diff of',
+                    'Foo: Baz // should be Bar\n' +
+                    'Quux: Baz // should be Blaz\n'
+                );
+            });
+
+            it('must show repeated headers where the first has a wrong value', function () {
+                expect([
+                    new Headers('Foo: Bar\nFoo: Baz'),
+                    new Headers('Foo: Blah\nFoo: Baz')
+                ], 'to produce a diff of',
+                    'Foo: Baz // should be Blah\n' +
+                    'Foo: Baz\n'
+                );
+            });
+
+            it('must show repeated headers where the second has a wrong value', function () {
+                expect([
+                    new Headers('Foo: Bar\nFoo: Baz'),
+                    new Headers('Foo: Bar\nFoo: Blaz')
+                ], 'to produce a diff of',
+                    'Foo: Bar\n' +
+                    'Foo: Baz // should be Blaz\n'
+                );
+            });
+        });
+
         describe('"to satisfy" assertion', function () {
             it('must match an empty object', function () {
                 expect(new Headers({foo: 'a'}), 'to satisfy', {});
