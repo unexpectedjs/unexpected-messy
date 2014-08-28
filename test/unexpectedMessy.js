@@ -11,6 +11,7 @@ describe('unexpected-messy', function () {
     var expect = unexpected.clone()
         .installPlugin(unexpectedMessy)
         .addAssertion('to produce a diff of', function (expect, subject, value) {
+            this.errorMode = 'bubble';
             expect(expect.diff(
                 subject[0],
                 subject[1],
@@ -19,8 +20,9 @@ describe('unexpected-messy', function () {
                 expect.inspect
             ).diff.toString(), 'to equal', value);
         });
+
     describe('Headers', function () {
-        describe.skip('#diff', function () {
+        describe('#diff', function () {
             it('must show missing headers', function () {
                 expect([
                     new Headers('Foo: Bar\nQuux: Baz'),
@@ -48,8 +50,8 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nQuux: Baz'),
                     new Headers('Foo: Baz\nQuux: Blaz')
                 ], 'to produce a diff of',
-                    'Foo: Baz // should be Bar\n' +
-                    'Quux: Baz // should be Blaz\n'
+                    'Foo: Bar // should be: Baz\n' +
+                    'Quux: Baz // should be: Blaz\n'
                 );
             });
 
@@ -58,8 +60,8 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nFoo: Baz'),
                     new Headers('Foo: Blah\nFoo: Baz')
                 ], 'to produce a diff of',
-                    'Foo: Baz // should be Blah\n' +
-                    'Foo: Baz\n'
+                    'Foo: Baz\n' +
+                    'Foo: Bar // should be: Blah\n'
                 );
             });
 
@@ -69,7 +71,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nFoo: Blaz')
                 ], 'to produce a diff of',
                     'Foo: Bar\n' +
-                    'Foo: Baz // should be Blaz\n'
+                    'Foo: Baz // should be: Blaz\n'
                 );
             });
         });
