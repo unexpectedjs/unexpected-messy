@@ -14,10 +14,7 @@ describe('unexpected-messy', function () {
             this.errorMode = 'bubble';
             expect(expect.diff(
                 subject[0],
-                subject[1],
-                expect.output.clone(),
-                expect.diff,
-                expect.inspect
+                subject[1]
             ).diff.toString(), 'to equal', value);
         });
 
@@ -311,6 +308,35 @@ describe('unexpected-messy', function () {
     });
 
     describe('Message', function () {
+        describe('#diff', function () {
+            it('must show missing headers', function () {
+                expect([
+                    new Message('Content-Type: application/json\n\n{"foo":123}'),
+                    new Message('Content-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
+                ], 'to produce a diff of',
+                    'Content-Type: application/json\n' +
+                    '// missing: Quux: Baz\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 \n' +
+                    '}'
+                );
+            });
+
+            it('must diff object bodies', function () {
+                expect([
+                    new Message('Content-Type: application/json\n\n{"foo":123}'),
+                    new Message('Content-Type: application/json\n\n{"foo":456}'),
+                ], 'to produce a diff of',
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123  // should be: 456\n' +
+                    '}'
+                );
+            });
+        });
+
         describe('to satisfy assertion', function () {
             it('should support matching the headers', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: 'a'}});
