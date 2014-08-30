@@ -1,7 +1,9 @@
 /*global describe, it*/
 var messy = require('messy'),
     Headers = messy.Headers,
+    RequestLine = messy.RequestLine,
     HttpRequest = messy.HttpRequest,
+    StatusLine = messy.StatusLine,
     HttpResponse = messy.HttpResponse,
     Message = messy.Message,
     unexpected = require('unexpected'),
@@ -147,166 +149,6 @@ describe('unexpected-messy', function () {
         });
     });
 
-    describe('HttpRequest', function () {
-        describe('"to satisfy" assertion', function () {
-            it('should match on properties defined by Message', function () {
-                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should support regexp matching', function () {
-                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
-                    protocolName: /ttp/i
-                });
-            });
-
-            it('should fail when matching on properties defined by Message', function () {
-                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'not to satisfy', {
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    }
-                });
-            });
-
-            it('should match on properties', function () {
-                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
-                    method: 'GET',
-                    url: '/foo',
-                    protocolVersion: '1.1'
-                });
-            });
-
-            it('should match exhaustively on properties', function () {
-                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    method: 'GET',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should fail to match exhaustively on properties when a property is omitted', function () {
-                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
-                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html\r\nargh'), 'not to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    method: 'GET',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-        });
-    });
-
-    describe('HttpResponse', function () {
-        describe('to satisfy assertion', function () {
-            it('should match on properties defined by Message', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should support regexp matching', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
-                    protocolName: /ttp/i
-                });
-            });
-
-            it('should fail when matching on properties defined by Message', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'not to satisfy', {
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    }
-                });
-            });
-
-            it('should match on properties', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
-                    statusCode: 200,
-                    protocolVersion: '1.1'
-                });
-            });
-
-            it('should match exhaustively on properties', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
-                    statusLine: 'HTTP/1.1 200 OK',
-                    statusCode: 200,
-                    statusMessage: 'OK',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    body: undefined,
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should fail to match exhaustively on properties when a property is omitted', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
-                    statusLine: 'HTTP/1.1 200 OK',
-                    statusCode: 200,
-                    statusMessage: 'OK',
-                    protocol: 'HTTP/1.1',
-                    protocolVersion: '1.1',
-                    body: undefined,
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
-                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nargh'), 'not to exhaustively satisfy', {
-                    statusLine: 'HTTP/1.1 200 OK',
-                    statusCode: 200,
-                    statusMessage: 'OK',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-        });
-    });
-
     describe('Message', function () {
         describe('#diff', function () {
             it('must show missing headers', function () {
@@ -444,6 +286,290 @@ describe('unexpected-messy', function () {
 
             it('should support matching an object body (JSON) with an object', function () {
                 expect(new Message({body: {foo: 'bar', bar: 'baz'}}), 'to satisfy', {body: {bar: 'baz', foo: 'bar'}});
+            });
+        });
+    });
+
+    describe('RequestLine', function () {
+        describe('#diff', function () {
+            it('must diff when the methods differ', function () {
+                expect([
+                    new RequestLine('GET / HTTP/1.1'),
+                    new RequestLine('POST / HTTP/1.1')
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1 // should be POST / HTTP/1.1'
+                );
+            });
+
+            it('must diff when the protocol differs', function () {
+                expect([
+                    new RequestLine('GET / HTTP/1.1'),
+                    new RequestLine('GET / HTTP/1.0')
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1 // should be HTTP/1.0'
+                );
+            });
+
+            it('must diff the status line when the url differs', function () {
+                expect([
+                    new RequestLine('GET /foo HTTP/1.1'),
+                    new RequestLine('GET /bar HTTP/1.1')
+                ], 'to produce a diff of',
+                    'GET /foo HTTP/1.1 // should be /bar HTTP/1.1'
+                );
+            });
+        });
+    });
+
+    describe('HttpRequest', function () {
+        describe('#diff', function () {
+            it('must diff the request line', function () {
+                expect([
+                    new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpRequest('POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 \n' +
+                    '}'
+                );
+            });
+
+            it('must diff the headers', function () {
+                expect([
+                    new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
+                    new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz // should be removed\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 \n' +
+                    '}'
+                );
+            });
+        });
+
+        describe('"to satisfy" assertion', function () {
+            it('should match on properties defined by Message', function () {
+                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should support regexp matching', function () {
+                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
+                    protocolName: /ttp/i
+                });
+            });
+
+            it('should fail when matching on properties defined by Message', function () {
+                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'not to satisfy', {
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+            });
+
+            it('should match on properties', function () {
+                expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
+                    method: 'GET',
+                    url: '/foo',
+                    protocolVersion: '1.1'
+                });
+            });
+
+            it('should match exhaustively on properties', function () {
+                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
+                    requestLine: 'GET /foo?hey HTTP/1.1',
+                    method: 'GET',
+                    url: '/foo?hey',
+                    path: '/foo',
+                    search: '?hey',
+                    query: 'hey',
+                    protocol: 'HTTP/1.1',
+                    protocolName: 'HTTP',
+                    protocolVersion: '1.1',
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should fail to match exhaustively on properties when a property is omitted', function () {
+                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
+                    requestLine: 'GET /foo?hey HTTP/1.1',
+                    url: '/foo?hey',
+                    path: '/foo',
+                    search: '?hey',
+                    query: 'hey',
+                    protocol: 'HTTP/1.1',
+                    protocolName: 'HTTP',
+                    protocolVersion: '1.1',
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
+                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html\r\nargh'), 'not to exhaustively satisfy', {
+                    requestLine: 'GET /foo?hey HTTP/1.1',
+                    method: 'GET',
+                    url: '/foo?hey',
+                    path: '/foo',
+                    search: '?hey',
+                    query: 'hey',
+                    protocol: 'HTTP/1.1',
+                    protocolName: 'HTTP',
+                    protocolVersion: '1.1',
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+        });
+    });
+
+    describe('StatusLine', function () {
+        describe('#diff', function () {
+            it('must diff the status line when the status code and status message differ', function () {
+                expect([
+                    new StatusLine('HTTP/1.1 200 OK'),
+                    new StatusLine('HTTP/1.1 412 Precondition Failed')
+                ], 'to produce a diff of',
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed'
+                );
+            });
+
+            it('must diff the status line when the protocol differs', function () {
+                expect([
+                    new StatusLine('HTTP/1.1 200 OK'),
+                    new StatusLine('HTTP/1.0 200 OK')
+                ], 'to produce a diff of',
+                    'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK'
+                );
+            });
+
+            it('must diff the status line when the status mesage', function () {
+                expect([
+                    new StatusLine('HTTP/1.1 200 Okie-dokie'),
+                    new StatusLine('HTTP/1.1 200 OK')
+                ], 'to produce a diff of',
+                    'HTTP/1.1 200 Okie-dokie // should be OK'
+                );
+            });
+        });
+    });
+
+    describe('HttpResponse', function () {
+        describe('#diff', function () {
+            it('must diff the status line', function () {
+                expect([
+                    new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpResponse('HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}'),
+                ], 'to produce a diff of',
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 \n' +
+                    '}'
+                );
+            });
+
+            it('must diff the headers', function () {
+                expect([
+                    new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
+                ], 'to produce a diff of',
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: application/json\n' +
+                    '// missing: Quux: Baz\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 \n' +
+                    '}'
+                );
+            });
+        });
+
+        describe('to satisfy assertion', function () {
+            it('should match on properties defined by Message', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should support regexp matching', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
+                    protocolName: /ttp/i
+                });
+            });
+
+            it('should fail when matching on properties defined by Message', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'not to satisfy', {
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+            });
+
+            it('should match on properties', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
+                    statusCode: 200,
+                    protocolVersion: '1.1'
+                });
+            });
+
+            it('should match exhaustively on properties', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
+                    statusLine: 'HTTP/1.1 200 OK',
+                    statusCode: 200,
+                    statusMessage: 'OK',
+                    protocol: 'HTTP/1.1',
+                    protocolName: 'HTTP',
+                    protocolVersion: '1.1',
+                    body: undefined,
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should fail to match exhaustively on properties when a property is omitted', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
+                    statusLine: 'HTTP/1.1 200 OK',
+                    statusCode: 200,
+                    statusMessage: 'OK',
+                    protocol: 'HTTP/1.1',
+                    protocolVersion: '1.1',
+                    body: undefined,
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
+            });
+
+            it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nargh'), 'not to exhaustively satisfy', {
+                    statusLine: 'HTTP/1.1 200 OK',
+                    statusCode: 200,
+                    statusMessage: 'OK',
+                    protocol: 'HTTP/1.1',
+                    protocolName: 'HTTP',
+                    protocolVersion: '1.1',
+                    headers: {
+                        'Content-Type': 'text/html'
+                    }
+                });
             });
         });
     });
