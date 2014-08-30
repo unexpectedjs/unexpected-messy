@@ -7,6 +7,7 @@ var messy = require('messy'),
     StatusLine = messy.StatusLine,
     HttpResponse = messy.HttpResponse,
     HttpExchange = messy.HttpExchange,
+    HttpConversation = messy.HttpConversation,
     unexpected = require('unexpected'),
     unexpectedMessy = require('../lib/unexpectedMessy');
 
@@ -587,6 +588,67 @@ describe('unexpected-messy', function () {
                     response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
                 })
             ], 'to produce a diff of',
+                'GET / HTTP/1.1\n' +
+                'Content-Type: application/json\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123 \n' +
+                '}\n' +
+                '\n' +
+                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                'Content-Type: application/json\n' +
+                'Quux: Baz // should be removed\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123  // should be: 456\n' +
+                '}'
+            );
+        });
+    });
+
+    describe('HttpConversation', function () {
+        describe('#diff', function () {
+            expect([
+                new HttpConversation({
+                    exchanges: [
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                        },
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                        }
+                    ]
+                }),
+                new HttpConversation({
+                    exchanges: [
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                        },
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                        }
+                    ]
+                })
+            ], 'to produce a diff of',
+                'GET / HTTP/1.1\n' +
+                'Content-Type: application/json\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123 \n' +
+                '}\n' +
+                '\n' +
+                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                'Content-Type: application/json\n' +
+                'Quux: Baz // should be removed\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123  // should be: 456\n' +
+                '}\n' +
+                '\n' +
                 'GET / HTTP/1.1\n' +
                 'Content-Type: application/json\n' +
                 '\n' +
