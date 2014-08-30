@@ -1,11 +1,12 @@
 /*global describe, it*/
 var messy = require('messy'),
     Headers = messy.Headers,
+    Message = messy.Message,
     RequestLine = messy.RequestLine,
     HttpRequest = messy.HttpRequest,
     StatusLine = messy.StatusLine,
     HttpResponse = messy.HttpResponse,
-    Message = messy.Message,
+    HttpExchange = messy.HttpExchange,
     unexpected = require('unexpected'),
     unexpectedMessy = require('../lib/unexpectedMessy');
 
@@ -571,6 +572,36 @@ describe('unexpected-messy', function () {
                     }
                 });
             });
+        });
+    });
+
+    describe('HttpExchange', function () {
+        describe('#diff', function () {
+            expect([
+                new HttpExchange({
+                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                }),
+                new HttpExchange({
+                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                    response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                })
+            ], 'to produce a diff of',
+                'GET / HTTP/1.1\n' +
+                'Content-Type: application/json\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123 \n' +
+                '}\n' +
+                '\n' +
+                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                'Content-Type: application/json\n' +
+                'Quux: Baz // should be removed\n' +
+                '\n' +
+                '{\n' +
+                '  foo: 123  // should be: 456\n' +
+                '}'
+            );
         });
     });
 });
