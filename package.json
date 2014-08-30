@@ -32,11 +32,11 @@
   },
   "homepage": "https://github.com/papandreou/unexpected-messy",
   "peerDependencies": {
-    "messy": "~0.8",
+    "messy": "~1.1",
     "unexpected": "~5.0"
   },
   "devDependencies": {
-    "messy": "=1.0.1",
+    "messy": "=1.1.0",
     "mocha": "=1.21.4",
     "unexpected": "~5.0"
   }
