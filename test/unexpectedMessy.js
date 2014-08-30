@@ -162,7 +162,7 @@ describe('unexpected-messy', function () {
                     '// missing: Quux: Baz\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 \n' +
+                    '  foo: 123\n' +
                     '}'
                 );
             });
@@ -175,7 +175,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123  // should be: 456\n' +
+                    '  foo: 123 // should be: 456\n' +
                     '}'
                 );
             });
@@ -334,7 +334,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 \n' +
+                    '  foo: 123\n' +
                     '}'
                 );
             });
@@ -349,7 +349,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 \n' +
+                    '  foo: 123\n' +
                     '}'
                 );
             });
@@ -480,7 +480,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 \n' +
+                    '  foo: 123\n' +
                     '}'
                 );
             });
@@ -495,7 +495,7 @@ describe('unexpected-messy', function () {
                     '// missing: Quux: Baz\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 \n' +
+                    '  foo: 123\n' +
                     '}'
                 );
             });
@@ -592,7 +592,7 @@ describe('unexpected-messy', function () {
                 'Content-Type: application/json\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123 \n' +
+                '  foo: 123\n' +
                 '}\n' +
                 '\n' +
                 'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
@@ -600,7 +600,7 @@ describe('unexpected-messy', function () {
                 'Quux: Baz // should be removed\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123  // should be: 456\n' +
+                '  foo: 123 // should be: 456\n' +
                 '}'
             );
         });
@@ -638,7 +638,7 @@ describe('unexpected-messy', function () {
                 'Content-Type: application/json\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123 \n' +
+                '  foo: 123\n' +
                 '}\n' +
                 '\n' +
                 'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
@@ -646,14 +646,14 @@ describe('unexpected-messy', function () {
                 'Quux: Baz // should be removed\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123  // should be: 456\n' +
+                '  foo: 123 // should be: 456\n' +
                 '}\n' +
                 '\n' +
                 'GET / HTTP/1.1\n' +
                 'Content-Type: application/json\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123 \n' +
+                '  foo: 123\n' +
                 '}\n' +
                 '\n' +
                 'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
@@ -661,7 +661,7 @@ describe('unexpected-messy', function () {
                 'Quux: Baz // should be removed\n' +
                 '\n' +
                 '{\n' +
-                '  foo: 123  // should be: 456\n' +
+                '  foo: 123 // should be: 456\n' +
                 '}'
             );
         });
