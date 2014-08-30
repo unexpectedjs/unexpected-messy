@@ -20,9 +20,28 @@ describe('unexpected-messy', function () {
                 subject[0],
                 subject[1]
             ).diff.toString(), 'to equal', value);
+        })
+        .addAssertion('to inspect as', function (expect, subject, value) {
+            this.errorMode = 'bubble';
+            expect(expect.inspect(subject).toString(), 'to equal', value);
         });
 
+
     describe('Headers', function () {
+        describe('#inspect', function () {
+            it('should render no headers as the empty string', function () {
+                expect(new Headers(''), 'to inspect as', '');
+            });
+
+            it('should render a single header headers with no newline at the end', function () {
+                expect(new Headers({foo: 'bar'}), 'to inspect as', 'Foo: bar');
+            });
+
+            it('should render two headers single header headers with no newline at the end', function () {
+                expect(new Headers({foo: 'bar', quux: 'baz'}), 'to inspect as', 'Foo: bar\nQuux: baz');
+            });
+        });
+
         describe('#diff', function () {
             it('must show missing headers', function () {
                 expect([
@@ -152,6 +171,24 @@ describe('unexpected-messy', function () {
     });
 
     describe('Message', function () {
+        describe('#inspect', function () {
+            it('should render a message with no headers and no body as the empty string', function () {
+                expect(new Message(), 'to inspect as', '');
+            });
+
+            it('should render a message with a single header and no body without a newline at the end', function () {
+                expect(new Message({headers: {foo: 'bar'}}), 'to inspect as', 'Foo: bar');
+            });
+
+            it('should render a message with a single header and a body correctly', function () {
+                expect(new Message({headers: {foo: 'bar'}, body: 'baz'}), 'to inspect as', 'Foo: bar\n\nbaz');
+            });
+
+            it('should render a message no headers and a body correctly', function () {
+                expect(new Message({body: 'baz'}), 'to inspect as', 'baz');
+            });
+        });
+
         describe('#diff', function () {
             it('must show missing headers', function () {
                 expect([
@@ -324,6 +361,20 @@ describe('unexpected-messy', function () {
     });
 
     describe('HttpRequest', function () {
+        describe('#inspect', function () {
+            it('should render an http request with no headers and no body as just the request line with no newline at the end', function () {
+                expect(new HttpRequest('GET / HTTP/1.1'), 'to inspect as', 'GET / HTTP/1.1');
+            });
+
+            it('should render an http request with no headers as the request line, then two newlines followed by the body', function () {
+                expect(new HttpRequest({requestLine: 'GET / HTTP/1.1', body: 'foo'}), 'to inspect as', 'GET / HTTP/1.1\n\nfoo');
+            });
+
+            it('should render an http request with a single header correctly', function () {
+                expect(new HttpRequest({requestLine: 'GET / HTTP/1.1', headers: {bar: 'baz'}, body: 'foo'}), 'to inspect as', 'GET / HTTP/1.1\nBar: baz\n\nfoo');
+            });
+        });
+
         describe('#diff', function () {
             it('must diff the request line', function () {
                 expect([
@@ -470,6 +521,20 @@ describe('unexpected-messy', function () {
     });
 
     describe('HttpResponse', function () {
+        describe('#inspect', function () {
+            it('should render an http response with no headers and no body as just the status line with no newline at the end', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK'), 'to inspect as', 'HTTP/1.1 200 OK');
+            });
+
+            it('should render an http response with no headers as the status line, then two newlines followed by the body', function () {
+                expect(new HttpResponse({statusLine: 'HTTP/1.1 200 OK', body: 'foo'}), 'to inspect as', 'HTTP/1.1 200 OK\n\nfoo');
+            });
+
+            it('should render an http response with a single header correctly', function () {
+                expect(new HttpResponse({statusLine: 'HTTP/1.1 200 OK', headers: {bar: 'baz'}, body: 'foo'}), 'to inspect as', 'HTTP/1.1 200 OK\nBar: baz\n\nfoo');
+            });
+        });
+
         describe('#diff', function () {
             it('must diff the status line', function () {
                 expect([
