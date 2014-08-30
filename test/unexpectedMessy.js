@@ -156,7 +156,7 @@ describe('unexpected-messy', function () {
             it('must show missing headers', function () {
                 expect([
                     new Message('Content-Type: application/json\n\n{"foo":123}'),
-                    new Message('Content-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
+                    new Message('Content-Type: application/json\nQuux: Baz\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'Content-Type: application/json\n' +
                     '// missing: Quux: Baz\n' +
@@ -170,7 +170,7 @@ describe('unexpected-messy', function () {
             it('must diff object bodies', function () {
                 expect([
                     new Message('Content-Type: application/json\n\n{"foo":123}'),
-                    new Message('Content-Type: application/json\n\n{"foo":456}'),
+                    new Message('Content-Type: application/json\n\n{"foo":456}')
                 ], 'to produce a diff of',
                     'Content-Type: application/json\n' +
                     '\n' +
@@ -328,7 +328,7 @@ describe('unexpected-messy', function () {
             it('must diff the request line', function () {
                 expect([
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
-                    new HttpRequest('POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpRequest('POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
@@ -342,7 +342,7 @@ describe('unexpected-messy', function () {
             it('must diff the headers', function () {
                 expect([
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
-                    new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
@@ -474,7 +474,7 @@ describe('unexpected-messy', function () {
             it('must diff the status line', function () {
                 expect([
                     new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
-                    new HttpResponse('HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}'),
+                    new HttpResponse('HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
@@ -488,7 +488,7 @@ describe('unexpected-messy', function () {
             it('must diff the headers', function () {
                 expect([
                     new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
-                    new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
+                    new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: application/json\n' +
