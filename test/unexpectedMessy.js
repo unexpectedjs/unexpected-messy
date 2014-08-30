@@ -337,7 +337,7 @@ describe('unexpected-messy', function () {
             });
         });
 
-        describe('to satisfy assertion', function () {
+        describe('"to satisfy" assertion', function () {
             it('should support matching the headers', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: 'a'}});
             });
