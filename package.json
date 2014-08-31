@@ -36,6 +36,9 @@
     "unexpected": "~5.0"
   },
   "devDependencies": {
+    "coveralls": "2.11.1",
+    "istanbul": "0.3.0",
+    "jshint": "2.5.5",
     "messy": "=1.1.0",
     "mocha": "=1.21.4",
     "unexpected": "~5.0"
