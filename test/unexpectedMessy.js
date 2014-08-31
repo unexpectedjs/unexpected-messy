@@ -23,7 +23,8 @@ describe('unexpected-messy', function () {
         })
         .addAssertion('to inspect as', function (expect, subject, value) {
             this.errorMode = 'bubble';
-            expect(expect.inspect(subject).toString(), 'to equal', value);
+            // I need to set a depth > 3 here so that HttpConversation instances don't get '...' all over the place:
+            expect(expect.inspect(subject, 99).toString(), 'to equal', value);
         });
 
 
@@ -642,6 +643,26 @@ describe('unexpected-messy', function () {
     });
 
     describe('HttpExchange', function () {
+        describe('#inspect', function () {
+            it('should render an exchange', function () {
+                expect(new HttpExchange({
+                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                }), 'to inspect as',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{ foo: 123 }\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz\n' +
+                    '\n' +
+                    '{ foo: 123 }'
+                );
+            });
+        });
+
         describe('#diff', function () {
             expect([
                 new HttpExchange({
@@ -672,63 +693,207 @@ describe('unexpected-messy', function () {
     });
 
     describe('HttpConversation', function () {
+        describe('#inspect', function () {
+            it('should render a conversation with two exchanges', function () {
+                expect(new HttpConversation({
+                    exchanges: [
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                        },
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                        }
+                    ]
+                }), 'to inspect as',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{ foo: 123 }\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz\n' +
+                    '\n' +
+                    '{ foo: 123 }\n' +
+                    '\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{ foo: 123 }\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz\n' +
+                    '\n' +
+                    '{ foo: 123 }'
+                );
+            });
+        });
+
         describe('#diff', function () {
-            expect([
-                new HttpConversation({
-                    exchanges: [
-                        {
-                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
-                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                        },
-                        {
-                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
-                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                        }
-                    ]
-                }),
-                new HttpConversation({
-                    exchanges: [
-                        {
-                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
-                            response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-                        },
-                        {
-                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
-                            response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-                        }
-                    ]
-                })
-            ], 'to produce a diff of',
-                'GET / HTTP/1.1\n' +
-                'Content-Type: application/json\n' +
-                '\n' +
-                '{\n' +
-                '  foo: 123\n' +
-                '}\n' +
-                '\n' +
-                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
-                'Content-Type: application/json\n' +
-                'Quux: Baz // should be removed\n' +
-                '\n' +
-                '{\n' +
-                '  foo: 123 // should be: 456\n' +
-                '}\n' +
-                '\n' +
-                'GET / HTTP/1.1\n' +
-                'Content-Type: application/json\n' +
-                '\n' +
-                '{\n' +
-                '  foo: 123\n' +
-                '}\n' +
-                '\n' +
-                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
-                'Content-Type: application/json\n' +
-                'Quux: Baz // should be removed\n' +
-                '\n' +
-                '{\n' +
-                '  foo: 123 // should be: 456\n' +
-                '}'
-            );
+            it('should diff two conversations of the same length', function () {
+                expect([
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                            },
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                            }
+                        ]
+                    }),
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                            },
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                            }
+                        ]
+                    })
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123\n' +
+                    '}\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz // should be removed\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 // should be: 456\n' +
+                    '}\n' +
+                    '\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123\n' +
+                    '}\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz // should be removed\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 // should be: 456\n' +
+                    '}'
+                );
+            });
+
+            it('should diff conversations where the first has more exchanges', function () {
+                expect([
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                            },
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                            }
+                        ]
+                    }),
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                            }
+                        ]
+                    })
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123\n' +
+                    '}\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz // should be removed\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 // should be: 456\n' +
+                    '}\n' +
+                    '\n' +
+                    '// should be removed:\n' +
+                    '// GET / HTTP/1.1\n' +
+                    '// Content-Type: application/json\n' +
+                    '// \n' +
+                    '// { foo: 123 }\n' +
+                    '// \n' +
+                    '// HTTP/1.1 200 OK\n' +
+                    '// Content-Type: application/json\n' +
+                    '// Quux: Baz\n' +
+                    '// \n' +
+                    '// { foo: 123 }'
+                );
+            });
+
+            it('should diff conversations where the second has more exchanges', function () {
+                expect([
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                            }
+                        ]
+                    }),
+                    new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                            },
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                            }
+                        ]
+                    })
+                ], 'to produce a diff of',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123\n' +
+                    '}\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz // should be removed\n' +
+                    '\n' +
+                    '{\n' +
+                    '  foo: 123 // should be: 456\n' +
+                    '}\n' +
+                    '\n' +
+                    '// missing:\n' +
+                    '// GET / HTTP/1.1\n' +
+                    '// Content-Type: application/json\n' +
+                    '// \n' +
+                    '// { foo: 123 }\n' +
+                    '// \n' +
+                    '// HTTP/1.1 412 Precondition Failed\n' +
+                    '// Content-Type: application/json\n' +
+                    '// \n' +
+                    '// { foo: 456 }'
+                );
+            });
         });
     });
 });
