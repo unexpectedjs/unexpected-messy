@@ -660,6 +660,33 @@ describe('unexpected-messy', function () {
                     '{ foo: 123 }'
                 );
             });
+
+            it('should render an exchange without a request', function () {
+                expect(new HttpExchange({
+                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                }), 'to inspect as',
+                    '<no request>\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: application/json\n' +
+                    'Quux: Baz\n' +
+                    '\n' +
+                    '{ foo: 123 }'
+                );
+            });
+
+            it('should render an exchange without a response', function () {
+                expect(new HttpExchange({
+                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
+                }), 'to inspect as',
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    '{ foo: 123 }\n' +
+                    '\n' +
+                    '<no response>'
+                );
+            });
         });
 
         describe('#diff', function () {
