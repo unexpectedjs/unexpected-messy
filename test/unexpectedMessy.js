@@ -23,8 +23,7 @@ describe('unexpected-messy', function () {
         })
         .addAssertion('to inspect as', function (expect, subject, value) {
             this.errorMode = 'bubble';
-            // I need to set a depth > 3 here so that HttpConversation instances don't get '...' all over the place:
-            expect(expect.inspect(subject, 99).toString(), 'to equal', value);
+            expect(expect.inspect(subject).toString(), 'to equal', value);
         });
 
 
