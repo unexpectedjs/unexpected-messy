@@ -33,7 +33,7 @@
   "homepage": "https://github.com/papandreou/unexpected-messy",
   "peerDependencies": {
     "messy": "~1.2",
-    "unexpected": "~5.0"
+    "unexpected": ">=5.0.0-beta1"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
