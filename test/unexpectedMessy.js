@@ -167,6 +167,21 @@ describe('unexpected-messy', function () {
                 expect(new Headers({foo: 'a'}), 'to satisfy', '');
                 expect(new Headers({foo: 'a'}), 'not to exhaustively satisfy', '');
             });
+
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new Headers({foo: 'a', bar: 'b'}), 'to satisfy', {bar: /c/});
+                }, 'to throw',
+                    'expected\n' +
+                    'Foo: a\n' +
+                    'Bar: b\n' +
+                    'to satisfy { bar: /c/ }\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'Foo: a\n' +
+                    'Bar: b // should satisfy /c/');
+            });
         });
     });
 
