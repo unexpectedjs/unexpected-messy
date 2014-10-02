@@ -341,6 +341,25 @@ describe('unexpected-messy', function () {
             it('should support matching an object body (JSON) with an object', function () {
                 expect(new Message({body: {foo: 'bar', bar: 'baz'}}), 'to satisfy', {body: {bar: 'baz', foo: 'bar'}});
             });
+
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new Message({headers: {foo: 'a', bar: 'b'}, body: 'foo'}), 'to satisfy', {headers: {bar: /c/}, body: /bar/});
+                }, 'to throw',
+                    'expected\n' +
+                    'Foo: a\n' +
+                    'Bar: b\n' +
+                    '\n' +
+                    'foo\n' +
+                    'to satisfy { headers: { bar: /c/ }, body: /bar/ }\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'Foo: a\n' +
+                    'Bar: b // should satisfy /c/\n' +
+                    '\n' +
+                    'foo // should satisfy /bar/');
+            });
         });
     });
 
