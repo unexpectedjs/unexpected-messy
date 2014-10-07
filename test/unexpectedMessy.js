@@ -391,6 +391,30 @@ describe('unexpected-messy', function () {
                     'GET /foo HTTP/1.1 // should be /bar HTTP/1.1'
                 );
             });
+
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: /^P(?:UT|POST)$/});
+                }, 'to throw',
+                    'expected GET / HTTP/1.1 to satisfy { method: /^P(?:UT|POST)$/ }\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should satisfy { method: /^P(?:UT|POST)$/ }'
+                );
+            });
+
+            it('should produce a simple diff when a failed assertion only contains equality criteria', function () {
+                expect(function () {
+                    expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: 'POST', url: '/'});
+                }, 'to throw',
+                    "expected GET / HTTP/1.1 to satisfy { method: 'POST', url: '/' }\n" +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should be POST /'
+                );
+            });
         });
     });
 
