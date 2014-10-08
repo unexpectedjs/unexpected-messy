@@ -391,7 +391,9 @@ describe('unexpected-messy', function () {
                     'GET /foo HTTP/1.1 // should be /bar HTTP/1.1'
                 );
             });
+        });
 
+        describe('"to satisfy" assertion', function () {
             it('should produce a diff when the assertion fails', function () {
                 expect(function () {
                     expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: /^P(?:UT|POST)$/});
@@ -573,6 +575,32 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 OK')
                 ], 'to produce a diff of',
                     'HTTP/1.1 200 Okie-dokie // should be OK'
+                );
+            });
+        });
+
+        describe('"to satisfy" assertion', function () {
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {protocolVersion: /^2\.\d+$/});
+                }, 'to throw',
+                    'expected HTTP/1.1 200 OK to satisfy { protocolVersion: /^2\\.\\d+$/ }\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should satisfy { protocolVersion: /^2\\.\\d+$/ }'
+                );
+            });
+
+            it('should produce a simple diff when a failed assertion only contains equality criteria', function () {
+                expect(function () {
+                    expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {statusCode: 412});
+                }, 'to throw',
+                    "expected HTTP/1.1 200 OK to satisfy { statusCode: 412 }\n" +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed'
                 );
             });
         });
