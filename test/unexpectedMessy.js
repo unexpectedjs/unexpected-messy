@@ -652,7 +652,7 @@ describe('unexpected-messy', function () {
             });
         });
 
-        describe('to satisfy assertion', function () {
+        describe('"to satisfy" assertion', function () {
             it('should match on properties defined by Message', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
                     headers: {
@@ -721,6 +721,108 @@ describe('unexpected-messy', function () {
                         'Content-Type': 'text/html'
                     }
                 });
+            });
+
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 412}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    '  statusLine: { statusCode: 412 },\n' +
+                    "  headers: { 'Content-Type': 'application/json' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails but there is no diff in the status line', function () {
+                expect(function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 200}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    '  statusLine: { statusCode: 200 },\n' +
+                    "  headers: { 'Content-Type': 'application/json' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails but there is no diff in the headers', function () {
+                expect(function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 200}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    '  statusLine: { statusCode: 200 },\n' +
+                    "  headers: { 'Content-Type': 'application/json' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails, but there is no diff in the body', function () {
+                expect(function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 412}, headers: {'Content-Type': 'application/json'}});
+                }, 'to throw',
+                    'expected\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    '  statusLine: { statusCode: 412 },\n' +
+                    "  headers: { 'Content-Type': 'application/json' }\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    'argh'
+                );
             });
         });
     });
