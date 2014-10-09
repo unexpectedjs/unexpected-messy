@@ -705,9 +705,7 @@ describe('unexpected-messy', function () {
                     protocol: 'HTTP/1.1',
                     protocolVersion: '1.1',
                     body: undefined,
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
+                    headers: {}
                 });
             });
 
