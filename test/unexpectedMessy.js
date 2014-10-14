@@ -546,6 +546,108 @@ describe('unexpected-messy', function () {
                     }
                 });
             });
+
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    "  requestLine: { method: 'POST' },\n" +
+                    "  headers: { 'Content-Type': 'application/json' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should be POST\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails but there is no diff in the status line', function () {
+                expect(function () {
+                    expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'GET'}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    "  requestLine: { method: 'GET' },\n" +
+                    "  headers: { 'Content-Type': 'application/json' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails but there is no diff in the headers', function () {
+                expect(function () {
+                    expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'text/html'}, body: 'blah'});
+                }, 'to throw',
+                    'expected\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    "  requestLine: { method: 'POST' },\n" +
+                    "  headers: { 'Content-Type': 'text/html' },\n" +
+                    "  body: 'blah'\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should be POST\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+
+            it('should produce a diff when the assertion fails, but there is no diff in the body', function () {
+                expect(function () {
+                    expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'application/json'}});
+                }, 'to throw',
+                    'expected\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    'to satisfy\n' +
+                    '{\n' +
+                    "  requestLine: { method: 'POST' },\n" +
+                    "  headers: { 'Content-Type': 'application/json' }\n" +
+                    '}\n' +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should be POST\n' +
+                    'Content-Type: text/html // should satisfy application/json\n' +
+                    '\n' +
+                    'argh'
+                );
+            });
         });
     });
 
