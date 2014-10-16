@@ -566,7 +566,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     '-argh\n' +
                     '+blah'
@@ -592,7 +592,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'GET / HTTP/1.1\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     '-argh\n' +
                     '+blah'
@@ -643,7 +643,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     'argh'
                 );
@@ -844,7 +844,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     '-argh\n' +
                     '+blah'
@@ -870,7 +870,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'HTTP/1.1 200 OK\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     '-argh\n' +
                     '+blah'
@@ -896,7 +896,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'HTTP/1.1 200 OK\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     '-argh\n' +
                     '+blah'
@@ -921,7 +921,7 @@ describe('unexpected-messy', function () {
                     'Diff:\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
-                    'Content-Type: text/html // should satisfy application/json\n' +
+                    'Content-Type: text/html // should be application/json\n' +
                     '\n' +
                     'argh'
                 );
