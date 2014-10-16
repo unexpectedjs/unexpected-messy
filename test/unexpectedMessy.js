@@ -1006,6 +1006,42 @@ describe('unexpected-messy', function () {
                 );
             });
         });
+
+        describe('"to satisfy" assertion', function () {
+            it('should produce a diff when the assertion fails', function () {
+                expect(function () {
+                    expect(new HttpExchange({
+                        request: 'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
+                        response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
+                    }), 'to satisfy', {request: {url: '/foo'}, response: {body: 'blah'}});
+                }, 'to throw',
+                    'expected\n' +
+                    'GET / HTTP/1.1\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    "{ foo: 'bar' }\n" +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    'argh\n' +
+                    "to satisfy { request: { url: '/foo' }, response: { body: 'blah' } }\n" +
+                    '\n' +
+                    'Diff:\n' +
+                    '\n' +
+                    'GET / HTTP/1.1 // should be /foo\n' +
+                    'Content-Type: application/json\n' +
+                    '\n' +
+                    "{ foo: 'bar' }\n" +
+                    '\n' +
+                    'HTTP/1.1 200 OK\n' +
+                    'Content-Type: text/html\n' +
+                    '\n' +
+                    '-argh\n' +
+                    '+blah'
+                );
+            });
+        });
     });
 
     describe('HttpConversation', function () {
