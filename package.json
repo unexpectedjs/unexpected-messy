@@ -33,7 +33,7 @@
   "homepage": "https://github.com/papandreou/unexpected-messy",
   "peerDependencies": {
     "messy": "~1.3.1",
-    "unexpected": ">=5.0.0-beta13"
+    "unexpected": ">=5.0.0-beta14"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
@@ -41,6 +41,6 @@
     "jshint": "2.5.5",
     "messy": "=1.3.1",
     "mocha": "=1.21.4",
-    "unexpected": ">=5.0.0-beta13"
+    "unexpected": ">=5.0.0-beta14"
   }
 }
