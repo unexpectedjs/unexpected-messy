@@ -50,7 +50,7 @@ describe('unexpected-messy', function () {
                 ], 'to produce a diff of',
                     'Foo: Bar\n' +
                     'Quux: Baz\n' +
-                    '// missing: Baz: Blah\n'
+                    '// missing: Baz: Blah'
                 );
             });
 
@@ -61,7 +61,7 @@ describe('unexpected-messy', function () {
                 ], 'to produce a diff of',
                     'Foo: Bar\n' +
                     'Baz: Blah // should be removed\n' +
-                    'Quux: Baz\n'
+                    'Quux: Baz'
                 );
             });
 
@@ -71,7 +71,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Baz\nQuux: Blaz')
                 ], 'to produce a diff of',
                     'Foo: Bar // should be: Baz\n' +
-                    'Quux: Baz // should be: Blaz\n'
+                    'Quux: Baz // should be: Blaz'
                 );
             });
 
@@ -81,7 +81,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Blah\nFoo: Baz')
                 ], 'to produce a diff of',
                     'Foo: Baz\n' +
-                    'Foo: Bar // should be: Blah\n'
+                    'Foo: Bar // should be: Blah'
                 );
             });
 
@@ -91,7 +91,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nFoo: Blaz')
                 ], 'to produce a diff of',
                     'Foo: Bar\n' +
-                    'Foo: Baz // should be: Blaz\n'
+                    'Foo: Baz // should be: Blaz'
                 );
             });
         });
