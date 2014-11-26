@@ -42,5 +42,8 @@
     "messy": "=1.4.0",
     "mocha": "=1.21.4",
     "unexpected": ">=5.0.0-beta14"
+  },
+  "dependencies": {
+    "underscore": "1.7.0"
   }
 }
