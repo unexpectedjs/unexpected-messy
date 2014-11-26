@@ -180,6 +180,19 @@ describe('unexpected-messy', function () {
                     'Foo: a\n' +
                     'Bar: b // should match /c/');
             });
+
+            it('should support expect.it', function () {
+                expect(new Headers({foo: 'a'}), 'to satisfy', {foo: expect.it('not to match', /b/)});
+            });
+
+            it('should produce the correct diff when an expect.it assertion fails', function () {
+                expect(function () {
+                    expect(new Headers({foo: 'a'}), 'to satisfy', {foo: expect.it('not to match', /a/)});
+                }, 'to throw',
+                    "expected Foo: a to satisfy { foo: expect.it('not to match', /a/) }" +
+                    '\n' +
+                    "Foo: a // should satisfy expect.it('not to match', /b/)");
+            });
         });
     });
 
