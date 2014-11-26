@@ -369,6 +369,43 @@ describe('unexpected-messy', function () {
                     '\n' +
                     'foo // should match /bar/');
             });
+
+            it('should use to satisfy semantics for the body', function () {
+                expect(function () {
+                    expect(new Message({
+                        headers: {'Content-type': 'application/json'},
+                        body: JSON.stringify({
+                            foo: 'foo',
+                            bar: 'bar'
+                        })
+                    }), 'to satisfy', {
+                        body: {
+                            foo: /fo/,
+                            bar: expect.it('to be a string').and('to have length', 2)
+                        }
+                    });
+                }, 'to throw',
+                       "expected\n" +
+                       "Content-Type: application/json\n" +
+                       "\n" +
+                       "{ foo: 'foo', bar: 'bar' }\n" +
+                       "to satisfy\n" +
+                       "{\n" +
+                       "  body: {\n" +
+                       "    foo: /fo/,\n" +
+                       "    bar: expect.it('to be a string')\n" +
+                       "                 .and('to have length', 2)\n" +
+                       "  }\n" +
+                       "}\n" +
+                       "\n" +
+                       "Content-Type: application/json\n" +
+                       "\n" +
+                       "{\n" +
+                       "  foo: 'foo',\n" +
+                       "  bar: 'bar' // ✓ expected 'bar' to be a string and\n" +
+                       "             // ⨯ expected 'bar' to have length 2\n" +
+                       "}");
+            });
         });
     });
 
