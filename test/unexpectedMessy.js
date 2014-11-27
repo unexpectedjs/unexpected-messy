@@ -213,6 +213,37 @@ describe('unexpected-messy', function () {
             it('should render a message no headers and a body correctly', function () {
                 expect(new Message({body: 'baz'}), 'to inspect as', 'baz');
             });
+
+            it('should render a multipart message correctly', function () {
+                expect(
+                    new Message(
+                        'Content-Type: multipart/form-data;\r\n' +
+                        ' boundary=--------------------------231099812216460892104111\r\n' +
+                        '\r\n' +
+                        '----------------------------231099812216460892104111\r\n' +
+                        'Content-Disposition: form-data; name="recipient"\r\n' +
+                        '\r\n' +
+                        'andreas@one.com\r\n' +
+                        '----------------------------231099812216460892104111\r\n' +
+                        'Content-Disposition: form-data; name="Message "\r\n' +
+                        '\r\n' +
+                        'The message\r\n' +
+                        '----------------------------231099812216460892104111--\r\n'
+                    ),
+                    'to inspect as',
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: form-data; name="recipient"\n' +
+                        '\n' +
+                        'andreas@one.com\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: form-data; name="Message "\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n'
+                );
+            });
         });
 
         describe('#diff', function () {
