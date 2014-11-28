@@ -241,7 +241,7 @@ describe('unexpected-messy', function () {
                         'Content-Disposition: form-data; name="Message "\n' +
                         '\n' +
                         'The message\n' +
-                        '----------------------------231099812216460892104111--\n'
+                        '----------------------------231099812216460892104111--'
                 );
             });
         });
