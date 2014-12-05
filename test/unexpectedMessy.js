@@ -437,6 +437,17 @@ describe('unexpected-messy', function () {
                        "             // ⨯ expected 'bar' to have length 2\n" +
                        "}");
             });
+
+            it('should produce sensible output when matching an empty body against a regexp', function () {
+                expect(function () {
+                    expect(new Message({headers: {Foo: 'a'}, body: ''}), 'to satisfy', {body: /bar/});
+                }, 'to throw',
+                    'expected Foo: a to satisfy { body: /bar/ }\n' +
+                    '\n' +
+                    'Foo: a\n' +
+                    '\n' +
+                    '// should match /bar/');
+            });
         });
     });
 
