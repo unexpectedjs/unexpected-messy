@@ -170,15 +170,16 @@ describe('unexpected-messy', function () {
 
             it('should produce a diff when the assertion fails', function () {
                 expect(function () {
-                    expect(new Headers({foo: 'a', bar: 'b'}), 'to satisfy', {bar: /c/});
+                    expect(new Headers({foo: 'a', bar: 'b'}), 'to satisfy', {bar: /c/, hey: 'there'});
                 }, 'to throw',
                     'expected\n' +
                     'Foo: a\n' +
                     'Bar: b\n' +
-                    'to satisfy { bar: /c/ }\n' +
+                    "to satisfy { bar: /c/, hey: 'there' }\n" +
                     '\n' +
                     'Foo: a\n' +
-                    'Bar: b // should match /c/');
+                    'Bar: b // should match /c/\n' +
+                    '// missing Hey: there');
             });
 
             it.skip('should support expect.it', function () {
