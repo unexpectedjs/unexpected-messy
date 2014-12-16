@@ -191,7 +191,7 @@ describe('unexpected-messy', function () {
                     '// missing Hey: there');
             });
 
-            it.skip('should support expect.it', function () {
+            it('should support expect.it', function () {
                 expect(new Headers({foo: 'a'}), 'to satisfy', {foo: expect.it('not to match', /b/)});
             });
 
