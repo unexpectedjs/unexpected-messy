@@ -155,6 +155,15 @@ describe('unexpected-messy', function () {
                 expect(new Headers({foo: 'a'}), 'not to satisfy', {foo: undefined});
             });
 
+            it('should produce the correct output when a present header is expected to be undefined', function () {
+                expect(function () {
+                    expect(new Headers({foo: 'a'}), 'to satisfy', {foo: undefined});
+                }, 'to throw',
+                    'expected Foo: a to satisfy { foo: undefined }\n' +
+                    '\n' +
+                    'Foo: a // should be removed');
+            });
+
             it('should match exhaustively even when absent headers are also asserted absent', function () {
                 expect(new Headers({foo: 'a'}), 'to exhaustively satisfy', {foo: 'a', bar: undefined});
             });
