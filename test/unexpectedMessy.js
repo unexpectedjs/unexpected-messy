@@ -296,6 +296,10 @@ describe('unexpected-messy', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'not to satisfy', {headers: {bar: 'a'}});
             });
 
+            it('should support matching header values against numbers (implicitly stringified)', function () {
+                expect(new Message({headers: {foo: '2'}}), 'to satisfy', {headers: {foo: 2}});
+            });
+
             it('should support matching the serialized headers with a regular expression', function () {
                 expect(new Message({headers: {foo: 'a', bar: 'b'}}), 'to satisfy', {headers: /a\r\nBar/});
             });
