@@ -225,33 +225,35 @@ describe('unexpected-messy', function () {
             });
 
             it('should render a multipart message correctly', function () {
+                var message = new Message(
+                    'Content-Type: multipart/form-data;\r\n' +
+                    ' boundary=--------------------------231099812216460892104111\r\n' +
+                    '\r\n' +
+                    '----------------------------231099812216460892104111\r\n' +
+                    'Content-Disposition: form-data; name="recipient"\r\n' +
+                    '\r\n' +
+                    'andreas@one.com\r\n' +
+                    '----------------------------231099812216460892104111\r\n' +
+                    'Content-Disposition: form-data; name="Message "\r\n' +
+                    '\r\n' +
+                    'The message\r\n' +
+                    '----------------------------231099812216460892104111--\r\n'
+                );
+                message.populateMultipartBody();
                 expect(
-                    new Message(
-                        'Content-Type: multipart/form-data;\r\n' +
-                        ' boundary=--------------------------231099812216460892104111\r\n' +
-                        '\r\n' +
-                        '----------------------------231099812216460892104111\r\n' +
-                        'Content-Disposition: form-data; name="recipient"\r\n' +
-                        '\r\n' +
-                        'andreas@one.com\r\n' +
-                        '----------------------------231099812216460892104111\r\n' +
-                        'Content-Disposition: form-data; name="Message "\r\n' +
-                        '\r\n' +
-                        'The message\r\n' +
-                        '----------------------------231099812216460892104111--\r\n'
-                    ),
+                    message,
                     'to inspect as',
-                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
-                        '\n' +
-                        '----------------------------231099812216460892104111\n' +
-                        'Content-Disposition: form-data; name="recipient"\n' +
-                        '\n' +
-                        'andreas@one.com\n' +
-                        '----------------------------231099812216460892104111\n' +
-                        'Content-Disposition: form-data; name="Message "\n' +
-                        '\n' +
-                        'The message\n' +
-                        '----------------------------231099812216460892104111--'
+                    'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                    '\n' +
+                    '----------------------------231099812216460892104111\n' +
+                    'Content-Disposition: form-data; name="recipient"\n' +
+                    '\n' +
+                    'andreas@one.com\n' +
+                    '----------------------------231099812216460892104111\n' +
+                    'Content-Disposition: form-data; name="Message "\n' +
+                    '\n' +
+                    'The message\n' +
+                    '----------------------------231099812216460892104111--'
                 );
             });
         });
