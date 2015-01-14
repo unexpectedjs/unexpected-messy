@@ -327,6 +327,49 @@ describe('unexpected-messy', function () {
                 expect(new Message('foo: bar\n\nthe body'), 'to satisfy', {body: /he b/});
             });
 
+            it('should support matching the decoded body', function () {
+                expect(new Message(
+                    'Content-Type: text/plain; charset=iso-8859-1\n' +
+                    'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: /ø/});
+            });
+
+            it('should produce a diff when failing to match the decoded body', function () {
+                expect(function () {
+                    expect(new Message(
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: 'æ'});
+                }, 'to throw',
+                    'expected\n' +
+                    'Content-Type: text/plain; charset=iso-8859-1\n' +
+                    'Content-Transfer-Encoding: quoted-printable\n' +
+                    '\n' +
+                    '=F8\n' +
+                    "to have decoded body satisfying 'æ'\n" +
+                    '\n' +
+                    '-ø\n' +
+                    '+æ');
+            });
+
+            it('should support matching the file name', function () {
+                expect(new Message(
+                    'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                    'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {fileName: /abcdef/});
+            });
+
+            it('should produce a diff when failing to match the file name', function () {
+                expect(function () {
+                    expect(new Message(
+                        'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {fileName: /foo/});
+                }, 'to throw',
+                    'expected\n' +
+                    'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                    'Content-Transfer-Encoding: quoted-printable\n' +
+                    '\n' +
+                    '=F8\n' +
+                    'to have file name satisfying /foo/');
+            });
+
             it('should support matching a Buffer body with a Buffer', function () {
                 expect(new Message(new Buffer('foo: bar\n\nthe body', 'utf-8')), 'to satisfy', {body: new Buffer('the body', 'utf-8')});
             });
