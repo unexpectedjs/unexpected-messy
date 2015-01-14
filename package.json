@@ -32,14 +32,14 @@
   },
   "homepage": "https://github.com/papandreou/unexpected-messy",
   "peerDependencies": {
-    "messy": "^3.2.0",
+    "messy": "^4.0.0",
     "unexpected": "5"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
     "istanbul": "0.3.0",
     "jshint": "2.5.5",
-    "messy": "3.2.0",
+    "messy": "4.0.0",
     "mocha": "2.0.1",
     "unexpected": "5.1.0"
   },

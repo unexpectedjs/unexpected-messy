@@ -239,7 +239,6 @@ describe('unexpected-messy', function () {
                     'The message\r\n' +
                     '----------------------------231099812216460892104111--\r\n'
                 );
-                message.populateMultipartBody();
                 expect(
                     message,
                     'to inspect as',
