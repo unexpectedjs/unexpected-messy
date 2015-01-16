@@ -327,27 +327,59 @@ describe('unexpected-messy', function () {
                 expect(new Message('foo: bar\n\nthe body'), 'to satisfy', {body: /he b/});
             });
 
-            it('should support matching the decoded body', function () {
-                expect(new Message(
-                    'Content-Type: text/plain; charset=iso-8859-1\n' +
-                    'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: /ø/});
-            });
-
-            it('should produce a diff when failing to match the decoded body', function () {
-                expect(function () {
+            describe('when matching the decoded body with a regexp', function () {
+                it('should succeed', function () {
                     expect(new Message(
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
-                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: 'æ'});
-                }, 'to throw',
-                    'expected\n' +
-                    'Content-Type: text/plain; charset=iso-8859-1\n' +
-                    'Content-Transfer-Encoding: quoted-printable\n' +
-                    '\n' +
-                    '=F8\n' +
-                    "to have decoded body satisfying 'æ'\n" +
-                    '\n' +
-                    '-ø\n' +
-                    '+æ');
+                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: /ø/});
+                });
+
+                it('should produce a diff when failing to match', function () {
+                    expect(function () {
+                        expect(new Message(
+                            'Content-Type: text/plain; charset=iso-8859-1\n' +
+                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: 'æ'});
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        '=F8\n' +
+                        "to have decoded body satisfying 'æ'\n" +
+                        '\n' +
+                        '-ø\n' +
+                        '+æ');
+                });
+            });
+
+            describe('when matching the decoded body with a Buffer', function () {
+                it('should succeed', function () {
+                    expect(new Message(
+                        Buffer.concat([
+                            new Buffer('Content-Type: application/octet-stream\n\n'),
+                            new Buffer([1, 2, 3, 4])
+                        ])
+                    ), 'to satisfy', {decodedBody: new Buffer([1, 2, 3, 4])});
+                });
+
+                it('should support matching the decoded body with a Buffer', function () {
+                    expect(function () {
+                        expect(new Message(
+                            Buffer.concat([
+                                new Buffer('Content-Type: application/octet-stream\n\n'),
+                                new Buffer([1, 2, 3, 4])
+                            ])
+                        ), 'to satisfy', {decodedBody: new Buffer([1, 2, 3, 5])});
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: application/octet-stream\n' +
+                        '\n' +
+                        'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
+                        'to have decoded body satisfying Buffer([0x01, 0x02, 0x03, 0x05])\n' +
+                        '\n' +
+                        '-01 02 03 04                                      │....│\n' +
+                        '+01 02 03 05                                      │....│');
+                });
             });
 
             it('should support matching the file name', function () {
