@@ -637,7 +637,54 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        'to have at least this number of parts 3');
+                        'to have number of parts 3');
+                });
+
+                it('should throw when asserting on fewer parts than are present', function () {
+                    expect(function () {
+                        expect(multiPartMessage, 'to satisfy', {
+                            parts: [{}]
+                        });
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        'to have number of parts 1');
+                });
+
+
+                it('should throw when asserting on bogus part numbers', function () {
+                    expect(function () {
+                        expect(multiPartMessage, 'to satisfy', {
+                            parts: {abc: {}}
+                        });
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        'to satisfy { parts: { abc: {} } }');
                 });
 
                 it('should produce a diff when failing the match', function () {
