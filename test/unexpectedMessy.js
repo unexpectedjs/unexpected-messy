@@ -506,6 +506,161 @@ describe('unexpected-messy', function () {
                     '\n' +
                     '// should match /bar/');
             });
+
+            var multiPartMessage = new Message(
+                'Content-Type: multipart/form-data;\r\n' +
+                ' boundary=--------------------------231099812216460892104111\r\n' +
+                '\r\n' +
+                '----------------------------231099812216460892104111\r\n' +
+                'Content-Type: text/plain; charset=iso-8859-1\r\n' +
+                'Foo: bar\r\n' +
+                'Content-Transfer-Encoding: quoted-printable\r\n' +
+                '\r\n' +
+                'foo=F8bar\r\n' +
+                '----------------------------231099812216460892104111\r\n' +
+                'Content-Disposition: attachment; filename="blah.txt"\r\n' +
+                '\r\n' +
+                'The message\r\n' +
+                '----------------------------231099812216460892104111--\r\n'
+            );
+
+            describe('when asserting on the parts array with expect.it', function () {
+                it('should succeed', function () {
+                    expect(multiPartMessage, 'to satisfy', {
+                        parts: expect.it('to have length', 2)
+                    });
+                });
+
+                it('should produce a diff when the assertion fails', function () {
+                    expect(function () {
+                        expect(multiPartMessage, 'to satisfy', {
+                            parts: expect.it('to have length', 3)
+                        });
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        "to satisfy { parts: expect.it('to have length', 3) }\n" +
+                        '\n' +
+                        'expected\n' +
+                        '[\n' +
+                        '  Content-Type: text/plain; charset=iso-8859-1\n' +
+                        '  Foo: bar\n' +
+                        '  Content-Transfer-Encoding: quoted-printable\n' +
+                        '  \n' +
+                        '  foo=F8bar,\n' +
+                        '  Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '  \n' +
+                        '  The message\n' +
+                        ']\n' +
+                        'to have length 3');
+                });
+            });
+
+            describe('when satisfying against the individual parts of a multipart message', function () {
+                it('should succeed', function () {
+                    expect(multiPartMessage, 'to satisfy', {
+                        parts: [
+                            {
+                                headers: {
+                                    Foo: 'bar'
+                                },
+                                decodedBody: 'fooøbar'
+                            },
+                            {
+                                fileName: /txt$/
+                            }
+                        ]
+                    });
+                });
+
+                it('should throw when asserting on more parts than are present', function () {
+                    expect(function () {
+                        expect(multiPartMessage, 'to satisfy', {
+                            parts: [{}, {}, {}]
+                        });
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        'to have at least this number of parts 3');
+                });
+
+                it('should produce a diff when failing the match', function () {
+                    expect(function () {
+                        expect(multiPartMessage, 'to satisfy', {
+                            parts: [
+                                {
+                                    headers: {
+                                        Foo: 'quux'
+                                    },
+                                    decodedBody: 'fooøbar'
+                                },
+                                {
+                                    fileName: /txt$/
+                                }
+                            ]
+                        });
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        'to satisfy\n' +
+                        '{\n' +
+                        '  parts: [\n' +
+                        "    { headers: ..., decodedBody: 'fooøbar' },\n" +
+                        '    { fileName: /txt$/ }\n' +
+                        '  ]\n' +
+                        '}\n' +
+                        '\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar // should equal quux\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        "foo=F8bar\n" +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--');
+                });
+            });
         });
     });
 
