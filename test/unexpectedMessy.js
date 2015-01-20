@@ -1050,6 +1050,45 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            describe('when satisfying against a number', function () {
+                it('should succeed when the number is equal to the status code', function () {
+                    expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 200);
+                });
+
+                it('should fail when the number is different from the status code', function () {
+                    expect(function () {
+                        expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 412);
+                    }, 'to throw',
+                        'expected HTTP/1.1 200 OK to satisfy 412\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK // should equal 412');
+                });
+            });
+
+            describe('when satisfying against a function (expect.it)', function () {
+                it('should succeed when the function accepts the status code', function () {
+                    expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', expect.it('to equal', 200));
+                });
+
+                it('should fail when the function throws when passed the status code', function () {
+                    expect(function () {
+                        expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', expect.it('to equal', 412));
+                    }, 'to throw',
+                        "expected HTTP/1.1 200 OK to satisfy expect.it('to equal', 412)\n" +
+                        '\n' +
+                        'HTTP/1.1 200 OK // expected 200 to equal 412');
+                });
+
+                it('should fail when the function throws when passed the status code', function () {
+                    expect(function () {
+                        expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', expect.it('to be within', 400, 599));
+                    }, 'to throw',
+                        "expected HTTP/1.1 200 OK to satisfy expect.it('to be within', 400, 599)\n" +
+                        '\n' +
+                        "HTTP/1.1 200 OK // expected 200 to be within 400..599");
+                });
+            });
+
             it('should produce a diff when the assertion fails', function () {
                 expect(function () {
                     expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {protocolVersion: /^2\.\d+$/});
