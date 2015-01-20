@@ -41,7 +41,7 @@
     "jshint": "2.5.5",
     "messy": "4.0.1",
     "mocha": "2.0.1",
-    "unexpected": "5.4.2"
+    "unexpected": "5.5.2"
   },
   "dependencies": {
     "underscore": "1.7.0"
