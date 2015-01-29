@@ -287,6 +287,30 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('should satisfy against a string', function () {
+                expect(new messy.Message(
+                    'To: <recipient@example.com>\r\n' +
+                    'From: <foo@example.com>\r\n' +
+                    'Subject: Hey\r\n' +
+                    '\r\n' +
+                    'foo\r\n'
+                ), 'to satisfy',
+                    'To: <recipient@example.com>\r\nFrom: <foo@example.com>\r\nSubject: Hey\r\n\r\nfoo\r\n'
+                );
+            });
+
+            it('should satisfy against a Buffer instance', function () {
+                expect(new messy.Message(
+                    'To: <recipient@example.com>\r\n' +
+                    'From: <foo@example.com>\r\n' +
+                    'Subject: Hey\r\n' +
+                    '\r\n' +
+                    'foo\r\n'
+                ), 'to satisfy',
+                    new Buffer('To: <recipient@example.com>\r\nFrom: <foo@example.com>\r\nSubject: Hey\r\n\r\nfoo\r\n', 'utf-8')
+                );
+            });
+
             it('should support matching the headers', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: 'a'}});
             });
