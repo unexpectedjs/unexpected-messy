@@ -369,10 +369,40 @@ describe('unexpected-messy', function () {
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
                         '=F8\n' +
-                        "to have decoded body satisfying 'æ'\n" +
+                        "to satisfy { decodedBody: 'æ' }\n" +
                         '\n' +
-                        '-ø\n' +
-                        '+æ');
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        '=F8\n' +
+                        "// should have decoded body satisfying 'æ'\n" +
+                        '// -ø\n' +
+                        '// +æ');
+                });
+
+                it('should produce a diff when failing to match and not omit the header diff', function () {
+                    expect(function () {
+                        expect(new Message(
+                            'Foo: bar\n' +
+                            'Content-Type: text/plain; charset=iso-8859-1\n' +
+                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {headers: {Foo: 'quux'}, decodedBody: 'æ'});
+                    }, 'to throw',
+                        'expected\n' +
+                        'Foo: bar\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        '=F8\n' +
+                        "to satisfy { headers: { Foo: 'quux' }, decodedBody: 'æ' }\n" +
+                        '\n' +
+                        'Foo: bar // should equal quux\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        '=F8\n' +
+                        "// should have decoded body satisfying 'æ'\n" +
+                        '// -ø\n' +
+                        '// +æ');
                 });
             });
 
@@ -399,10 +429,14 @@ describe('unexpected-messy', function () {
                         'Content-Type: application/octet-stream\n' +
                         '\n' +
                         'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
-                        'to have decoded body satisfying Buffer([0x01, 0x02, 0x03, 0x05])\n' +
+                        'to satisfy { decodedBody: Buffer([0x01, 0x02, 0x03, 0x05]) }\n' +
                         '\n' +
-                        '-01 02 03 04                                      │....│\n' +
-                        '+01 02 03 05                                      │....│');
+                        'Content-Type: application/octet-stream\n' +
+                        '\n' +
+                        'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
+                        '// should have decoded body satisfying Buffer([0x01, 0x02, 0x03, 0x05])\n' +
+                        '// -01 02 03 04                                      │....│\n' +
+                        '// +01 02 03 05                                      │....│');
                 });
             });
 
@@ -423,7 +457,13 @@ describe('unexpected-messy', function () {
                     'Content-Transfer-Encoding: quoted-printable\n' +
                     '\n' +
                     '=F8\n' +
-                    'to have file name satisfying /foo/');
+                    'to satisfy { fileName: /foo/ }\n' +
+                    '\n' +
+                    'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                    'Content-Transfer-Encoding: quoted-printable\n' +
+                    '\n' +
+                    '=F8\n' +
+                    '// should have file name satisfying /foo/');
             });
 
             it('should support matching a Buffer body with a Buffer', function () {
@@ -609,18 +649,31 @@ describe('unexpected-messy', function () {
                         '----------------------------231099812216460892104111--\n' +
                         "to satisfy { parts: expect.it('to have length', 3) }\n" +
                         '\n' +
-                        'expected\n' +
-                        '[\n' +
-                        '  Content-Type: text/plain; charset=iso-8859-1\n' +
-                        '  Foo: bar\n' +
-                        '  Content-Transfer-Encoding: quoted-printable\n' +
-                        '  \n' +
-                        '  foo=F8bar,\n' +
-                        '  Content-Disposition: attachment; filename="blah.txt"\n' +
-                        '  \n' +
-                        '  The message\n' +
-                        ']\n' +
-                        'to have length 3');
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        '// expected\n' +
+                        '// [\n' +
+                        '//   Content-Type: text/plain; charset=iso-8859-1\n' +
+                        '//   Foo: bar\n' +
+                        '//   Content-Transfer-Encoding: quoted-printable\n' +
+                        '//   \n' +
+                        '//   foo=F8bar,\n' +
+                        '//   Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '//   \n' +
+                        '//   The message\n' +
+                        '// ]\n' +
+                        '// to have length 3');
                 });
             });
 
@@ -661,7 +714,22 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        'to have number of parts 3');
+                        'to satisfy { parts: [ {}, {}, {} ] }\n' +
+                        '\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        '// should have number of parts 3');
                 });
 
                 it('should throw when asserting on fewer parts than are present', function () {
@@ -684,7 +752,22 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        'to have number of parts 1');
+                        'to satisfy { parts: [ {} ] }\n' +
+                        '\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        '// should have number of parts 1');
                 });
 
 
@@ -708,7 +791,22 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        'to satisfy { parts: { abc: {} } }');
+                        'to satisfy { parts: { abc: {} } }\n' +
+                        '\n' +
+                        'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                        '\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
+                        'Foo: bar\n' +
+                        'Content-Transfer-Encoding: quoted-printable\n' +
+                        '\n' +
+                        'foo=F8bar\n' +
+                        '----------------------------231099812216460892104111\n' +
+                        'Content-Disposition: attachment; filename="blah.txt"\n' +
+                        '\n' +
+                        'The message\n' +
+                        '----------------------------231099812216460892104111--\n' +
+                        "// invalid part specifier(s): 'abc'");
                 });
 
                 it('should produce a diff when failing the match', function () {
