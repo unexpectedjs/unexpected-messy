@@ -667,10 +667,10 @@ describe('unexpected-messy', function () {
                         '//   Content-Type: text/plain; charset=iso-8859-1\n' +
                         '//   Foo: bar\n' +
                         '//   Content-Transfer-Encoding: quoted-printable\n' +
-                        '//   \n' +
+                        '// \n' +
                         '//   foo=F8bar,\n' +
                         '//   Content-Disposition: attachment; filename="blah.txt"\n' +
-                        '//   \n' +
+                        '// \n' +
                         '//   The message\n' +
                         '// ]\n' +
                         '// to have length 3');
