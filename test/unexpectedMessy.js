@@ -973,6 +973,54 @@ describe('unexpected-messy', function () {
                 });
             });
 
+            describe('when matching the encrypted flag', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest({encrypted: true}), 'to satisfy', {
+                        encrypted: true
+                    });
+                });
+
+                it('should fail when asserting non-encrypted to be encrypted', function () {
+                    expect(function () {
+                        expect(new HttpRequest('GET / HTTP/1.1'), 'to satisfy', {
+                            encrypted: true
+                        });
+                    }, 'to throw',
+                        'expected GET / HTTP/1.1 to satisfy { encrypted: true }\n' +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        '\n' +
+                        '// expected an encrypted request');
+                });
+
+                it('should fail when asserting encrypted to be non-encrypted', function () {
+                    expect(function () {
+                        var httpRequest = new HttpRequest('GET / HTTP/1.1');
+                        httpRequest.encrypted = true;
+                        expect(httpRequest, 'to satisfy', { encrypted: false });
+                    }, 'to throw',
+                        'expected GET / HTTP/1.1 to satisfy { encrypted: false }\n' +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        '\n' +
+                        '// expected an unencrypted request');
+                });
+
+                it('should fail when asserting encrypted against a non-boolean', function () {
+                    expect(function () {
+                        var httpRequest = new HttpRequest('GET / HTTP/1.1');
+                        httpRequest.encrypted = false;
+                        expect(httpRequest, 'to satisfy', { encrypted: expect.it('to be ok') });
+                    }, 'to throw',
+                        "expected GET / HTTP/1.1 to satisfy { encrypted: expect.it('to be ok') }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        '\n' +
+                        "// encrypted should satisfy expect.it('to be ok')\n" +
+                        '//   expected false to be ok');
+                });
+            });
+
             it('should support regexp matching', function () {
                 expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
                     protocolName: /ttp/i
