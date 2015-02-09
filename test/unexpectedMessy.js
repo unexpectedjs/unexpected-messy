@@ -1873,5 +1873,205 @@ describe('unexpected-messy', function () {
                 );
             });
         });
+
+        describe('"to satisfy" assertion', function () {
+            describe('against an array', function () {
+                it('should succeed', function () {
+                    expect(new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
+                            }
+                        ]
+                    }), 'to satisfy', { exchanges: [ { request: { method: 'GET', path: '/' }, response: { headers: { Quux: 'Baz' } } } ] });
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
+                                }
+                            ]
+                        }), 'to satisfy', { exchanges: [ { request: { method: 'GET', path: '/foo' } } ] });
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        'Quux: Baz\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        "to satisfy { exchanges: [ { request: ... } ] }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1 // should be GET /foo\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        'Quux: Baz\n' +
+                        '\n' +
+                        '{ foo: 456 }'
+                    );
+                });
+
+                it('should fail with a diff when the value contains too few exchanges', function () {
+                    expect(function () {
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
+                                },
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
+                                }
+                            ]
+                        }), 'to satisfy', { exchanges: [ {} ] });
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        "to satisfy { exchanges: [ {} ] }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        '\n' +
+                        '// should be removed:\n' +
+                        '// GET / HTTP/1.1\n' +
+                        '// Content-Type: application/json\n' +
+                        '// \n' +
+                        '// { foo: 123 }\n' +
+                        '// \n' +
+                        '// HTTP/1.1 200 OK\n' +
+                        '// Content-Type: application/json\n' +
+                        '// \n' +
+                        '// { foo: 456 }'
+                    );
+                });
+
+                it('should fail with a diff when the value contains too many exchanges', function () {
+                    expect(function () {
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
+                                }
+                            ]
+                        }), 'to satisfy', { exchanges: [ {}, {} ] });
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        "to satisfy { exchanges: [ {}, {} ] }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        '\n' +
+                        '// missing:\n' +
+                        '// {}'
+                    );
+                });
+            });
+
+            describe('against an object', function () {
+                it('should succeed', function () {
+                    expect(new HttpConversation({
+                        exchanges: [
+                            {
+                                request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
+                            }
+                        ]
+                    }), 'to satisfy', { exchanges: { 0: { request: { method: 'GET', path: '/' }, response: { headers: { Quux: 'Baz' } } } } });
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
+                                }
+                            ]
+                        }), 'to satisfy', { exchanges: { 0: { request: { method: 'GET', path: '/foo' } } } });
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        'Quux: Baz\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        "to satisfy { exchanges: { 0: { request: ... } } }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1 // should be GET /foo\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        'Quux: Baz\n' +
+                        '\n' +
+                        '{ foo: 456 }'
+                    );
+                });
+            });
+        });
     });
 });
