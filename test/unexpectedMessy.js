@@ -1016,8 +1016,45 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
-                        "// encrypted should satisfy expect.it('to be ok')\n" +
+                        "// encrypted: expected false to satisfy expect.it('to be ok')\n" +
                         '//   expected false to be ok');
+                });
+            });
+
+            describe('when matching the cert/key/ca properties', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest({
+                        cert: new Buffer([1]),
+                        key: new Buffer([2]),
+                        ca: new Buffer([3])
+                    }), 'to satisfy', {
+                        cert: new Buffer([1]),
+                        key: new Buffer([2]),
+                        ca: new Buffer([3])
+                    });
+                });
+
+                it('should fail with a sensible error message', function () {
+                    expect(function () {
+                        expect(new HttpRequest({
+                            requestLine: 'GET / HTTP/1.1',
+                            cert: new Buffer([1]),
+                            key: new Buffer([2]),
+                        }), 'to satisfy', {
+                            cert: new Buffer([5]),
+                            key: new Buffer([8])
+                        });
+                    }, 'to throw',
+                        'expected GET / HTTP/1.1 to satisfy { cert: Buffer([0x05]), key: Buffer([0x08]) }\n' +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        '\n' +
+                        '// cert: expected Buffer([0x01]) to satisfy Buffer([0x05])\n' +
+                        '//   -01                                               │.│\n' +
+                        '//   +05                                               │.│\n' +
+                        '// key: expected Buffer([0x02]) to satisfy Buffer([0x08])\n' +
+                        '//   -02                                               │.│\n' +
+                        '//   +08                                               │.│')
                 });
             });
 
