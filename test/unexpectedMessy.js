@@ -1039,7 +1039,7 @@ describe('unexpected-messy', function () {
                         expect(new HttpRequest({
                             requestLine: 'GET / HTTP/1.1',
                             cert: new Buffer([1]),
-                            key: new Buffer([2]),
+                            key: new Buffer([2])
                         }), 'to satisfy', {
                             cert: new Buffer([5]),
                             key: new Buffer([8])
@@ -1054,7 +1054,7 @@ describe('unexpected-messy', function () {
                         '//   +05                                               │.│\n' +
                         '// key: expected Buffer([0x02]) to satisfy Buffer([0x08])\n' +
                         '//   -02                                               │.│\n' +
-                        '//   +08                                               │.│')
+                        '//   +08                                               │.│');
                 });
             });
 
