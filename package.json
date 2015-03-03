@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/papandreou/unexpected-messy.git"
+    "url": "git://github.com/unexpectedjs/unexpected-messy.git"
   },
   "keywords": [
     "HTTP",
@@ -28,9 +28,9 @@
   "author": "Andreas Lind <andreas@one.com>",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/papandreou/unexpected-messy/issues"
+    "url": "https://github.com/unexpectedjs/unexpected-messy/issues"
   },
-  "homepage": "https://github.com/papandreou/unexpected-messy",
+  "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
     "messy": "^4.3.0",
     "unexpected": "5 || 6"
