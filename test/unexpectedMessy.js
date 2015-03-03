@@ -2040,7 +2040,7 @@ describe('unexpected-messy', function () {
                                     response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
                                 }
                             ]
-                        }), 'to satisfy', { exchanges: [ {}, {} ] });
+                        }), 'to satisfy', { exchanges: [ {}, { request: { url: 'GET /', headers: { Foo: /bar/, Quux: 'baz' } } } ] });
                     }, 'to throw',
                         'expected\n' +
                         'GET / HTTP/1.1\n' +
@@ -2052,7 +2052,7 @@ describe('unexpected-messy', function () {
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: [ {}, {} ] }\n" +
+                        "to satisfy { exchanges: [ {}, { request: ... } ] }\n" +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
@@ -2065,7 +2065,11 @@ describe('unexpected-messy', function () {
                         '{ foo: 456 }\n' +
                         '\n' +
                         '// missing:\n' +
-                        '// {}'
+                        '// GET /\n' +
+                        '// Foo: // should match /bar/\n' +
+                        '// Quux: baz\n' +
+                        '//\n' +
+                        '// <no response>'
                     );
                 });
             });
