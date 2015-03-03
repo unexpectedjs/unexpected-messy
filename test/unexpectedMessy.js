@@ -280,7 +280,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}'
                 );
             });
@@ -589,6 +589,7 @@ describe('unexpected-messy', function () {
                        "  foo: 'foo',\n" +
                        "  bar: 'bar' // ✓ expected 'bar' to be a string and\n" +
                        "             // ⨯ expected 'bar' to have length 2\n" +
+                       "             //     expected 3 to be 2\n" +
                        "}");
             });
 
@@ -667,13 +668,14 @@ describe('unexpected-messy', function () {
                         '//   Content-Type: text/plain; charset=iso-8859-1\n' +
                         '//   Foo: bar\n' +
                         '//   Content-Transfer-Encoding: quoted-printable\n' +
-                        '// \n' +
+                        '//\n' +
                         '//   foo=F8bar,\n' +
                         '//   Content-Disposition: attachment; filename="blah.txt"\n' +
-                        '// \n' +
+                        '//\n' +
                         '//   The message\n' +
                         '// ]\n' +
-                        '// to have length 3');
+                        '// to have length 3\n' +
+                        '//   expected 2 to be 3');
                 });
             });
 
@@ -1603,7 +1605,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}'
                 );
             });
@@ -1627,7 +1629,11 @@ describe('unexpected-messy', function () {
                     'Content-Type: text/html\n' +
                     '\n' +
                     'argh\n' +
-                    "to satisfy { request: { url: '/foo' }, response: { body: 'blah' } }\n" +
+                    "to satisfy\n" +
+                    "{\n" +
+                    "  request: { url: '/foo' },\n" +
+                    "  response: { body: 'blah' }\n" +
+                    "}\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
                     'Content-Type: application/json\n' +
@@ -1691,7 +1697,11 @@ describe('unexpected-messy', function () {
                     'Content-Type: text/html\n' +
                     '\n' +
                     'argh\n' +
-                    "to satisfy { request: { url: '/foo' }, response: { body: 'argh' } }\n" +
+                    "to satisfy\n" +
+                    "{\n" +
+                    "  request: { url: '/foo' },\n" +
+                    "  response: { body: 'argh' }\n" +
+                    "}\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
                     'Content-Type: application/json\n' +
@@ -1787,7 +1797,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}\n' +
                     '\n' +
                     'GET / HTTP/1.1\n' +
@@ -1802,7 +1812,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}'
                 );
             });
@@ -1842,7 +1852,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}\n' +
                     '\n' +
                     '// should be removed:\n' +
@@ -1894,7 +1904,7 @@ describe('unexpected-messy', function () {
                     'Quux: Baz // should be removed\n' +
                     '\n' +
                     '{\n' +
-                    '  foo: 123 // should be 456\n' +
+                    '  foo: 123 // should equal 456\n' +
                     '}\n' +
                     '\n' +
                     '// missing:\n' +
@@ -2011,12 +2021,12 @@ describe('unexpected-messy', function () {
                         '// should be removed:\n' +
                         '// GET / HTTP/1.1\n' +
                         '// Content-Type: application/json\n' +
-                        '// \n' +
+                        '//\n' +
                         '// { foo: 123 }\n' +
-                        '// \n' +
+                        '//\n' +
                         '// HTTP/1.1 200 OK\n' +
                         '// Content-Type: application/json\n' +
-                        '// \n' +
+                        '//\n' +
                         '// { foo: 456 }'
                     );
                 });
