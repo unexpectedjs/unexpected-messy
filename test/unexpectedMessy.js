@@ -97,6 +97,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new Headers({foo: 'a'}), 'to satisfy', undefined);
+            });
+
             it('must match an empty object', function () {
                 expect(new Headers({foo: 'a'}), 'to satisfy', {});
             });
@@ -287,6 +291,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new messy.Message('a'), 'to satisfy', undefined);
+            });
+
             it('should satisfy against a string', function () {
                 expect(new messy.Message(
                     'To: <recipient@example.com>\r\n' +
@@ -898,6 +906,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', undefined);
+            });
+
             it('should produce a diff when the assertion fails', function () {
                 expect(function () {
                     expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: /^P(?:UT|POST)$/});
@@ -967,6 +979,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new HttpRequest('GET / HTTP/1.1'), 'to satisfy', undefined);
+            });
+
             it('should match on properties defined by Message', function () {
                 expect(new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'), 'to satisfy', {
                     headers: {
@@ -1259,6 +1275,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', undefined);
+            });
+
             describe('when satisfying against a number', function () {
                 it('should succeed when the number is equal to the status code', function () {
                     expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 200);
@@ -1367,6 +1387,11 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', undefined);
+            });
+
+
             it('should match on properties defined by Message', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
                     headers: {
@@ -1612,6 +1637,13 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new HttpExchange({
+                    request: 'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
+                    response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+                }), 'to satisfy', undefined);
+            });
+
             it('should produce a diff when the assertion fails', function () {
                 expect(function () {
                     expect(new HttpExchange({
@@ -1922,6 +1954,10 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('must not break with undefined', function () {
+                expect(new HttpConversation(), 'to satisfy', undefined);
+            });
+
             describe('against an array', function () {
                 it('should succeed', function () {
                     expect(new HttpConversation({
