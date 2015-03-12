@@ -27,6 +27,61 @@ describe('unexpected-messy', function () {
         });
 
 
+    it('should inspect objects as blocks', function () {
+        expect({
+            headers: new Headers({foo: 'quux', baz: 'bar'}),
+            message: new Message('Content-Type: application/json\n\n{"foo":123}'),
+            httpRequest: new HttpRequest({requestLine: 'GET / HTTP/1.1', headers: {bar: 'baz'}, body: 'foo'}),
+            httpResponse: new HttpResponse({statusLine: 'HTTP/1.1 200 OK', headers: {bar: 'baz'}, body: 'foo'}),
+            httpExchange: new HttpExchange({
+                request: 'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
+                response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+            }),
+            httpConversation: new HttpConversation({
+                exchanges: [
+                    {
+                        request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                        response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                    }
+                ]
+            })
+        }, 'to inspect as',
+            "{\n" +
+            "  headers: Foo: quux\n" +
+            "           Baz: bar,\n" +
+            "  message: Content-Type: application/json\n" +
+            "\n" +
+            "           { foo: 123 },\n" +
+            "  httpRequest: GET / HTTP/1.1\n" +
+            "               Bar: baz\n" +
+            "\n" +
+            "               foo,\n" +
+            "  httpResponse: HTTP/1.1 200 OK\n" +
+            "                Bar: baz\n" +
+            "\n" +
+            "                foo,\n" +
+            "  httpExchange: GET / HTTP/1.1\n" +
+            "                Content-Type: application/json\n" +
+            "\n" +
+            "                { foo: 'bar' }\n" +
+            "\n" +
+            "                HTTP/1.1 200 OK\n" +
+            "                Content-Type: text/html\n" +
+            "\n" +
+            "                argh,\n" +
+            "  httpConversation: GET / HTTP/1.1\n" +
+            "                    Content-Type: application/json\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "\n" +
+            "                    HTTP/1.1 200 OK\n" +
+            "                    Content-Type: application/json\n" +
+            "                    Quux: Baz\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "}");
+    });
+
     describe('Headers', function () {
         describe('#inspect', function () {
             it('should render no headers as the empty string', function () {
