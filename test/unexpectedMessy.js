@@ -26,7 +26,6 @@ describe('unexpected-messy', function () {
             expect(expect.inspect(subject).toString(), 'to equal', value);
         });
 
-
     it('should inspect objects as blocks', function () {
         expect({
             headers: new Headers({foo: 'quux', baz: 'bar'}),
@@ -80,6 +79,152 @@ describe('unexpected-messy', function () {
             "\n" +
             "                    { foo: 123 }\n" +
             "}");
+    });
+
+    it('should produce diffs that are proper blocks', function () {
+        expect(function () {
+            expect({
+                headers: new Headers({ foo: 'quux', baz: 'bar' }),
+                message: new Message('Foo: Bar\nContent-Type: application/json\n\n{"foo":123}'),
+                httpRequest: new HttpRequest({ requestLine: 'GET / HTTP/1.1', headers: { bar: 'baz' }, body: 'foo' }),
+                httpResponse: new HttpResponse({ statusLine: 'HTTP/1.1 200 OK', headers: { bar: 'baz' }, body: 'foo' }),
+                httpExchange: new HttpExchange({
+                    request: 'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
+                    response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+                }),
+                httpConversation: new HttpConversation({
+                    exchanges: [
+                        {
+                            request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                            response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                        }
+                    ]
+                })
+            }, 'to satisfy', {
+                headers: { foo: 'quux1', baz: 'bar' },
+                message: { headers: { Foo: 'Baz', 'Content-Type': 'application/json' }, body: { foo: 456 } },
+                httpRequest: { requestLine: 'GET /foo HTTP/1.1', headers: { bar: 'baz' }, body: 'foo'},
+                httpResponse: { statusLine: 'HTTP/1.1 404 OK', headers: { bar: 'quux' }, body: 'foo' },
+                httpExchange: {
+                    request: { path: '/foo', headers: { Foo: 'quux' } },
+                    response: { statusCode: 404, headers: { Bar: 'baz' } }
+                },
+                httpConversation: new HttpConversation({
+                    exchanges: [
+                        {
+                            request: { path: '/foo', headers: { Foo: 'quux' } },
+                            response: { statusCode: 404, headers: { Bar: 'baz' } }
+                        }
+                    ]
+                })
+            });
+        }, 'to throw',
+            "expected\n" +
+            "{\n" +
+            "  headers: Foo: quux\n" +
+            "           Baz: bar,\n" +
+            "  message: Foo: Bar\n" +
+            "           Content-Type: application/json\n" +
+            "\n" +
+            "           { foo: 123 },\n" +
+            "  httpRequest: GET / HTTP/1.1\n" +
+            "               Bar: baz\n" +
+            "\n" +
+            "               foo,\n" +
+            "  httpResponse: HTTP/1.1 200 OK\n" +
+            "                Bar: baz\n" +
+            "\n" +
+            "                foo,\n" +
+            "  httpExchange: GET / HTTP/1.1\n" +
+            "                Content-Type: application/json\n" +
+            "\n" +
+            "                { foo: 'bar' }\n" +
+            "\n" +
+            "                HTTP/1.1 200 OK\n" +
+            "                Content-Type: text/html\n" +
+            "\n" +
+            "                argh,\n" +
+            "  httpConversation: GET / HTTP/1.1\n" +
+            "                    Content-Type: application/json\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "\n" +
+            "                    HTTP/1.1 200 OK\n" +
+            "                    Content-Type: application/json\n" +
+            "                    Quux: Baz\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "}\n" +
+            "to satisfy\n" +
+            "{\n" +
+            "  headers: { foo: 'quux1', baz: 'bar' },\n" +
+            "  message: {\n" +
+            "    headers: { Foo: 'Baz', 'Content-Type': 'application/json' },\n" +
+            "    body: { foo: 456 }\n" +
+            "  },\n" +
+            "  httpRequest: {\n" +
+            "    requestLine: 'GET /foo HTTP/1.1',\n" +
+            "    headers: { bar: 'baz' },\n" +
+            "    body: 'foo'\n" +
+            "  },\n" +
+            "  httpResponse: {\n" +
+            "    statusLine: 'HTTP/1.1 404 OK',\n" +
+            "    headers: { bar: 'quux' },\n" +
+            "    body: 'foo'\n" +
+            "  },\n" +
+            "  httpExchange: {\n" +
+            "    request: { path: '/foo', headers: ... },\n" +
+            "    response: { statusCode: 404, headers: ... }\n" +
+            "  },\n" +
+            "  httpConversation: /foo\n" +
+            "                    Foo: quux\n" +
+            "\n" +
+            "                    404\n" +
+            "                    Bar: baz\n" +
+            "}\n" +
+            "\n" +
+            "{\n" +
+            "  headers: Foo: quux // should equal quux1\n" +
+            "           Baz: bar,\n" +
+            "  message: Foo: Bar // should equal Baz\n" +
+            "           Content-Type: application/json\n" +
+            "\n" +
+            "           {\n" +
+            "             foo: 123 // should equal 456\n" +
+            "           },\n" +
+            "  httpRequest: GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n" +
+            "               Bar: baz\n" +
+            "\n" +
+            "               foo,\n" +
+            "  httpResponse: HTTP/1.1 200 OK // should be HTTP/1.1 404 OK\n" +
+            "                Bar: baz // should equal quux\n" +
+            "\n" +
+            "                foo,\n" +
+            "  httpExchange: GET / HTTP/1.1 // should be /foo\n" +
+            "                Content-Type: application/json\n" +
+            "                // missing Foo: quux\n" +
+            "\n" +
+            "                { foo: 'bar' }\n" +
+            "\n" +
+            "                HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "                Content-Type: text/html\n" +
+            "                // missing Bar: baz\n" +
+            "\n" +
+            "                argh,\n" +
+            "  httpConversation: GET / HTTP/1.1 // should be /foo\n" +
+            "                    Content-Type: application/json\n" +
+            "                    // missing Foo: quux\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "\n" +
+            "                    HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "                    Content-Type: application/json\n" +
+            "                    Quux: Baz\n" +
+            "                    // missing Bar: baz\n" +
+            "\n" +
+            "                    { foo: 123 }\n" +
+            "}"
+        );
     });
 
     describe('Headers', function () {
