@@ -46,38 +46,44 @@ describe('unexpected-messy', function () {
             })
         }, 'to inspect as',
             "{\n" +
-            "  headers: Foo: quux\n" +
-            "           Baz: bar,\n" +
-            "  message: Content-Type: application/json\n" +
+            "  headers:\n" +
+            "    Foo: quux\n" +
+            "    Baz: bar,\n" +
+            "  message:\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "           { foo: 123 },\n" +
-            "  httpRequest: GET / HTTP/1.1\n" +
-            "               Bar: baz\n" +
+            "    { foo: 123 },\n" +
+            "  httpRequest:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Bar: baz\n" +
             "\n" +
-            "               foo,\n" +
-            "  httpResponse: HTTP/1.1 200 OK\n" +
-            "                Bar: baz\n" +
+            "    foo,\n" +
+            "  httpResponse:\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Bar: baz\n" +
             "\n" +
-            "                foo,\n" +
-            "  httpExchange: GET / HTTP/1.1\n" +
-            "                Content-Type: application/json\n" +
+            "    foo,\n" +
+            "  httpExchange:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "                { foo: 'bar' }\n" +
+            "    { foo: 'bar' }\n" +
             "\n" +
-            "                HTTP/1.1 200 OK\n" +
-            "                Content-Type: text/html\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Content-Type: text/html\n" +
             "\n" +
-            "                argh,\n" +
-            "  httpConversation: GET / HTTP/1.1\n" +
-            "                    Content-Type: application/json\n" +
+            "    argh,\n" +
+            "  httpConversation:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "\n" +
-            "                    HTTP/1.1 200 OK\n" +
-            "                    Content-Type: application/json\n" +
-            "                    Quux: Baz\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Content-Type: application/json\n" +
+            "    Quux: Baz\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "}");
     });
 
@@ -121,39 +127,45 @@ describe('unexpected-messy', function () {
         }, 'to throw',
             "expected\n" +
             "{\n" +
-            "  headers: Foo: quux\n" +
-            "           Baz: bar,\n" +
-            "  message: Foo: Bar\n" +
-            "           Content-Type: application/json\n" +
+            "  headers:\n" +
+            "    Foo: quux\n" +
+            "    Baz: bar,\n" +
+            "  message:\n" +
+            "    Foo: Bar\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "           { foo: 123 },\n" +
-            "  httpRequest: GET / HTTP/1.1\n" +
-            "               Bar: baz\n" +
+            "    { foo: 123 },\n" +
+            "  httpRequest:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Bar: baz\n" +
             "\n" +
-            "               foo,\n" +
-            "  httpResponse: HTTP/1.1 200 OK\n" +
-            "                Bar: baz\n" +
+            "    foo,\n" +
+            "  httpResponse:\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Bar: baz\n" +
             "\n" +
-            "                foo,\n" +
-            "  httpExchange: GET / HTTP/1.1\n" +
-            "                Content-Type: application/json\n" +
+            "    foo,\n" +
+            "  httpExchange:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "                { foo: 'bar' }\n" +
+            "    { foo: 'bar' }\n" +
             "\n" +
-            "                HTTP/1.1 200 OK\n" +
-            "                Content-Type: text/html\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Content-Type: text/html\n" +
             "\n" +
-            "                argh,\n" +
-            "  httpConversation: GET / HTTP/1.1\n" +
-            "                    Content-Type: application/json\n" +
+            "    argh,\n" +
+            "  httpConversation:\n" +
+            "    GET / HTTP/1.1\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "\n" +
-            "                    HTTP/1.1 200 OK\n" +
-            "                    Content-Type: application/json\n" +
-            "                    Quux: Baz\n" +
+            "    HTTP/1.1 200 OK\n" +
+            "    Content-Type: application/json\n" +
+            "    Quux: Baz\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "}\n" +
             "to satisfy\n" +
             "{\n" +
@@ -176,53 +188,60 @@ describe('unexpected-messy', function () {
             "    request: { path: '/foo', headers: ... },\n" +
             "    response: { statusCode: 404, headers: ... }\n" +
             "  },\n" +
-            "  httpConversation: /foo\n" +
-            "                    Foo: quux\n" +
+            "  httpConversation:\n" +
+            "    /foo\n" +
+            "    Foo: quux\n" +
             "\n" +
-            "                    404\n" +
-            "                    Bar: baz\n" +
+            "    404\n" +
+            "    Bar: baz\n" +
             "}\n" +
             "\n" +
             "{\n" +
-            "  headers: Foo: quux // should equal quux1\n" +
-            "           Baz: bar,\n" +
-            "  message: Foo: Bar // should equal Baz\n" +
-            "           Content-Type: application/json\n" +
+            "  headers:\n" +
+            "    Foo: quux // should equal quux1\n" +
+            "    Baz: bar,\n" +
+            "  message:\n" +
+            "    Foo: Bar // should equal Baz\n" +
+            "    Content-Type: application/json\n" +
             "\n" +
-            "           {\n" +
-            "             foo: 123 // should equal 456\n" +
-            "           },\n" +
-            "  httpRequest: GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n" +
-            "               Bar: baz\n" +
+            "    {\n" +
+            "      foo: 123 // should equal 456\n" +
+            "    },\n" +
+            "  httpRequest:\n" +
+            "    GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n" +
+            "    Bar: baz\n" +
             "\n" +
-            "               foo,\n" +
-            "  httpResponse: HTTP/1.1 200 OK // should be HTTP/1.1 404 OK\n" +
-            "                Bar: baz // should equal quux\n" +
+            "    foo,\n" +
+            "  httpResponse:\n" +
+            "    HTTP/1.1 200 OK // should be HTTP/1.1 404 OK\n" +
+            "    Bar: baz // should equal quux\n" +
             "\n" +
-            "                foo,\n" +
-            "  httpExchange: GET / HTTP/1.1 // should be /foo\n" +
-            "                Content-Type: application/json\n" +
-            "                // missing Foo: quux\n" +
+            "    foo,\n" +
+            "  httpExchange:\n" +
+            "    GET / HTTP/1.1 // should be /foo\n" +
+            "    Content-Type: application/json\n" +
+            "    // missing Foo: quux\n" +
             "\n" +
-            "                { foo: 'bar' }\n" +
+            "    { foo: 'bar' }\n" +
             "\n" +
-            "                HTTP/1.1 200 OK // should be 404 Not Found\n" +
-            "                Content-Type: text/html\n" +
-            "                // missing Bar: baz\n" +
+            "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "    Content-Type: text/html\n" +
+            "    // missing Bar: baz\n" +
             "\n" +
-            "                argh,\n" +
-            "  httpConversation: GET / HTTP/1.1 // should be /foo\n" +
-            "                    Content-Type: application/json\n" +
-            "                    // missing Foo: quux\n" +
+            "    argh,\n" +
+            "  httpConversation:\n" +
+            "    GET / HTTP/1.1 // should be /foo\n" +
+            "    Content-Type: application/json\n" +
+            "    // missing Foo: quux\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "\n" +
-            "                    HTTP/1.1 200 OK // should be 404 Not Found\n" +
-            "                    Content-Type: application/json\n" +
-            "                    Quux: Baz\n" +
-            "                    // missing Bar: baz\n" +
+            "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "    Content-Type: application/json\n" +
+            "    Quux: Baz\n" +
+            "    // missing Bar: baz\n" +
             "\n" +
-            "                    { foo: 123 }\n" +
+            "    { foo: 123 }\n" +
             "}"
         );
     });
