@@ -667,6 +667,69 @@ describe('unexpected-messy', function () {
                 });
             });
 
+            var rawSrc =
+                'Content-Type: text/plain; charset=UTF-8\r\n' +
+                'Transfer-Encoding: chunked\r\n' +
+                '\r\n' +
+                '4\r\n' +
+                'Wiki\r\n' +
+                '5\r\n' +
+                'pedia\r\n' +
+                'e\r\n' +
+                ' in\r\n\r\nchunks.\r\n' +
+                '0\r\n' +
+                '\r\n';
+
+            it('should support matching the rawSrc', function () {
+                expect(new Message(rawSrc), 'to satisfy', {
+                    decodedBody: 'Wikipedia in\r\n\r\nchunks.',
+                    rawSrc: rawSrc
+                });
+            });
+
+            it('should produce a diff when failing to match the rawSrc', function () {
+                expect(function () {
+                    expect(new Message(rawSrc), 'to satisfy', {
+                        rawSrc: expect.it('to contain', 'Wikipedia')
+                    });
+                }, 'to throw',
+                    "expected\n" +
+                    "Content-Type: text/plain; charset=UTF-8\n" +
+                    "Transfer-Encoding: chunked\n" +
+                    "\n" +
+                    "4\r\n" +
+                    "Wiki\r\n" +
+                    "5\r\n" +
+                    "pedia\r\n" +
+                    "e\r\n" +
+                    " in\r\n" +
+                    "\r\n" +
+                    "chunks.\r\n" +
+                    "0\r\n" +
+                    "\r\n" +
+                    "\n" +
+                    "to satisfy { rawSrc: expect.it('to contain', 'Wikipedia') }\n" +
+                    "\n" +
+                    "Content-Type: text/plain; charset=UTF-8\n" +
+                    "Transfer-Encoding: chunked\n" +
+                    "\n" +
+                    "4\r\n" +
+                    "Wiki\r\n" +
+                    "5\r\n" +
+                    "pedia\r\n" +
+                    "e\r\n" +
+                    " in\r\n" +
+                    "\r\n" +
+                    "chunks.\r\n" +
+                    "0\r\n" +
+                    "\r\n" +
+                    "\n" +
+                    "// should have rawSrc satisfying expect.it('to contain', 'Wikipedia')\n" +
+                    "// expected 'Content-Type: text/plain; charset=UTF-8\\r\\nTransfer-Encoding: chunked\\r\\n\\r\\n4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n'\n" +
+                    "// to contain 'Wikipedia'"
+                );
+            });
+
             it('should support matching the file name', function () {
                 expect(new Message(
                     'Content-Disposition: attachment; filename=abcdef.txt\n' +
