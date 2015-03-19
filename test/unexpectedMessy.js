@@ -582,29 +582,27 @@ describe('unexpected-messy', function () {
                 it('should succeed', function () {
                     expect(new Message(
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
-                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: /ø/});
+                        'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {body: /ø/});
                 });
 
                 it('should produce a diff when failing to match', function () {
                     expect(function () {
                         expect(new Message(
                             'Content-Type: text/plain; charset=iso-8859-1\n' +
-                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {decodedBody: 'æ'});
+                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {body: 'æ'});
                     }, 'to throw',
                         'expected\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        '=F8\n' +
-                        "to satisfy { decodedBody: 'æ' }\n" +
+                        'ø\n' +
+                        "to satisfy { body: 'æ' }\n" +
                         '\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        '=F8\n' +
-                        "// should have decoded body satisfying 'æ'\n" +
-                        '// -ø\n' +
-                        '// +æ');
+                        '-ø\n' +
+                        '+æ');
                 });
 
                 it('should produce a diff when failing to match and not omit the header diff', function () {
@@ -612,24 +610,22 @@ describe('unexpected-messy', function () {
                         expect(new Message(
                             'Foo: bar\n' +
                             'Content-Type: text/plain; charset=iso-8859-1\n' +
-                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {headers: {Foo: 'quux'}, decodedBody: 'æ'});
+                            'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {headers: {Foo: 'quux'}, body: 'æ'});
                     }, 'to throw',
                         'expected\n' +
                         'Foo: bar\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        '=F8\n' +
-                        "to satisfy { headers: { Foo: 'quux' }, decodedBody: 'æ' }\n" +
+                        'ø\n' +
+                        "to satisfy { headers: { Foo: 'quux' }, body: 'æ' }\n" +
                         '\n' +
                         'Foo: bar // should equal quux\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        '=F8\n' +
-                        "// should have decoded body satisfying 'æ'\n" +
-                        '// -ø\n' +
-                        '// +æ');
+                        '-ø\n' +
+                        '+æ');
                 });
             });
 
@@ -640,7 +636,7 @@ describe('unexpected-messy', function () {
                             new Buffer('Content-Type: application/octet-stream\n\n'),
                             new Buffer([1, 2, 3, 4])
                         ])
-                    ), 'to satisfy', {decodedBody: new Buffer([1, 2, 3, 4])});
+                    ), 'to satisfy', {body: new Buffer([1, 2, 3, 4])});
                 });
 
                 it('should support matching the decoded body with a Buffer', function () {
@@ -650,20 +646,18 @@ describe('unexpected-messy', function () {
                                 new Buffer('Content-Type: application/octet-stream\n\n'),
                                 new Buffer([1, 2, 3, 4])
                             ])
-                        ), 'to satisfy', {decodedBody: new Buffer([1, 2, 3, 5])});
+                        ), 'to satisfy', {body: new Buffer([1, 2, 3, 5])});
                     }, 'to throw',
                         'expected\n' +
                         'Content-Type: application/octet-stream\n' +
                         '\n' +
                         'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
-                        'to satisfy { decodedBody: Buffer([0x01, 0x02, 0x03, 0x05]) }\n' +
+                        'to satisfy { body: Buffer([0x01, 0x02, 0x03, 0x05]) }\n' +
                         '\n' +
                         'Content-Type: application/octet-stream\n' +
                         '\n' +
-                        'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
-                        '// should have decoded body satisfying Buffer([0x01, 0x02, 0x03, 0x05])\n' +
-                        '// -01 02 03 04                                      │....│\n' +
-                        '// +01 02 03 05                                      │....│');
+                        '-01 02 03 04                                      │....│\n' +
+                        '+01 02 03 05                                      │....│');
                 });
             });
 
@@ -680,53 +674,36 @@ describe('unexpected-messy', function () {
                 '0\r\n' +
                 '\r\n';
 
-            it('should support matching the rawSrc', function () {
+            it('should support matching the raw body', function () {
                 expect(new Message(rawSrc), 'to satisfy', {
-                    decodedBody: 'Wikipedia in\r\n\r\nchunks.',
-                    rawSrc: rawSrc
+                    body: 'Wikipedia in\r\n\r\nchunks.',
+                    rawBody: /4\r\nWiki\r\n5\r\npedia/
                 });
             });
 
-            it('should produce a diff when failing to match the rawSrc', function () {
+            it('should produce a diff when failing to match the raw body', function () {
                 expect(function () {
                     expect(new Message(rawSrc), 'to satisfy', {
-                        rawSrc: expect.it('to contain', 'Wikipedia')
+                        rawBody: expect.it('to contain', 'Wikipedia')
                     });
                 }, 'to throw',
                     "expected\n" +
                     "Content-Type: text/plain; charset=UTF-8\n" +
                     "Transfer-Encoding: chunked\n" +
                     "\n" +
-                    "4\r\n" +
-                    "Wiki\r\n" +
-                    "5\r\n" +
-                    "pedia\r\n" +
-                    "e\r\n" +
-                    " in\r\n" +
+                    "Wikipedia in\r\n" +
                     "\r\n" +
-                    "chunks.\r\n" +
-                    "0\r\n" +
-                    "\r\n" +
-                    "\n" +
-                    "to satisfy { rawSrc: expect.it('to contain', 'Wikipedia') }\n" +
+                    "chunks.\n" +
+                    "to satisfy { rawBody: expect.it('to contain', 'Wikipedia') }\n" +
                     "\n" +
                     "Content-Type: text/plain; charset=UTF-8\n" +
                     "Transfer-Encoding: chunked\n" +
                     "\n" +
-                    "4\r\n" +
-                    "Wiki\r\n" +
-                    "5\r\n" +
-                    "pedia\r\n" +
-                    "e\r\n" +
-                    " in\r\n" +
+                    "Wikipedia in\r\n" +
                     "\r\n" +
-                    "chunks.\r\n" +
-                    "0\r\n" +
-                    "\r\n" +
-                    "\n" +
-                    "// should have rawSrc satisfying expect.it('to contain', 'Wikipedia')\n" +
-                    "// expected 'Content-Type: text/plain; charset=UTF-8\\r\\nTransfer-Encoding: chunked\\r\\n\\r\\n4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n'\n" +
-                    "// to contain 'Wikipedia'"
+                    "chunks.\n" +
+                    "// should have raw body satisfying expect.it('to contain', 'Wikipedia')\n" +
+                    "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n' to contain 'Wikipedia'"
                 );
             });
 
@@ -740,19 +717,22 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Message(
                         'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                        'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {fileName: /foo/});
                 }, 'to throw',
                     'expected\n' +
                     'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                    'Content-Type: text/plain; charset=iso-8859-1\n' +
                     'Content-Transfer-Encoding: quoted-printable\n' +
                     '\n' +
-                    '=F8\n' +
+                    'ø\n' +
                     'to satisfy { fileName: /foo/ }\n' +
                     '\n' +
                     'Content-Disposition: attachment; filename=abcdef.txt\n' +
+                    'Content-Type: text/plain; charset=iso-8859-1\n' +
                     'Content-Transfer-Encoding: quoted-printable\n' +
                     '\n' +
-                    '=F8\n' +
+                    'ø\n' +
                     '// should have file name satisfying /foo/');
             });
 
@@ -903,7 +883,7 @@ describe('unexpected-messy', function () {
                 'Foo: bar\r\n' +
                 'Content-Transfer-Encoding: quoted-printable\r\n' +
                 '\r\n' +
-                'foo=F8bar\r\n' +
+                'fooøbar\r\n' +
                 '----------------------------231099812216460892104111\r\n' +
                 'Content-Disposition: attachment; filename="blah.txt"\r\n' +
                 '\r\n' +
@@ -932,7 +912,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -947,7 +927,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -959,7 +939,7 @@ describe('unexpected-messy', function () {
                         '//   Foo: bar\n' +
                         '//   Content-Transfer-Encoding: quoted-printable\n' +
                         '//\n' +
-                        '//   foo=F8bar,\n' +
+                        '//   fooøbar,\n' +
                         '//   Content-Disposition: attachment; filename="blah.txt"\n' +
                         '//\n' +
                         '//   The message\n' +
@@ -977,7 +957,7 @@ describe('unexpected-messy', function () {
                                 headers: {
                                     Foo: 'bar'
                                 },
-                                decodedBody: 'fooøbar'
+                                body: 'fooøbar'
                             },
                             {
                                 fileName: /txt$/
@@ -1000,7 +980,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1015,7 +995,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1038,7 +1018,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1053,7 +1033,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1077,7 +1057,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1092,7 +1072,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1109,7 +1089,7 @@ describe('unexpected-messy', function () {
                                     headers: {
                                         Foo: 'quux'
                                     },
-                                    decodedBody: 'fooøbar'
+                                    body: 'fooøbar'
                                 },
                                 {
                                     fileName: /txt$/
@@ -1125,7 +1105,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        'foo=F8bar\n' +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1134,7 +1114,7 @@ describe('unexpected-messy', function () {
                         'to satisfy\n' +
                         '{\n' +
                         '  parts: [\n' +
-                        "    { headers: ..., decodedBody: 'fooøbar' },\n" +
+                        "    { headers: ..., body: 'fooøbar' },\n" +
                         '    { fileName: /txt$/ }\n' +
                         '  ]\n' +
                         '}\n' +
@@ -1146,7 +1126,7 @@ describe('unexpected-messy', function () {
                         'Foo: bar // should equal quux\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        "foo=F8bar\n" +
+                        "fooøbar\n" +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
