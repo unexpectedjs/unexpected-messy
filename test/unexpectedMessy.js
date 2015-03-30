@@ -1324,7 +1324,8 @@ describe('unexpected-messy', function () {
                         'GET / HTTP/1.1\n' +
                         '\n' +
                         "// encrypted: expected false to satisfy expect.it('to be ok')\n" +
-                        '//   expected false to be ok');
+                        '//\n' +
+                        '// expected false to be ok');
                 });
             });
 
@@ -1357,11 +1358,13 @@ describe('unexpected-messy', function () {
                         'GET / HTTP/1.1\n' +
                         '\n' +
                         '// cert: expected Buffer([0x01]) to satisfy Buffer([0x05])\n' +
-                        '//   -01                                               │.│\n' +
-                        '//   +05                                               │.│\n' +
+                        '//\n' +
+                        '// -01                                               │.│\n' +
+                        '// +05                                               │.│\n' +
                         '// key: expected Buffer([0x02]) to satisfy Buffer([0x08])\n' +
-                        '//   -02                                               │.│\n' +
-                        '//   +08                                               │.│');
+                        '//\n' +
+                        '// -02                                               │.│\n' +
+                        '// +08                                               │.│');
                 });
             });
 
