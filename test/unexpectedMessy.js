@@ -346,8 +346,11 @@ describe('unexpected-messy', function () {
                 expect(new Headers({foo: 'a'}), 'to exhaustively satisfy', {foo: 'a'});
             });
 
-            it('must match a different value type (should stringify everything)', function () {
+            it('must match a string against a number (should stringify everything)', function () {
                 expect(new Headers({foo: '123'}), 'to satisfy', {foo: 123});
+            });
+
+            it('must match a number against a string (should stringify everything)', function () {
                 expect(new Headers({foo: 123}), 'to satisfy', {foo: '123'});
             });
 
@@ -583,14 +586,48 @@ describe('unexpected-messy', function () {
                 expect(new Message({headers: {foo: 'abc'}}), 'to satisfy', {headers: {foo: /bc$/}});
             });
 
-            it('should support passing the expected properties as a string', function () {
-                expect(new Message({headers: {foo: 'a'}}), 'to satisfy', 'foo: a');
-                expect(new Message({headers: {foo: 'a'}}), 'not to satisfy', 'foo: b');
+            describe('with the expected properties passed as a string', function () {
+                it('should succeed', function () {
+                    expect(new Message({headers: {foo: 'a'}}), 'to satisfy', 'foo: a');
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new Message({headers: {foo: 'a'}}), 'to satisfy', 'foo: b');
+                    }, 'to throw',
+                        "expected Foo: a to satisfy 'foo: b'\n" +
+                        "\n" +
+                        "Foo: a // should equal b\n" +
+                        "       // -a\n" +
+                        "       // +b"
+                    );
+                });
+
+                it('should work with "not to satisfy"', function () {
+                    expect(new Message({headers: {foo: 'a'}}), 'not to satisfy', 'foo: b');
+                });
             });
 
-            it('should support passing the expected headers as a string', function () {
-                expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: 'foo: a'});
-                expect(new Message({headers: {foo: 'a'}}), 'not to satisfy', {headers: 'foo: b'});
+            describe('with the expected headers passed as a string', function () {
+                it('should succeed', function () {
+                    expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: 'foo: a'});
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: 'foo: b'});
+                    }, 'to throw',
+                        "expected Foo: a to satisfy { headers: 'foo: b' }\n" +
+                        "\n" +
+                        "Foo: a // should equal b\n" +
+                        "       // -a\n" +
+                        "       // +b"
+                    );
+                });
+
+                it('should work with "not to satisfy"', function () {
+                    expect(new Message({headers: {foo: 'a'}}), 'not to satisfy', {headers: 'foo: b'});
+                });
             });
 
             it('should support matching a string body with a string', function () {
