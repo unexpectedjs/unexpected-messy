@@ -8,12 +8,12 @@ var messy = require('messy'),
     HttpResponse = messy.HttpResponse,
     HttpExchange = messy.HttpExchange,
     HttpConversation = messy.HttpConversation,
-    unexpected = require('unexpected'),
-    unexpectedMessy = require('../lib/unexpectedMessy');
+    unexpected = require('unexpected');
 
 describe('unexpected-messy', function () {
     var expect = unexpected.clone()
-        .installPlugin(unexpectedMessy)
+        .installPlugin(require('../lib/unexpectedMessy'))
+        .installPlugin(require('unexpected-promise'))
         .addAssertion('to produce a diff of', function (expect, subject, value) {
             this.errorMode = 'bubble';
             expect(expect.diff(
