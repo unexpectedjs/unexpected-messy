@@ -2419,6 +2419,47 @@ describe('unexpected-messy', function () {
                                     response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
                                 }
                             ]
+                        }), 'to satisfy', { exchanges: [ {}, { request: { url: 'GET /', headers: { Quux: 'baz' } } } ] });
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        "to satisfy { exchanges: [ {}, { request: ... } ] }\n" +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 123 }\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: application/json\n' +
+                        '\n' +
+                        '{ foo: 456 }\n' +
+                        '\n' +
+                        '// missing:\n' +
+                        '// GET /\n' +
+                        '// Quux: baz\n' +
+                        '//\n' +
+                        '// <no response>'
+                    );
+                });
+
+                it('should fail with a diff when the value contains too many exchanges and the value contains complex "to satisfy" terms', function () {
+                    expect(function () {
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
+                                }
+                            ]
                         }), 'to satisfy', { exchanges: [ {}, { request: { url: 'GET /', headers: { Foo: /bar/, Quux: 'baz' } } } ] });
                     }, 'to throw',
                         'expected\n' +
