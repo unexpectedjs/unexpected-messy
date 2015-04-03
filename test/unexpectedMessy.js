@@ -464,38 +464,6 @@ describe('unexpected-messy', function () {
                     '         // +Baz'
                 );
             });
-
-            describe('in an async setting', function () {
-                it('should fail with a diff', function () {
-                    return expect(
-                        expect(new HttpRequest(
-                            'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
-                        ), 'to satisfy', {
-                            body: expect.it('when delayed a little bit', 'to equal', {foo: 987})
-                        }),
-                        'when rejected',
-                        'to have message',
-                            "expected\n" +
-                            "GET / HTTP/1.1\n" +
-                            "Content-Type: application/json\n" +
-                            "\n" +
-                            "{ foo: 123 }\n" +
-                            "to satisfy\n" +
-                            "{\n" +
-                            "  body: expect.it('when delayed a little bit', 'to equal', { foo: 987 })\n" +
-                            "}\n" +
-                            "\n" +
-                            "GET / HTTP/1.1\n" +
-                            "Content-Type: application/json\n" +
-                            "\n" +
-                            "expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n" +
-                            "\n" +
-                            "{\n" +
-                            "  foo: 123 // should equal 987\n" +
-                            "}"
-                    );
-                });
-            });
         });
     });
 
@@ -2641,6 +2609,38 @@ describe('unexpected-messy', function () {
                             'Quux: Baz\n' +
                             '\n' +
                             '{ foo: 456 }'
+                    );
+                });
+            });
+
+            describe('in an async setting', function () {
+                it('should fail with a diff #2', function () {
+                    return expect(
+                        expect(new HttpRequest(
+                            'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
+                        ), 'to satisfy', {
+                            body: expect.it('when delayed a little bit', 'to equal', {foo: 987})
+                        }),
+                        'when rejected',
+                        'to have message',
+                            "expected\n" +
+                            "GET / HTTP/1.1\n" +
+                            "Content-Type: application/json\n" +
+                            "\n" +
+                            "{ foo: 123 }\n" +
+                            "to satisfy\n" +
+                            "{\n" +
+                            "  body: expect.it('when delayed a little bit', 'to equal', { foo: 987 })\n" +
+                            "}\n" +
+                            "\n" +
+                            "GET / HTTP/1.1\n" +
+                            "Content-Type: application/json\n" +
+                            "\n" +
+                            "expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n" +
+                            "\n" +
+                            "{\n" +
+                            "  foo: 123 // should equal 987\n" +
+                            "}"
                     );
                 });
             });
