@@ -24,6 +24,18 @@ describe('unexpected-messy', function () {
         .addAssertion('to inspect as', function (expect, subject, value) {
             this.errorMode = 'bubble';
             expect(expect.inspect(subject).toString(), 'to equal', value);
+        })
+        .addAssertion('Error', 'to have message', function (expect, subject, value) {
+            this.errorMode = 'nested';
+            expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to equal', value);
+        })
+        .addAssertion('when delayed a little bit', function (expect, subject) {
+            var that = this;
+            return expect.promise(function (run) {
+                setTimeout(run(function () {
+                    return that.shift(expect, subject, 0);
+                }), 1);
+            });
         });
 
     it('should inspect objects as blocks', function () {
@@ -451,6 +463,38 @@ describe('unexpected-messy', function () {
                     '         // -Bar\n' +
                     '         // +Baz'
                 );
+            });
+
+            describe('in an async setting', function () {
+                it('should fail with a diff', function () {
+                    return expect(
+                        expect(new HttpRequest(
+                            'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
+                        ), 'to satisfy', {
+                            body: expect.it('when delayed a little bit', 'to equal', {foo: 987})
+                        }),
+                        'when rejected',
+                        'to have message',
+                            "expected\n" +
+                            "GET / HTTP/1.1\n" +
+                            "Content-Type: application/json\n" +
+                            "\n" +
+                            "{ foo: 123 }\n" +
+                            "to satisfy\n" +
+                            "{\n" +
+                            "  body: expect.it('when delayed a little bit', 'to equal', { foo: 987 })\n" +
+                            "}\n" +
+                            "\n" +
+                            "GET / HTTP/1.1\n" +
+                            "Content-Type: application/json\n" +
+                            "\n" +
+                            "expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n" +
+                            "\n" +
+                            "{\n" +
+                            "  foo: 123 // should equal 987\n" +
+                            "}"
+                    );
+                });
             });
         });
     });
@@ -2540,6 +2584,63 @@ describe('unexpected-messy', function () {
                         'Quux: Baz\n' +
                         '\n' +
                         '{ foo: 456 }'
+                    );
+                });
+            });
+
+            describe('in an async setting', function () {
+                it('should fail with a diff', function () {
+                    return expect(
+                        expect(new HttpConversation({
+                            exchanges: [
+                                {
+                                    request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
+                                    response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
+                                }
+                            ]
+                        }), 'to satisfy', {
+                            exchanges: [
+                                {
+                                    request: {
+                                        method: 'GET',
+                                        path: '/foo',
+                                        body: expect.it('when delayed a little bit', 'to equal', {foo: 987})
+                                    },
+                                    response: {
+                                        statusCode: expect.it('when delayed a little bit', 'to equal', 200)
+                                    }
+                                }
+                            ]
+                        }),
+                        'when rejected',
+                        'to have message',
+                            'expected\n' +
+                            'GET / HTTP/1.1\n' +
+                            'Content-Type: application/json\n' +
+                            '\n' +
+                            '{ foo: 123 }\n' +
+                            '\n' +
+                            'HTTP/1.1 200 OK\n' +
+                            'Content-Type: application/json\n' +
+                            'Quux: Baz\n' +
+                            '\n' +
+                            '{ foo: 456 }\n' +
+                            "to satisfy { exchanges: [ { request: ..., response: ... } ] }\n" +
+                            '\n' +
+                            'GET / HTTP/1.1 // should be GET /foo\n' +
+                            'Content-Type: application/json\n' +
+                            '\n' +
+                            'expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n' +
+                            '\n' +
+                            '{\n' +
+                            '  foo: 123 // should equal 987\n' +
+                            '}\n' +
+                            '\n' +
+                            'HTTP/1.1 200 OK\n' +
+                            'Content-Type: application/json\n' +
+                            'Quux: Baz\n' +
+                            '\n' +
+                            '{ foo: 456 }'
                     );
                 });
             });
