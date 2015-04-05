@@ -775,6 +775,13 @@ describe('unexpected-messy', function () {
                 });
             });
 
+            it('should support matching the unchunked body', function () {
+                expect(new Message(rawSrc), 'to satisfy', {
+                    body: 'Wikipedia in\r\n\r\nchunks.',
+                    unchunkedBody: /Wikipedia/
+                });
+            });
+
             it('should produce a diff when failing to match the raw body', function () {
                 expect(function () {
                     expect(new Message(rawSrc), 'to satisfy', {
