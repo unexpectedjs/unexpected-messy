@@ -591,6 +591,17 @@ describe('unexpected-messy', function () {
                 );
             });
 
+            it('against a messy.Message instance', function () {
+                expect(function () {
+                    expect(new messy.Message('Content-Type: application/json'), 'to satisfy', new messy.Message('Foo: quux'));
+                }, 'to throw',
+                    "expected Content-Type: application/json to satisfy Foo: quux\n" +
+                    "\n" +
+                    "Content-Type: application/json\n" +
+                    "// missing Foo: quux"
+                );
+            });
+
             it('should support matching the headers', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: 'a'}});
             });
