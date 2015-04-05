@@ -2567,7 +2567,8 @@ describe('unexpected-messy', function () {
                                         body: expect.it('when delayed a little bit', 'to equal', {foo: 987})
                                     },
                                     response: {
-                                        statusCode: expect.it('when delayed a little bit', 'to equal', 200)
+                                        statusCode: expect.it('when delayed a little bit', 'to equal', 200),
+                                        body: expect.it('when delayed a little bit', 'to equal', {foo: 789})
                                     }
                                 }
                             ]
@@ -2600,7 +2601,11 @@ describe('unexpected-messy', function () {
                             'Content-Type: application/json\n' +
                             'Quux: Baz\n' +
                             '\n' +
-                            '{ foo: 456 }'
+                            'expected { foo: 456 } when delayed a little bit to equal { foo: 789 }\n' +
+                            '\n' +
+                            '{\n' +
+                            '  foo: 456 // should equal 789\n' +
+                            '}'
                     );
                 });
             });
