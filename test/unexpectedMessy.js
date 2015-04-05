@@ -127,14 +127,14 @@ describe('unexpected-messy', function () {
                     request: { path: '/foo', headers: { Foo: 'quux' } },
                     response: { statusCode: 404, headers: { Bar: 'baz' } }
                 },
-                httpConversation: new HttpConversation({
+                httpConversation: {
                     exchanges: [
                         {
                             request: { path: '/foo', headers: { Foo: 'quux' } },
                             response: { statusCode: 404, headers: { Bar: 'baz' } }
                         }
                     ]
-                })
+                }
             });
         }, 'to throw',
             "expected\n" +
@@ -200,12 +200,7 @@ describe('unexpected-messy', function () {
             "    request: { path: '/foo', headers: ... },\n" +
             "    response: { statusCode: 404, headers: ... }\n" +
             "  },\n" +
-            "  httpConversation:\n" +
-            "    /foo\n" +
-            "    Foo: quux\n" +
-            "\n" +
-            "    404\n" +
-            "    Bar: baz\n" +
+            "  httpConversation: { exchanges: [...] }\n" +
             "}\n" +
             "\n" +
             "{\n" +
