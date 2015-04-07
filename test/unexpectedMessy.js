@@ -602,6 +602,14 @@ describe('unexpected-messy', function () {
                 );
             });
 
+            it('should throw if a non-Unexpected error is caught', function () {
+                expect(function () {
+                    expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: function () {
+                        throw new Error('wat');
+                    }}});
+                }, 'to throw', 'wat');
+            });
+
             it('should support matching the headers', function () {
                 expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: {foo: 'a'}});
             });
