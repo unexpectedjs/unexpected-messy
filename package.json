@@ -1,6 +1,6 @@
 {
   "name": "unexpected-messy",
-  "version": "2.16.1",
+  "version": "3.0.0",
   "description": "Unexpected plugin for the messy library",
   "main": "lib/unexpectedMessy.js",
   "directories": {
