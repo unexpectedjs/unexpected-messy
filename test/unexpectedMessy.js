@@ -1,4 +1,4 @@
-/*global describe, it*/
+/*global describe, it, setTimeout*/
 var messy = require('messy'),
     Headers = messy.Headers,
     Message = messy.Message,
