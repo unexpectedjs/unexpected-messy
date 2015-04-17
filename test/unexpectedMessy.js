@@ -25,10 +25,6 @@ describe('unexpected-messy', function () {
             this.errorMode = 'bubble';
             expect(expect.inspect(subject).toString(), 'to equal', value);
         })
-        .addAssertion('Error', 'to have message', function (expect, subject, value) {
-            this.errorMode = 'nested';
-            expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to equal', value);
-        })
         .addAssertion('when delayed a little bit', function (expect, subject) {
             var that = this;
             return expect.promise(function (run) {
@@ -36,7 +32,14 @@ describe('unexpected-messy', function () {
                     return that.shift(expect, subject, 0);
                 }), 1);
             });
+        })
+        .addAssertion('Error', '2 have message', function (expect, subject, value) {
+            this.errorMode = 'nested';
+            expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to equal', value);
         });
+
+
+    expect.output.preferredWidth = 80;
 
     it('should inspect objects as blocks', function () {
         expect({
@@ -186,16 +189,8 @@ describe('unexpected-messy', function () {
             "    headers: { Foo: 'Baz', 'Content-Type': 'application/json' },\n" +
             "    body: { foo: 456 }\n" +
             "  },\n" +
-            "  httpRequest: {\n" +
-            "    requestLine: 'GET /foo HTTP/1.1',\n" +
-            "    headers: { bar: 'baz' },\n" +
-            "    body: 'foo'\n" +
-            "  },\n" +
-            "  httpResponse: {\n" +
-            "    statusLine: 'HTTP/1.1 404 OK',\n" +
-            "    headers: { bar: 'quux' },\n" +
-            "    body: 'foo'\n" +
-            "  },\n" +
+            "  httpRequest: { requestLine: 'GET /foo HTTP/1.1', headers: { bar: 'baz' }, body: 'foo' },\n" +
+            "  httpResponse: { statusLine: 'HTTP/1.1 404 OK', headers: { bar: 'quux' }, body: 'foo' },\n" +
             "  httpExchange: {\n" +
             "    request: { path: '/foo', headers: ... },\n" +
             "    response: { statusCode: 404, headers: ... }\n" +
@@ -475,10 +470,7 @@ describe('unexpected-messy', function () {
                             "Content-Type: application/json\n" +
                             "\n" +
                             "{ foo: 123 }\n" +
-                            "to satisfy\n" +
-                            "{\n" +
-                            "  body: expect.it('when delayed a little bit', 'to equal', { foo: 987 })\n" +
-                            "}\n" +
+                            "to satisfy { body: expect.it('when delayed a little bit', 'to equal', { foo: 987 }) }\n" +
                             "\n" +
                             "GET / HTTP/1.1\n" +
                             "Content-Type: application/json\n" +
@@ -1198,13 +1190,7 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        'to satisfy\n' +
-                        '{\n' +
-                        '  parts: [\n' +
-                        "    { headers: ..., body: 'fooøbar' },\n" +
-                        '    { fileName: /txt$/ }\n' +
-                        '  ]\n' +
-                        '}\n' +
+                        "to satisfy { parts: [ { headers: ..., body: 'fooøbar' }, { fileName: /txt$/ } ] }\n" +
                         '\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
@@ -2029,11 +2015,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: text/html\n' +
                     '\n' +
                     'argh\n' +
-                    "to satisfy\n" +
-                    "{\n" +
-                    "  request: { url: '/foo' },\n" +
-                    "  response: { body: 'blah' }\n" +
-                    "}\n" +
+                    "to satisfy { request: { url: '/foo' }, response: { body: 'blah' } }\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
                     'Content-Type: application/json\n' +
@@ -2097,11 +2079,7 @@ describe('unexpected-messy', function () {
                     'Content-Type: text/html\n' +
                     '\n' +
                     'argh\n' +
-                    "to satisfy\n" +
-                    "{\n" +
-                    "  request: { url: '/foo' },\n" +
-                    "  response: { body: 'argh' }\n" +
-                    "}\n" +
+                    "to satisfy { request: { url: '/foo' }, response: { body: 'argh' } }\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
                     'Content-Type: application/json\n' +
