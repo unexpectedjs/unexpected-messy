@@ -33,7 +33,7 @@
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
     "messy": "^6.0.0",
-    "unexpected": "5 || 6"
+    "unexpected": "7"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
@@ -41,7 +41,7 @@
     "jshint": "2.5.5",
     "messy": "6.1.0",
     "mocha": "2.0.1",
-    "unexpected": "6.4.0",
+    "unexpected": "7.0.0",
     "unexpected-promise": "1.1.1"
   },
   "dependencies": {
