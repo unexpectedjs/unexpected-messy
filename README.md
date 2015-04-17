@@ -19,10 +19,10 @@ expect(new messy.HttpResponse(
 
 ![Diff output](diffOutput.png)
 
-[![NPM version](https://badge.fury.io/js/unexpected-messy.png)](http://badge.fury.io/js/unexpected-messy)
-[![Build Status](https://travis-ci.org/unexpectedjs/unexpected-messy.png?branch=master)](https://travis-ci.org/unexpectedjs/unexpected-messy)
-[![Coverage Status](https://coveralls.io/repos/unexpectedjs/unexpected-messy/badge.png)](https://coveralls.io/r/unexpectedjs/unexpected-messy)
-[![Dependency Status](https://david-dm.org/unexpectedjs/unexpected-messy.png)](https://david-dm.org/unexpectedjs/unexpected-express)
+[![NPM version](https://badge.fury.io/js/unexpected-messy.svg)](http://badge.fury.io/js/unexpected-messy)
+[![Build Status](https://travis-ci.org/unexpectedjs/unexpected-messy.svg?branch=master)](https://travis-ci.org/unexpectedjs/unexpected-messy)
+[![Coverage Status](https://coveralls.io/repos/unexpectedjs/unexpected-messy/badge.svg)](https://coveralls.io/r/unexpectedjs/unexpected-messy)
+[![Dependency Status](https://david-dm.org/unexpectedjs/unexpected-messy.svg)](https://david-dm.org/unexpectedjs/unexpected-express)
 
 License
 -------
