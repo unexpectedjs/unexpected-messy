@@ -267,6 +267,10 @@ describe('unexpected-messy', function () {
             it('should render two headers single header headers with no newline at the end', function () {
                 expect(new Headers({foo: 'bar', quux: 'baz'}), 'to inspect as', 'Foo: bar\nQuux: baz');
             });
+
+            it('should render header names with special cased capitalization correctly', function () {
+                expect(new Headers('mime-version: 1.0'), 'to inspect as', 'MIME-Version: 1.0');
+            });
         });
 
         describe('#diff', function () {
