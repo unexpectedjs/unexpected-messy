@@ -10,7 +10,9 @@
     "lint": "jshint .",
     "test": "mocha && npm run lint",
     "travis": "npm test && npm run coverage && <coverage/lcov.info coveralls",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot"
+    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
+    "generate-site": "node ./generate-site.js",
+    "update-examples": "node ./generate-site.js --update-examples"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,8 @@
     "unexpected-promise": "1.1.1"
   },
   "dependencies": {
-    "underscore": "1.7.0"
+    "minimist": "1.1.1",
+    "underscore": "1.7.0",
+    "unexpected-documentation-site-generator": "2.2.3"
   }
 }
