@@ -16,6 +16,65 @@ describe("documentation tests", function () {
 
     });
 
+
+    it("assertions/messy.HttpRequest/to-satisfy.md contains correct examples", function () {
+        var testPromises = [];
+        try {
+            var httpRequest = new messy.HttpRequest(
+                'GET /foo HTTP/1.1\n' +
+                'Content-Type: text/plain; charset=UTF-8\n' +
+                'Content-Length: 13\n' +
+                '\n' +
+                'Hello, world!'
+            );
+
+            expect(httpRequest, 'to satisfy', {
+                headers: {
+                    Foo: 'bar',
+                    'Content-Length': 13
+                },
+                body: /Hi/
+            });
+            expect.fail(function (output) {
+                output.error("expected:").nl();
+                output.code("var httpRequest = new messy.HttpRequest(").nl();
+                output.code("    'GET /foo HTTP/1.1\\n' +").nl();
+                output.code("    'Content-Type: text/plain; charset=UTF-8\\n' +").nl();
+                output.code("    'Content-Length: 13\\n' +").nl();
+                output.code("    '\\n' +").nl();
+                output.code("    'Hello, world!'").nl();
+                output.code(");").nl();
+                output.code("").nl();
+                output.code("expect(httpRequest, 'to satisfy', {").nl();
+                output.code("    headers: {").nl();
+                output.code("        Foo: 'bar',").nl();
+                output.code("        'Content-Length': 13").nl();
+                output.code("    },").nl();
+                output.code("    body: /Hi/").nl();
+                output.code("});").nl();
+                output.error("to throw");
+            });
+        } catch (e) {
+            expect(e, "to have message",
+                "expected\n" +
+                "GET /foo HTTP/1.1\n" +
+                "Content-Type: text/plain; charset=UTF-8\n" +
+                "Content-Length: 13\n" +
+                "\n" +
+                "Hello, world!\n" +
+                "to satisfy { headers: { Foo: 'bar', 'Content-Length': 13 }, body: /Hi/ }\n" +
+                "\n" +
+                "GET /foo HTTP/1.1\n" +
+                "Content-Type: text/plain; charset=UTF-8\n" +
+                "Content-Length: 13\n" +
+                "// missing Foo: bar\n" +
+                "\n" +
+                "Hello, world! // should match /Hi/"
+            );
+        }
+        return expect.promise.all(testPromises);
+    });
+
     it("index.md contains correct examples", function () {
         var testPromises = [];
         try {
