@@ -1304,6 +1304,22 @@ describe('unexpected-messy', function () {
                 });
             });
 
+            describe('with a string as the RHS', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', '/foo');
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', 'POST /bar');
+                    }, 'to throw',
+                        "expected GET /foo HTTP/1.1 to satisfy 'POST /bar'\n" +
+                        "\n" +
+                        "GET /foo HTTP/1.1 // should be POST /bar\n"
+                    );
+                });
+            });
+
             describe('when matching the encrypted flag', function () {
                 it('should succeed', function () {
                     expect(new HttpRequest({encrypted: true}), 'to satisfy', {
