@@ -1729,12 +1729,27 @@ describe('unexpected-messy', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', undefined);
             });
 
-
             it('should match on properties defined by Message', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
                     headers: {
                         'Content-Type': 'text/html'
                     }
+                });
+            });
+
+            describe('with a string as the RHS', function () {
+                it('should succeed', function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK'), 'to satisfy', 'HTTP/1.1 200 OK');
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpResponse('HTTP/1.1 200 OK'), 'to satisfy', 'HTTP/1.1 404 Not Found');
+                    }, 'to throw',
+                        "expected HTTP/1.1 200 OK to satisfy 'HTTP/1.1 404 Not Found'\n" +
+                        "\n" +
+                        "HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n"
+                    );
                 });
             });
 
