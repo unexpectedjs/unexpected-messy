@@ -1293,7 +1293,7 @@ describe('unexpected-messy', function () {
             it('must diff the metadata', function () {
                 expect([
                     new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
-                    new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1'),
+                    new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1')
                 ], 'to produce a diff of',
                     'GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n' +
                     'Host: www.example.com:987 // should be somewhereelse.com\n' +
