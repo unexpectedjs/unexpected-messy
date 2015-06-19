@@ -1289,6 +1289,23 @@ describe('unexpected-messy', function () {
                     '}'
                 );
             });
+
+            it('must diff the metadata', function () {
+                expect([
+                    new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
+                    new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1'),
+                ], 'to produce a diff of',
+                    'GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n' +
+                    'Host: www.example.com:987 // should be somewhereelse.com\n' +
+                    "Metadata: {\n" +
+                    "  host: 'www.example.com', // should equal 'somewhereelse.com'\n" +
+                    "                           // -www.example.com\n" +
+                    "                           // +somewhereelse.com\n" +
+                    "  port: 987, // should equal 80\n" +
+                    "  encrypted: true // should equal false\n" +
+                    "}"
+                );
+            });
         });
 
         describe('"to satisfy" assertion', function () {
@@ -1301,6 +1318,53 @@ describe('unexpected-messy', function () {
                     headers: {
                         'Content-Type': 'text/html'
                     }
+                });
+            });
+
+            describe('with a string as the RHS', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', '/foo');
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', 'POST /bar');
+                    }, 'to throw',
+                        "expected GET /foo HTTP/1.1 to satisfy 'POST /bar'\n" +
+                        "\n" +
+                        "GET /foo HTTP/1.1 // should be POST /bar\n"
+                    );
+                });
+            });
+
+            describe('with metadata properties', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'), 'to satisfy', {
+                        host: 'www.example.com',
+                        port: 987
+                    });
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'), 'to satisfy', {
+                            host: 'blabla.com',
+                            port: 123
+                        });
+                    }, 'to throw',
+                        "expected\n" +
+                        "GET /blabla HTTP/1.1\n" +
+                        "Host: www.example.com:987\n" +
+                        "to satisfy { host: 'blabla.com', port: 123 }\n" +
+                        "\n" +
+                        "GET /blabla HTTP/1.1\n" +
+                        "Host: www.example.com:987\n" +
+                        "// host: expected 'www.example.com' to satisfy 'blabla.com'\n" +
+                        "//\n" +
+                        "// -www.example.com\n" +
+                        "// +blabla.com\n" +
+                        "// port: expected 987 to satisfy 123"
+                    );
                 });
             });
 
@@ -1713,12 +1777,27 @@ describe('unexpected-messy', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', undefined);
             });
 
-
             it('should match on properties defined by Message', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', {
                     headers: {
                         'Content-Type': 'text/html'
                     }
+                });
+            });
+
+            describe('with a string as the RHS', function () {
+                it('should succeed', function () {
+                    expect(new HttpResponse('HTTP/1.1 200 OK'), 'to satisfy', 'HTTP/1.1 200 OK');
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpResponse('HTTP/1.1 200 OK'), 'to satisfy', 'HTTP/1.1 404 Not Found');
+                    }, 'to throw',
+                        "expected HTTP/1.1 200 OK to satisfy 'HTTP/1.1 404 Not Found'\n" +
+                        "\n" +
+                        "HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n"
+                    );
                 });
             });
 
