@@ -42,9 +42,8 @@
     "istanbul": "0.3.0",
     "jshint": "2.5.5",
     "messy": "6.3.0",
-    "mocha": "2.0.1",
-    "unexpected": "8.0.0",
-    "unexpected-promise": "1.2.0"
+    "mocha": "2.2.5",
+    "unexpected": "8.5.0"
   },
   "dependencies": {
     "minimist": "1.1.1",

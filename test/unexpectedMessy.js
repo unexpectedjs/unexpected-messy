@@ -13,7 +13,6 @@ var messy = require('messy'),
 describe('unexpected-messy', function () {
     var expect = unexpected.clone()
         .installPlugin(require('../lib/unexpectedMessy'))
-        .installPlugin(require('unexpected-promise'))
         .addAssertion('to produce a diff of', function (expect, subject, value) {
             this.errorMode = 'bubble';
             expect(expect.diff(
@@ -452,7 +451,7 @@ describe('unexpected-messy', function () {
                     "expected Foo: Bar to satisfy { Foo: expect.it('to satisfy', 'Baz') }\n" +
                     '\n' +
                     "Foo: Bar // should satisfy expect.it('to satisfy', 'Baz')\n" +
-                    "         // expected 'Bar' to satisfy 'Baz'\n" +
+                    "         // expected 'Bar' to equal 'Baz'\n" +
                     '         //\n' +
                     '         // -Bar\n' +
                     '         // +Baz'
@@ -1359,11 +1358,11 @@ describe('unexpected-messy', function () {
                         "\n" +
                         "GET /blabla HTTP/1.1\n" +
                         "Host: www.example.com:987\n" +
-                        "// host: expected 'www.example.com' to satisfy 'blabla.com'\n" +
+                        "// host: expected 'www.example.com' to equal 'blabla.com'\n" +
                         "//\n" +
                         "// -www.example.com\n" +
                         "// +blabla.com\n" +
-                        "// port: expected 987 to satisfy 123"
+                        "// port: expected 987 to equal 123"
                     );
                 });
             });
