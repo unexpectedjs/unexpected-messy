@@ -43,11 +43,11 @@
     "jshint": "2.5.5",
     "messy": "6.3.0",
     "mocha": "2.2.5",
-    "unexpected": "8.5.0"
+    "unexpected": "8.5.0",
+    "unexpected-documentation-site-generator": "2.2.3"
   },
   "dependencies": {
     "minimist": "1.1.1",
-    "underscore": "1.7.0",
-    "unexpected-documentation-site-generator": "2.2.3"
+    "underscore": "1.7.0"
   }
 }
