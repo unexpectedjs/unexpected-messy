@@ -441,7 +441,8 @@ describe('unexpected-messy', function () {
                     "Foo: bla // should satisfy expect.it('not to match', /a/)\n" +
                     "         // expected 'bla' not to match /a/\n" +
                     '         //\n' +
-                    '         // bla');
+                    '         // bla\n' +
+                    '         //   ^');
             });
 
             it('should display a diff if available', function () {
@@ -813,7 +814,20 @@ describe('unexpected-messy', function () {
                     "\r\n" +
                     "chunks.\n" +
                     "// should have raw body satisfying expect.it('to contain', 'Wikipedia')\n" +
-                    "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n' to contain 'Wikipedia'"
+                    "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n' to contain 'Wikipedia'\n" +
+                    "//\n" +
+                    "// 4\r\n" +
+                    "// Wiki\r\n" +
+                    "// ^^^>\n" +
+                    "// 5\r\n" +
+                    "// pedia\r\n" +
+                    "// e\r\n" +
+                    "//  in\r\n" +
+                    "// \r\n" +
+                    "// chunks.\r\n" +
+                    "// 0\r\n" +
+                    "// \r\n" +
+                    "//"
                 );
             });
 
