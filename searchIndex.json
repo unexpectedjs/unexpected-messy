@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "label": "to satisfy (messy.Headers)",
+    "url": "/assertions/messy.Headers/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.HttpConversation)",
+    "url": "/assertions/messy.HttpConversation/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.HttpExchange)",
+    "url": "/assertions/messy.HttpExchange/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.HttpRequest)",
+    "url": "/assertions/messy.HttpRequest/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.HttpResponse)",
+    "url": "/assertions/messy.HttpResponse/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.Mail)",
+    "url": "/assertions/messy.Mail/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.Message)",
+    "url": "/assertions/messy.Message/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.RequestLine)",
+    "url": "/assertions/messy.RequestLine/to-satisfy/"
+  },
+  {
+    "label": "to satisfy (messy.StatusLine)",
+    "url": "/assertions/messy.StatusLine/to-satisfy/"
+  }
+]
