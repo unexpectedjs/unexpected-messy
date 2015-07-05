@@ -35,7 +35,7 @@
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
     "messy": "^6.3.0",
-    "unexpected": "8 || 9"
+    "unexpected": "9"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
