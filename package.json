@@ -34,14 +34,14 @@
   },
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
-    "messy": "^6.3.0",
+    "messy": "^6.4.0",
     "unexpected": "9"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
     "istanbul": "0.3.0",
     "jshint": "2.5.5",
-    "messy": "6.3.0",
+    "messy": "6.4.0",
     "mocha": "2.2.5",
     "unexpected": "9.0.0",
     "unexpected-documentation-site-generator": "2.5.1"
