@@ -12,7 +12,7 @@
     "travis": "npm test && npm run coverage && <coverage/lcov.info coveralls",
     "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
     "generate-site": "node ./generate-site.js",
-    "update-examples": "node ./generate-site.js --update-examples"
+    "update-examples": "node ./generate-site.js --update-examples && npm run generate-site"
   },
   "repository": {
     "type": "git",

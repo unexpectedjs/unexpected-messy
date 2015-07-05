@@ -75,6 +75,49 @@ describe("documentation tests", function () {
         return expect.promise.all(testPromises);
     });
 
+    it("assertions/messy.HttpResponse/to-satisfy.md contains correct examples", function () {
+        var testPromises = [];
+        try {
+            var httpResponse = new messy.HttpResponse({
+                headers: {
+                    'Content-Type': 'image/png'
+                },
+                body: require('fs').readFileSync('node_modules/unexpected/node_modules/magicpen/images/magic-pen-6-colours.jpg')
+            });
+
+            expect(httpResponse, 'to satisfy', { headers: { 'Content-Type': 'image/gif' } });
+            expect.fail(function (output) {
+                output.error("expected:").nl();
+                output.code("var httpResponse = new messy.HttpResponse({").nl();
+                output.code("    headers: {").nl();
+                output.code("        'Content-Type': 'image/png'").nl();
+                output.code("    },").nl();
+                output.code("    body: require('fs').readFileSync('node_modules/unexpected/node_modules/magicpen/images/magic-pen-6-colours.jpg')").nl();
+                output.code("});").nl();
+                output.code("").nl();
+                output.code("expect(httpResponse, 'to satisfy', { headers: { 'Content-Type': 'image/gif' } });").nl();
+                output.error("to throw");
+            });
+        } catch (e) {
+            expect(e, "to have message",
+                "expected\n" +
+                "\n" +
+                "Content-Type: image/png\n" +
+                "\n" +
+                "Buffer([0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x00, 0x00, 0x01 /* 13493 more */ ])\n" +
+                "to satisfy { headers: { 'Content-Type': 'image/gif' } }\n" +
+                "\n" +
+                "\n" +
+                "Content-Type: image/png // should equal image/gif\n" +
+                "                        // -image/png\n" +
+                "                        // +image/gif\n" +
+                "\n" +
+                "Buffer([0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x00, 0x00, 0x01 /* 13493 more */ ])"
+            );
+        }
+        return expect.promise.all(testPromises);
+    });
+
     it("index.md contains correct examples", function () {
         var testPromises = [];
         try {
