@@ -36,18 +36,18 @@
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
     "messy": "^6.4.0",
-    "magicpen-media": "^1.1.1",
-    "unexpected": "9"
+    "magicpen-media": "^1.2.0",
+    "unexpected": "^9.1.0"
   },
   "devDependencies": {
     "coveralls": "2.11.1",
     "istanbul": "0.3.0",
     "jshint": "2.5.5",
     "magicpen": "4.11.0",
-    "magicpen-media": "1.1.1",
+    "magicpen-media": "1.2.0",
     "messy": "6.4.0",
     "mocha": "2.2.5",
-    "unexpected": "9.0.0",
+    "unexpected": "9.1.0",
     "unexpected-documentation-site-generator": "2.5.1"
   },
   "dependencies": {
