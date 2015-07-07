@@ -4,16 +4,16 @@
     "url": "/assertions/messy.Headers/to-satisfy/"
   },
   {
-    "label": "to satisfy (messy.HttpRequest)",
-    "url": "/assertions/messy.HttpRequest/to-satisfy/"
+    "label": "to satisfy (messy.HttpConversation)",
+    "url": "/assertions/messy.HttpConversation/to-satisfy/"
   },
   {
     "label": "to satisfy (messy.HttpExchange)",
     "url": "/assertions/messy.HttpExchange/to-satisfy/"
   },
   {
-    "label": "to satisfy (messy.HttpConversation)",
-    "url": "/assertions/messy.HttpConversation/to-satisfy/"
+    "label": "to satisfy (messy.HttpRequest)",
+    "url": "/assertions/messy.HttpRequest/to-satisfy/"
   },
   {
     "label": "to satisfy (messy.HttpResponse)",
