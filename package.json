@@ -48,7 +48,7 @@
     "messy": "6.4.0",
     "mocha": "2.2.5",
     "unexpected": "9.2.0",
-    "unexpected-documentation-site-generator": "2.5.1"
+    "unexpected-documentation-site-generator": "2.5.2"
   },
   "dependencies": {
     "minimist": "1.1.1",
