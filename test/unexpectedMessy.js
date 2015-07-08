@@ -1491,53 +1491,17 @@ describe('unexpected-messy', function () {
                 });
             });
 
-            it('should match exhaustively on properties', function () {
+            it('should match exhaustively on headers', function () {
                 expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    method: 'GET',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
                     headers: {
                         'Content-Type': 'text/html'
                     }
                 });
             });
 
-            it('should fail to match exhaustively on properties when a property is omitted', function () {
+            it('should fail to match exhaustively on properties when a header is omitted', function () {
                 expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
-                });
-            });
-
-            it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
-                expect(new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html\r\nargh'), 'not to exhaustively satisfy', {
-                    requestLine: 'GET /foo?hey HTTP/1.1',
-                    method: 'GET',
-                    url: '/foo?hey',
-                    path: '/foo',
-                    search: '?hey',
-                    query: 'hey',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    headers: {
-                        'Content-Type': 'text/html'
-                    }
+                    headers: {}
                 });
             });
 
@@ -1835,29 +1799,16 @@ describe('unexpected-messy', function () {
                 });
             });
 
-            it('should match exhaustively on properties', function () {
+            it('should match exhaustively on headers', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to exhaustively satisfy', {
-                    statusLine: 'HTTP/1.1 200 OK',
-                    statusCode: 200,
-                    statusMessage: 'OK',
-                    protocol: 'HTTP/1.1',
-                    protocolName: 'HTTP',
-                    protocolVersion: '1.1',
-                    body: undefined,
                     headers: {
                         'Content-Type': 'text/html'
                     }
                 });
             });
 
-            it('should fail to match exhaustively on properties when a property is omitted', function () {
+            it('should fail to match exhaustively on properties when a header is omitted', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'not to exhaustively satisfy', {
-                    statusLine: 'HTTP/1.1 200 OK',
-                    statusCode: 200,
-                    statusMessage: 'OK',
-                    protocol: 'HTTP/1.1',
-                    protocolVersion: '1.1',
-                    body: undefined,
                     headers: {}
                 });
             });
