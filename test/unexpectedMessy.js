@@ -2338,7 +2338,7 @@ describe('unexpected-messy', function () {
                         ]
                     });
                 }, 'to error',
-                    "expected  to satisfy { exchanges: [ { response: ... } ] }\n" +
+                    "expected <empty conversation> to satisfy { exchanges: [ { response: ... } ] }\n" +
                     "\n" +
                     "// missing:\n" +
                     "// <no request>\n" +
