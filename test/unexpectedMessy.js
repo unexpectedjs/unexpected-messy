@@ -2319,6 +2319,39 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            it('should satisfy a missing HttpExchange against an object with a messy.HttpResponse instance', function () {
+                return expect(function () {
+                    return expect(new messy.HttpConversation({
+                        exchanges: []
+                    }), 'to satisfy', {
+                        exchanges: [
+                            {
+                                response: new messy.HttpResponse(
+                                    'HTTP/1.1 404 Not Found\n' +
+                                    'Server: CouchDB/1.6.0 (Erlang OTP/17)\n' +
+                                    'Cache-Control: must-revalidate\n' +
+                                    'Content-Type: application/json\n' +
+                                    '\n' +
+                                    '{"error":"not_found","reason":"Document is missing attachment"}'
+                                )
+                            }
+                        ]
+                    });
+                }, 'to error',
+                    "expected  to satisfy { exchanges: [ { response: ... } ] }\n" +
+                    "\n" +
+                    "// missing:\n" +
+                    "// <no request>\n" +
+                    "//\n" +
+                    "// HTTP/1.1 404 Not Found\n" +
+                    "// Server: CouchDB/1.6.0 (Erlang OTP/17)\n" +
+                    "// Cache-Control: must-revalidate\n" +
+                    "// Content-Type: application/json\n" +
+                    "//\n" +
+                    "// { error: 'not_found', reason: 'Document is missing attachment' }"
+                );
+            });
+
             it('must not break with undefined', function () {
                 expect(new HttpConversation(), 'to satisfy', undefined);
             });
