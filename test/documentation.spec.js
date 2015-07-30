@@ -16,6 +16,66 @@ describe("documentation tests", function () {
 
     });
 
+    it("assertions/messy.Headers/to-satisfy.md contains correct examples", function () {
+        var testPromises = [];
+        expect(new messy.Headers('foo: bar'), 'to satisfy', {
+            Foo: 'bar'
+        });
+
+        try {
+            expect(new messy.Headers('Quux: baz\r\nFoo: bar'), 'to satisfy', {
+                Foo: undefined
+            });
+            expect.fail(function (output) {
+                output.error("expected:").nl();
+                output.code("expect(new messy.Headers('Quux: baz\\r\\nFoo: bar'), 'to satisfy', {").nl();
+                output.code("    Foo: undefined").nl();
+                output.code("});").nl();
+                output.error("to throw");
+            });
+        } catch (e) {
+            expect(e, "to have message",
+                "expected\n" +
+                "Quux: baz\n" +
+                "Foo: bar\n" +
+                "to satisfy { Foo: undefined }\n" +
+                "\n" +
+                "Quux: baz\n" +
+                "Foo: bar // should be removed"
+            );
+        }
+
+        expect(new messy.Headers({
+            Foo: ['bar', 'quux']
+        }), 'to satisfy', {
+            Foo: 'bar'
+        });
+
+        try {
+            expect(new messy.Headers({
+                Foo: 'bar'
+            }), 'to satisfy', {
+                Foo: ['quux', 'bar']
+            });
+            expect.fail(function (output) {
+                output.error("expected:").nl();
+                output.code("expect(new messy.Headers({").nl();
+                output.code("    Foo: 'bar'").nl();
+                output.code("}), 'to satisfy', {").nl();
+                output.code("    Foo: ['quux', 'bar']").nl();
+                output.code("});").nl();
+                output.error("to throw");
+            });
+        } catch (e) {
+            expect(e, "to have message",
+                "expected Foo: bar to satisfy { Foo: [ 'quux', 'bar' ] }\n" +
+                "\n" +
+                "Foo: bar\n" +
+                "// missing Foo: quux"
+            );
+        }
+        return expect.promise.all(testPromises);
+    });
 
     it("assertions/messy.HttpRequest/to-satisfy.md contains correct examples", function () {
         var testPromises = [];
@@ -29,6 +89,7 @@ describe("documentation tests", function () {
             );
 
             expect(httpRequest, 'to satisfy', {
+                method: 'POST',
                 headers: {
                     Foo: 'bar',
                     'Content-Length': 13
@@ -46,6 +107,7 @@ describe("documentation tests", function () {
                 output.code(");").nl();
                 output.code("").nl();
                 output.code("expect(httpRequest, 'to satisfy', {").nl();
+                output.code("    method: 'POST',").nl();
                 output.code("    headers: {").nl();
                 output.code("        Foo: 'bar',").nl();
                 output.code("        'Content-Length': 13").nl();
@@ -62,9 +124,13 @@ describe("documentation tests", function () {
                 "Content-Length: 13\n" +
                 "\n" +
                 "Hello, world!\n" +
-                "to satisfy { headers: { Foo: 'bar', 'Content-Length': 13 }, body: /Hi/ }\n" +
+                "to satisfy\n" +
+                "{\n" +
+                "  method: 'POST', headers: { Foo: 'bar', 'Content-Length': 13 },\n" +
+                "  body: /Hi/\n" +
+                "}\n" +
                 "\n" +
-                "GET /foo HTTP/1.1\n" +
+                "GET /foo HTTP/1.1 // should be POST\n" +
                 "Content-Type: text/plain; charset=UTF-8\n" +
                 "Content-Length: 13\n" +
                 "// missing Foo: bar\n" +

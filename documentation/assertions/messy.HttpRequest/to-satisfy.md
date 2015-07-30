@@ -1,5 +1,7 @@
-A specific implementation of the [to satisfy](http://unexpectedjs.github.io/assertions/any/to-satisfy/) assertion
+A specific implementation of the [to satisfy](http://unexpected.js.org/assertions/any/to-satisfy/) assertion
 for use with [messy.HttpRequest](https://github.com/papandreou/messy) instances.
+
+Asserts that a `messy.HttpRequest` instance satisfies the given spec:
 
 ```js
 var httpRequest = new messy.HttpRequest(
@@ -11,6 +13,7 @@ var httpRequest = new messy.HttpRequest(
 );
 
 expect(httpRequest, 'to satisfy', {
+    method: 'POST',
     headers: {
         Foo: 'bar',
         'Content-Length': 13
@@ -26,9 +29,13 @@ Content-Type: text/plain; charset=UTF-8
 Content-Length: 13
 
 Hello, world!
-to satisfy { headers: { Foo: 'bar', 'Content-Length': 13 }, body: /Hi/ }
+to satisfy
+{
+  method: 'POST', headers: { Foo: 'bar', 'Content-Length': 13 },
+  body: /Hi/
+}
 
-GET /foo HTTP/1.1
+GET /foo HTTP/1.1 // should be POST
 Content-Type: text/plain; charset=UTF-8
 Content-Length: 13
 // missing Foo: bar

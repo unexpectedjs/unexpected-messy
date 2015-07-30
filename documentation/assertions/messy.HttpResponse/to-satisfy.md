@@ -1,4 +1,7 @@
-Asserts that a messy.HttpResponse instance satisfies the given spec.
+A specific implementation of the [to satisfy](http://unexpected.js.org/assertions/any/to-satisfy/) assertion
+for use with [messy.HttpResponse](https://github.com/papandreou/messy) instances.
+
+Asserts that a messy.HttpResponse instance satisfies the given spec:
 
 ```js
 var httpResponse = new messy.HttpResponse({
