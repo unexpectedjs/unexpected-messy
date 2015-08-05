@@ -29,7 +29,7 @@
     "mocha"
   ],
   "author": "Andreas Lind <andreas@one.com>",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/unexpectedjs/unexpected-messy/issues"
   },
