@@ -10,7 +10,7 @@
     "lint": "jshint .",
     "test": "mocha && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
+    "coverage": "NODE_ENV=development istanbul cover --report text --report lcov _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html",
     "generate-site": "node ./generate-site.js",
     "update-examples": "node ./generate-site.js --update-examples && npm run generate-site",
     "deploy-site": "deploy-site"
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "coveralls": "2.11.1",
-    "istanbul": "0.3.0",
+    "istanbul": "0.3.17",
     "jshint": "2.5.5",
     "magicpen": "4.11.0",
     "magicpen-media": "1.5.0",
