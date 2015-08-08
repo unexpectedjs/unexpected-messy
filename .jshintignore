@@ -2,3 +2,4 @@ node_modules
 coverage
 test/documentation.spec.js
 site-build
+unexpectedMessy.min.js

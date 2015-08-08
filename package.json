@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "jshint .",
     "test": "mocha && npm run lint",
+    "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedMessy -s unexpectedMessy > unexpectedMessy.min.js",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
     "coverage": "NODE_ENV=development istanbul cover --report text --report lcov _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html",
     "generate-site": "node ./generate-site.js",
@@ -40,6 +41,8 @@
     "unexpected": "^9.2.0"
   },
   "devDependencies": {
+    "browserify": "11.0.1",
+    "bundle-collapser": "1.2.1",
     "coveralls": "2.11.1",
     "istanbul": "0.3.17",
     "jshint": "2.5.5",
