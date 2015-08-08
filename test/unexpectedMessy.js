@@ -818,7 +818,7 @@ describe('unexpected-messy', function () {
                     "//\n" +
                     "// 4\r\n" +
                     "// Wiki\r\n" +
-                    "// ^^^>\n" +
+                    "// ^^^^\n" +
                     "// 5\r\n" +
                     "// pedia\r\n" +
                     "// e\r\n" +
