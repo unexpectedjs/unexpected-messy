@@ -217,7 +217,7 @@ describe("documentation tests", function () {
                 "\n" +
                 "{\n" +
                 "  foo: 'bar',\n" +
-                "  baz: 456 // expected 456 to be greater than 1024\n" +
+                "  baz: 456 // should be greater than 1024\n" +
                 "}"
             );
         }

@@ -47,7 +47,7 @@
     "istanbul": "0.3.17",
     "jshint": "2.5.5",
     "mocha": "2.2.5",
-    "unexpected": "9.5.0",
+    "unexpected": "9.9.0",
     "unexpected-documentation-site-generator": "2.6.2"
   },
   "dependencies": {

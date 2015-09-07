@@ -42,6 +42,6 @@ Content-Type: application/json
 
 {
   foo: 'bar',
-  baz: 456 // expected 456 to be greater than 1024
+  baz: 456 // should be greater than 1024
 }
 ```

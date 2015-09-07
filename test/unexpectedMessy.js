@@ -814,7 +814,8 @@ describe('unexpected-messy', function () {
                     "\r\n" +
                     "chunks.\n" +
                     "// should have raw body satisfying expect.it('to contain', 'Wikipedia')\n" +
-                    "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n' to contain 'Wikipedia'\n" +
+                    "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n'\n" +
+                    "// to contain 'Wikipedia'\n" +
                     "//\n" +
                     "// 4\r\n" +
                     "// Wiki\r\n" +
@@ -925,8 +926,8 @@ describe('unexpected-messy', function () {
                        "\n" +
                        "{\n" +
                        "  foo: 'foo',\n" +
-                       "  bar: 'bar' // ✓ expected 'bar' to be a string and\n" +
-                       "             // ⨯ expected 'bar' to have length 2\n" +
+                       "  bar: 'bar' // ✓ should be a string and\n" +
+                       "             // ⨯ should have length 2\n" +
                        "             //     expected 3 to be 2\n" +
                        "}");
             });
