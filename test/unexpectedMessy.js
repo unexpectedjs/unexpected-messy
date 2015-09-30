@@ -194,7 +194,7 @@ describe('unexpected-messy', function () {
             "    request: { path: '/foo', headers: ... },\n" +
             "    response: { statusCode: 404, headers: ... }\n" +
             "  },\n" +
-            "  httpConversation: { exchanges: [...] }\n" +
+            "  httpConversation: { exchanges: [ ... ] }\n" +
             "}\n" +
             "\n" +
             "{\n" +
@@ -1180,7 +1180,7 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--\n' +
-                        "to satisfy { parts: [ { headers: ..., body: 'fooøbar' }, { fileName: /txt$/ } ] }\n" +
+                        "to satisfy { parts: [ { headers: ..., body: 'fooøbar' }, { fileName: ... } ] }\n" +
                         '\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
@@ -1459,11 +1459,11 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
-                        '// cert: expected Buffer([0x01]) to satisfy Buffer([0x05])\n' +
+                        '// cert: expected Buffer([0x01]) to equal Buffer([0x05])\n' +
                         '//\n' +
                         '// -01                                               │.│\n' +
                         '// +05                                               │.│\n' +
-                        '// key: expected Buffer([0x02]) to satisfy Buffer([0x08])\n' +
+                        '// key: expected Buffer([0x02]) to equal Buffer([0x08])\n' +
                         '//\n' +
                         '// -02                                               │.│\n' +
                         '// +08                                               │.│');
