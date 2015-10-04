@@ -13,18 +13,18 @@ var messy = require('messy'),
 describe('unexpected-messy', function () {
     var expect = unexpected.clone()
         .installPlugin(require('../lib/unexpectedMessy'))
-        .addAssertion('to produce a diff of', function (expect, subject, value) {
-            this.errorMode = 'bubble';
+        .addAssertion('<array> to produce a diff of <string>', function (expect, subject, value) {
+            expect.errorMode = 'bubble';
             expect(expect.diff(
                 subject[0],
                 subject[1]
             ).diff.toString(), 'to equal', value);
         })
-        .addAssertion('to inspect as', function (expect, subject, value) {
-            this.errorMode = 'bubble';
+        .addAssertion('<any> to inspect as <string>', function (expect, subject, value) {
+            expect.errorMode = 'bubble';
             expect(expect.inspect(subject).toString(), 'to equal', value);
         })
-        .addAssertion('when delayed a little bit', function (expect, subject) {
+        .addAssertion('<any> when delayed a little bit <assertion>', function (expect, subject) {
             var that = this;
             return expect.promise(function (run) {
                 setTimeout(run(function () {
@@ -32,8 +32,8 @@ describe('unexpected-messy', function () {
                 }), 1);
             });
         })
-        .addAssertion('Error', '2 have message', function (expect, subject, value) {
-            this.errorMode = 'nested';
+        .addAssertion('<Error> 2 have message <string>', function (expect, subject, value) {
+            expect.errorMode = 'nested';
             expect(subject._isUnexpected ? subject.output.toString() : subject.message, 'to equal', value);
         });
 
