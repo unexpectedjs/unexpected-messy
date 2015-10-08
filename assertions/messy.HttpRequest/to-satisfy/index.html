@@ -24,6 +24,7 @@
                 <li class="active"><a href="../../messy.Headers/to-satisfy">Assertions</a></li>
                 
                 
+                
             </ul>
         </nav>
         <div class="search" style="visibility: hidden">
@@ -142,8 +143,11 @@
 
     <div class="main" tabindex="-1">
         <div class="content">
-            <p>A specific implementation of the <a href="http://unexpectedjs.github.io/assertions/any/to-satisfy/">to satisfy</a> assertion
+            <h1>to satisfy</h1>
+            
+            <p>A specific implementation of the <a href="http://unexpected.js.org/assertions/any/to-satisfy/">to satisfy</a> assertion
 for use with <a href="https://github.com/papandreou/messy">messy.HttpRequest</a> instances.</p>
+<p>Asserts that a <code>messy.HttpRequest</code> instance satisfies the given spec:</p>
 <div class="code lang-javascript">
   <div><span style="color: #a71d5d">var</span>&nbsp;httpRequest&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #a71d5d">new</span>&nbsp;messy<span style="color: #000000">.</span>HttpRequest<span style="color: #000000">(</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'GET&nbsp;/foo&nbsp;HTTP/1.1\n'</span>&nbsp;<span style="color: #a71d5d">+</span></div>
@@ -154,6 +158,7 @@ for use with <a href="https://github.com/papandreou/messy">messy.HttpRequest</a>
   <div><span style="color: #000000">);</span></div>
   <div>&nbsp;</div>
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span>httpRequest<span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;method<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'POST'</span><span style="color: #000000">,</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foo<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'bar'</span><span style="color: #000000">,</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Length'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">13</span></div>
@@ -173,10 +178,16 @@ for use with <a href="https://github.com/papandreou/messy">messy.HttpRequest</a>
   <div>Hello,&nbsp;world!</div>
 </div></div>
 </div></div>
-  <div><span style="color: red; font-weight: bold">to&nbsp;satisfy</span>&nbsp;{&nbsp;<span style="color: #555">headers</span>:&nbsp;{&nbsp;<span style="color: #555">Foo</span>:&nbsp;<span style="color: #df5000">'bar'</span>,&nbsp;<span style="color: #df5000">'Content-Length'</span>:&nbsp;<span style="color: #0086b3">13</span>&nbsp;},&nbsp;<span style="color: #555">body</span>:&nbsp;<span style="color: #183691">/Hi/</span>&nbsp;}</div>
+  <div><span style="color: red; font-weight: bold">to&nbsp;satisfy</span></div>
+  <div>{</div>
+  <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #555">method</span>:&nbsp;<span style="color: #df5000">'POST'</span>,&nbsp;<span style="color: #555">headers</span>:&nbsp;{&nbsp;<span style="color: #555">Foo</span>:&nbsp;<span style="color: #df5000">'bar'</span>,&nbsp;<span style="color: #df5000">'Content-Length'</span>:&nbsp;<span style="color: #0086b3">13</span>&nbsp;},</div>
+  <div><span style="color: #555">body</span>:&nbsp;<span style="color: #183691">/Hi/</span></div>
+</div></div>
+  <div>}</div>
   <div>&nbsp;</div>
   <div><div style="display: inline-block; vertical-align: top">
-  <div><span style="color: blue">GET</span>&nbsp;<span style="color: gray">/foo</span>&nbsp;<span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span></div>
+  <div><span style="color: blue">GET</span>&nbsp;<span style="color: gray">/foo</span>&nbsp;<span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span>&nbsp;<span style="color: red; font-weight: bold">//&nbsp;should&nbsp;be&nbsp;</span><span style="color: blue">POST</span></div>
   <div><div style="display: inline-block; vertical-align: top">
   <div><div style="display: inline-block; vertical-align: top">
   <div><span style="color: gray">Content-Type:</span>&nbsp;<span style="color: cyan">text/plain;&nbsp;charset=UTF-8</span></div>
