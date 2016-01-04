@@ -216,6 +216,9 @@ describe("documentation tests", function () {
                 "to satisfy { statusCode: 404, body: { baz: expect.it('to be greater than', 1024) } }\n" +
                 "\n" +
                 "HTTP/1.1 200 OK // should be 404 Not Found\n" +
+                "                //\n" +
+                "                // -HTTP/1.1 200 OK\n" +
+                "                // +HTTP/1.1 404 Not Found\n" +
                 "Content-Type: application/json\n" +
                 "\n" +
                 "{\n" +

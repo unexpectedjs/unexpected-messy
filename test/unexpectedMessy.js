@@ -124,7 +124,7 @@ describe('unexpected-messy', function () {
                 headers: { foo: 'quux1', baz: 'bar' },
                 message: { headers: { Foo: 'Baz', 'Content-Type': 'application/json' }, body: { foo: 456 } },
                 httpRequest: { requestLine: 'GET /foo HTTP/1.1', headers: { bar: 'baz' }, body: 'foo'},
-                httpResponse: { statusLine: 'HTTP/1.1 404 OK', headers: { bar: 'quux' }, body: 'foo' },
+                httpResponse: { statusLine: 'HTTP/1.1 404', headers: { bar: 'quux' }, body: 'foo' },
                 httpExchange: {
                     request: { path: '/foo', headers: { Foo: 'quux' } },
                     response: { statusCode: 404, headers: { Bar: 'baz' } }
@@ -189,7 +189,7 @@ describe('unexpected-messy', function () {
             "    body: { foo: 456 }\n" +
             "  },\n" +
             "  httpRequest: { requestLine: 'GET /foo HTTP/1.1', headers: { bar: 'baz' }, body: 'foo' },\n" +
-            "  httpResponse: { statusLine: 'HTTP/1.1 404 OK', headers: { bar: 'quux' }, body: 'foo' },\n" +
+            "  httpResponse: { statusLine: 'HTTP/1.1 404', headers: { bar: 'quux' }, body: 'foo' },\n" +
             "  httpExchange: {\n" +
             "    request: { path: '/foo', headers: ... },\n" +
             "    response: { statusCode: 404, headers: ... }\n" +
@@ -221,7 +221,10 @@ describe('unexpected-messy', function () {
             "\n" +
             "    foo,\n" +
             "  httpResponse:\n" +
-            "    HTTP/1.1 200 OK // should be HTTP/1.1 404 OK\n" +
+            "    HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n" +
+            "                    //\n" +
+            "                    // -HTTP/1.1 200 OK\n" +
+            "                    // +HTTP/1.1 404 Not Found\n" +
             "    Bar: baz // should equal quux\n" +
             "             // -baz\n" +
             "             // +quux\n" +
@@ -238,6 +241,9 @@ describe('unexpected-messy', function () {
             "    { foo: 'bar' }\n" +
             "\n" +
             "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "                    //\n" +
+            "                    // -HTTP/1.1 200 OK\n" +
+            "                    // +HTTP/1.1 404 Not Found\n" +
             "    Content-Type: text/html\n" +
             "    // missing Bar: baz\n" +
             "\n" +
@@ -253,6 +259,9 @@ describe('unexpected-messy', function () {
             "    { foo: 123 }\n" +
             "\n" +
             "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
+            "                    //\n" +
+            "                    // -HTTP/1.1 200 OK\n" +
+            "                    // +HTTP/1.1 404 Not Found\n" +
             "    Content-Type: application/json\n" +
             "    Quux: Baz\n" +
             "    // missing Bar: baz\n" +
@@ -1747,7 +1756,10 @@ describe('unexpected-messy', function () {
                 }, 'to throw',
                     "expected HTTP/1.1 200 OK to satisfy { statusCode: 412 }\n" +
                     '\n' +
-                    'HTTP/1.1 200 OK // should be 412 Precondition Failed'
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed'
                 );
             });
         });
@@ -1826,7 +1838,10 @@ describe('unexpected-messy', function () {
                     }, 'to throw',
                         "expected HTTP/1.1 200 OK to satisfy 'HTTP/1.1 404 Not Found'\n" +
                         "\n" +
-                        "HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n"
+                        "HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n" +
+                        "                //\n" +
+                        "                // -HTTP/1.1 200 OK\n" +
+                        "                // +HTTP/1.1 404 Not Found\n"
                     );
                 });
             });
@@ -1897,6 +1912,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: text/html // should equal application/json\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
@@ -1974,6 +1992,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: text/html // should equal application/json\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +

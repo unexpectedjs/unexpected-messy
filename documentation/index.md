@@ -38,6 +38,9 @@ Content-Type: application/json
 to satisfy { statusCode: 404, body: { baz: expect.it('to be greater than', 1024) } }
 
 HTTP/1.1 200 OK // should be 404 Not Found
+                //
+                // -HTTP/1.1 200 OK
+                // +HTTP/1.1 404 Not Found
 Content-Type: application/json
 
 {
