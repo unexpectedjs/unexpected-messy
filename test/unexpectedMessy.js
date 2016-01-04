@@ -1209,7 +1209,11 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET / HTTP/1.1'),
                     new RequestLine('POST / HTTP/1.1')
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1 // should be POST / HTTP/1.1'
+                    "GET / HTTP/1.1 // should be POST / HTTP/1.1\n" +
+                    "               //\n" +
+                    "               // -GET / HTTP/1.1\n" +
+                    "               // +POST / HTTP/1.1"
+
                 );
             });
 
@@ -1218,7 +1222,10 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET / HTTP/1.1'),
                     new RequestLine('GET / HTTP/1.0')
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1 // should be HTTP/1.0'
+                    "GET / HTTP/1.1 // should be HTTP/1.0\n" +
+                    "               //\n" +
+                    "               // -GET / HTTP/1.1\n" +
+                    "               // +GET / HTTP/1.0"
                 );
             });
 
@@ -1227,7 +1234,10 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET /foo HTTP/1.1'),
                     new RequestLine('GET /bar HTTP/1.1')
                 ], 'to produce a diff of',
-                    'GET /foo HTTP/1.1 // should be /bar HTTP/1.1'
+                    "GET /foo HTTP/1.1 // should be /bar HTTP/1.1\n" +
+                    "                  //\n" +
+                    "                  // -GET /foo HTTP/1.1\n" +
+                    "                  // +GET /bar HTTP/1.1"
                 );
             });
         });
@@ -1280,7 +1290,10 @@ describe('unexpected-messy', function () {
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
                     new HttpRequest('POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n' +
+                    "GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n" +
+                    "               //\n" +
+                    "               // -GET / HTTP/1.1\n" +
+                    "               // +POST /foo HTTP/1.1\n" +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -1309,8 +1322,11 @@ describe('unexpected-messy', function () {
                     new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
                     new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1')
                 ], 'to produce a diff of',
-                    'GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n' +
-                    'Host: www.example.com:987 // should be somewhereelse.com\n' +
+                    "GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n" +
+                    "                     //\n" +
+                    "                     // -GET /blabla HTTP/1.1\n" +
+                    "                     // +GET /hey HTTP/1.1\n" +
+                    "Host: www.example.com:987 // should be somewhereelse.com\n" +
                     "Metadata: {\n" +
                     "  host: 'www.example.com', // should equal 'somewhereelse.com'\n" +
                     "                           // -www.example.com\n" +
