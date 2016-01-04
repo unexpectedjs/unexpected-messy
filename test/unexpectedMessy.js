@@ -1631,7 +1631,10 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 OK'),
                     new StatusLine('HTTP/1.1 412 Precondition Failed')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK // should be 412 Precondition Failed'
+                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed'
                 );
             });
 
@@ -1640,7 +1643,10 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 OK'),
                     new StatusLine('HTTP/1.0 200 OK')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK'
+                    'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.0 200 OK'
                 );
             });
 
@@ -1649,7 +1655,10 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 Okie-dokie'),
                     new StatusLine('HTTP/1.1 200 OK')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 Okie-dokie // should be OK'
+                    'HTTP/1.1 200 Okie-dokie // should be OK\n' +
+                    '                        //\n' +
+                    '                        // -HTTP/1.1 200 Okie-dokie\n' +
+                    '                        // +HTTP/1.1 200 OK'
                 );
             });
         });
@@ -1742,6 +1751,9 @@ describe('unexpected-messy', function () {
                     new HttpResponse('HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -2016,6 +2028,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
@@ -2207,6 +2222,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
@@ -2222,6 +2240,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
@@ -2262,6 +2283,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
@@ -2314,6 +2338,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                    '                //\n' +
+                    '                // -HTTP/1.1 200 OK\n' +
+                    '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
