@@ -131,6 +131,9 @@ describe("documentation tests", function () {
                 "}\n" +
                 "\n" +
                 "GET /foo HTTP/1.1 // should be POST\n" +
+                "                  //\n" +
+                "                  // -GET /foo HTTP/1.1\n" +
+                "                  // +POST / HTTP/1.1\n" +
                 "Content-Type: text/plain; charset=UTF-8\n" +
                 "Content-Length: 13\n" +
                 "// missing Foo: bar\n" +

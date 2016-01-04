@@ -214,6 +214,9 @@ describe('unexpected-messy', function () {
             "    },\n" +
             "  httpRequest:\n" +
             "    GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n" +
+            "                   //\n" +
+            "                   // -GET / HTTP/1.1\n" +
+            "                   // +GET /foo HTTP/1.1\n" +
             "    Bar: baz\n" +
             "\n" +
             "    foo,\n" +
@@ -226,6 +229,9 @@ describe('unexpected-messy', function () {
             "    foo,\n" +
             "  httpExchange:\n" +
             "    GET / HTTP/1.1 // should be /foo\n" +
+            "                   //\n" +
+            "                   // -GET / HTTP/1.1\n" +
+            "                   // +GET /foo HTTP/1.1\n" +
             "    Content-Type: application/json\n" +
             "    // missing Foo: quux\n" +
             "\n" +
@@ -238,6 +244,9 @@ describe('unexpected-messy', function () {
             "    argh,\n" +
             "  httpConversation:\n" +
             "    GET / HTTP/1.1 // should be /foo\n" +
+            "                   //\n" +
+            "                   // -GET / HTTP/1.1\n" +
+            "                   // +GET /foo HTTP/1.1\n" +
             "    Content-Type: application/json\n" +
             "    // missing Foo: quux\n" +
             "\n" +
@@ -1263,7 +1272,10 @@ describe('unexpected-messy', function () {
                 }, 'to throw',
                     "expected GET / HTTP/1.1 to satisfy { method: 'POST', url: '/' }\n" +
                     '\n' +
-                    'GET / HTTP/1.1 // should be POST /'
+                    'GET / HTTP/1.1 // should be POST /\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST / HTTP/1.1'
                 );
             });
         });
@@ -1362,7 +1374,10 @@ describe('unexpected-messy', function () {
                     }, 'to throw',
                         "expected GET /foo HTTP/1.1 to satisfy 'POST /bar'\n" +
                         "\n" +
-                        "GET /foo HTTP/1.1 // should be POST /bar\n"
+                        "GET /foo HTTP/1.1 // should be POST /bar\n" +
+                        "                  //\n" +
+                        "                  // -GET /foo HTTP/1.1\n" +
+                        "                  // +POST /bar HTTP/1.1\n"
                     );
                 });
             });
@@ -1539,6 +1554,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST / HTTP/1.1\n' +
                     'Content-Type: text/html // should equal application/json\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
@@ -1591,6 +1609,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST / HTTP/1.1\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
                     '-argh\n' +
@@ -1614,6 +1635,9 @@ describe('unexpected-messy', function () {
                     '}\n' +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST / HTTP/1.1\n' +
                     'Content-Type: text/html // should equal application/json\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
@@ -2069,6 +2093,9 @@ describe('unexpected-messy', function () {
                     "to satisfy { request: { url: '/foo' }, response: { body: 'blah' } }\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +GET /foo HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     "{ foo: 'bar' }\n" +
@@ -2133,6 +2160,9 @@ describe('unexpected-messy', function () {
                     "to satisfy { request: { url: '/foo' }, response: { body: 'argh' } }\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be /foo\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +GET /foo HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     "{ foo: 'bar' }\n" +
@@ -2437,6 +2467,9 @@ describe('unexpected-messy', function () {
                         "to satisfy { exchanges: [ { request: ... } ] }\n" +
                         '\n' +
                         'GET / HTTP/1.1 // should be GET /foo\n' +
+                        '               //\n' +
+                        '               // -GET / HTTP/1.1\n' +
+                        '               // +GET /foo HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 123 }\n' +
@@ -2630,6 +2663,9 @@ describe('unexpected-messy', function () {
                         "to satisfy { exchanges: { 0: { request: ... } } }\n" +
                         '\n' +
                         'GET / HTTP/1.1 // should be GET /foo\n' +
+                        '               //\n' +
+                        '               // -GET / HTTP/1.1\n' +
+                        '               // +GET /foo HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 123 }\n' +
@@ -2687,6 +2723,9 @@ describe('unexpected-messy', function () {
                             "to satisfy { exchanges: [ { request: ..., response: ... } ] }\n" +
                             '\n' +
                             'GET / HTTP/1.1 // should be GET /foo\n' +
+                            '               //\n' +
+                            '               // -GET / HTTP/1.1\n' +
+                            '               // +GET /foo HTTP/1.1\n' +
                             'Content-Type: application/json\n' +
                             '\n' +
                             'expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n' +

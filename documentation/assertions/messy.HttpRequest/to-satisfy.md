@@ -36,6 +36,9 @@ to satisfy
 }
 
 GET /foo HTTP/1.1 // should be POST
+                  //
+                  // -GET /foo HTTP/1.1
+                  // +POST / HTTP/1.1
 Content-Type: text/plain; charset=UTF-8
 Content-Length: 13
 // missing Foo: bar
