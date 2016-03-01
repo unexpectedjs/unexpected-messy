@@ -18,7 +18,7 @@ describe('unexpected-messy', function () {
             expect(expect.diff(
                 subject[0],
                 subject[1]
-            ).diff.toString(), 'to equal', value);
+            ).toString(), 'to equal', value);
         })
         .addAssertion('<any> to inspect as <string>', function (expect, subject, value) {
             expect.errorMode = 'bubble';
@@ -1350,6 +1350,7 @@ describe('unexpected-messy', function () {
                     "Host: www.example.com:987 // should be somewhereelse.com\n" +
                     "Metadata: {\n" +
                     "  host: 'www.example.com', // should equal 'somewhereelse.com'\n" +
+                    "                           //\n" +
                     "                           // -www.example.com\n" +
                     "                           // +somewhereelse.com\n" +
                     "  port: 987, // should equal 80\n" +
