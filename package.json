@@ -38,7 +38,7 @@
   "peerDependencies": {
     "messy": "^6.7.1",
     "magicpen-media": "^1.5.0",
-    "unexpected": "^10.0.0"
+    "unexpected": "^10.10.0"
   },
   "devDependencies": {
     "browserify": "11.0.1",
@@ -47,7 +47,7 @@
     "istanbul": "0.3.17",
     "jshint": "2.5.5",
     "mocha": "2.2.5",
-    "unexpected": "10.9.1",
+    "unexpected": "10.10.0",
     "unexpected-documentation-site-generator": "3.1.0"
   },
   "dependencies": {
