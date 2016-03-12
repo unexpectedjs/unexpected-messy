@@ -24,6 +24,7 @@ to satisfy { headers: { 'Content-Type': 'image/gif' } }
 
 
 Content-Type: image/png // should equal image/gif
+                        //
                         // -image/png
                         // +image/gif
 

@@ -178,6 +178,7 @@ describe("documentation tests", function () {
                 "\n" +
                 "\n" +
                 "Content-Type: image/png // should equal image/gif\n" +
+                "                        //\n" +
                 "                        // -image/png\n" +
                 "                        // +image/gif\n" +
                 "\n" +

@@ -200,11 +200,13 @@ describe('unexpected-messy', function () {
             "{\n" +
             "  headers:\n" +
             "    Foo: quux // should equal quux1\n" +
+            "              //\n" +
             "              // -quux\n" +
             "              // +quux1\n" +
             "    Baz: bar,\n" +
             "  message:\n" +
             "    Foo: Bar // should equal Baz\n" +
+            "             //\n" +
             "             // -Bar\n" +
             "             // +Baz\n" +
             "    Content-Type: application/json\n" +
@@ -226,6 +228,7 @@ describe('unexpected-messy', function () {
             "                    // -HTTP/1.1 200 OK\n" +
             "                    // +HTTP/1.1 404 Not Found\n" +
             "    Bar: baz // should equal quux\n" +
+            "             //\n" +
             "             // -baz\n" +
             "             // +quux\n" +
             "\n" +
@@ -457,6 +460,7 @@ describe('unexpected-messy', function () {
                     "expected Foo: bla to satisfy { foo: expect.it('not to match', /a/) }\n" +
                     '\n' +
                     "Foo: bla // should satisfy expect.it('not to match', /a/)\n" +
+                    "         //\n" +
                     "         // expected 'bla' not to match /a/\n" +
                     '         //\n' +
                     '         // bla\n' +
@@ -470,6 +474,7 @@ describe('unexpected-messy', function () {
                     "expected Foo: Bar to satisfy { Foo: expect.it('to satisfy', 'Baz') }\n" +
                     '\n' +
                     "Foo: Bar // should satisfy expect.it('to satisfy', 'Baz')\n" +
+                    "         //\n" +
                     "         // expected 'Bar' to equal 'Baz'\n" +
                     '         //\n' +
                     '         // -Bar\n' +
@@ -658,6 +663,7 @@ describe('unexpected-messy', function () {
                         "expected Foo: a to satisfy 'foo: b'\n" +
                         "\n" +
                         "Foo: a // should equal b\n" +
+                        "       //\n" +
                         "       // -a\n" +
                         "       // +b"
                     );
@@ -680,6 +686,7 @@ describe('unexpected-messy', function () {
                         "expected Foo: a to satisfy { headers: 'foo: b' }\n" +
                         "\n" +
                         "Foo: a // should equal b\n" +
+                        "       //\n" +
                         "       // -a\n" +
                         "       // +b"
                     );
@@ -741,6 +748,7 @@ describe('unexpected-messy', function () {
                         "to satisfy { headers: { Foo: 'quux' }, body: 'æ' }\n" +
                         '\n' +
                         'Foo: bar // should equal quux\n' +
+                        '         //\n' +
                         '         // -bar\n' +
                         '         // +quux\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
@@ -1205,6 +1213,7 @@ describe('unexpected-messy', function () {
                         '----------------------------231099812216460892104111\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Foo: bar // should equal quux\n' +
+                        '         //\n' +
                         '         // -bar\n' +
                         '         // +quux\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
@@ -1568,6 +1577,7 @@ describe('unexpected-messy', function () {
                     '               // -GET / HTTP/1.1\n' +
                     '               // +POST / HTTP/1.1\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1594,6 +1604,7 @@ describe('unexpected-messy', function () {
                     '\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1649,6 +1660,7 @@ describe('unexpected-messy', function () {
                     '               // -GET / HTTP/1.1\n' +
                     '               // +POST / HTTP/1.1\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1917,6 +1929,7 @@ describe('unexpected-messy', function () {
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1943,6 +1956,7 @@ describe('unexpected-messy', function () {
                     '\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1969,6 +1983,7 @@ describe('unexpected-messy', function () {
                     '\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -1997,6 +2012,7 @@ describe('unexpected-messy', function () {
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.1 412 Precondition Failed\n' +
                     'Content-Type: text/html // should equal application/json\n' +
+                    '                        //\n' +
                     '                        // -text/html\n' +
                     '                        // +application/json\n' +
                     '\n' +
@@ -2759,6 +2775,7 @@ describe('unexpected-messy', function () {
                             'HTTP/1.1 200 OK\n' +
                             'Content-Type: application/json\n' +
                             "Quux: Baz // should satisfy expect.it('when delayed a little bit', 'to equal', 'bar')\n" +
+                            "          //\n" +
                             "          // expected 'Baz' when delayed a little bit to equal 'bar'\n" +
                             "          //\n" +
                             "          // -Baz\n" +
