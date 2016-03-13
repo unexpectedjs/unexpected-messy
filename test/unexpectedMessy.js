@@ -1725,7 +1725,7 @@ describe('unexpected-messy', function () {
                     }, 'to throw',
                         'expected HTTP/1.1 200 OK to satisfy 412\n' +
                         '\n' +
-                        'HTTP/1.1 200 OK // should equal 412');
+                        'HTTP/1.1 200 OK // should be 412 Precondition Failed');
                 });
             });
 
