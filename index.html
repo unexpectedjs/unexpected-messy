@@ -44,17 +44,17 @@
 <a href="https://david-dm.org/unexpectedjs/unexpected-express"><img src="https://david-dm.org/unexpectedjs/unexpected-messy.svg" alt="Dependency Status"></a></p>
 <p>In particular, it adds support for the <code>to satisfy</code> assertion so that you can express your assertions using a very compact and precise syntax. When the conditions are not met, you get a full diff that includes the entire object as a single unit:</p>
 <div class="code lang-javascript">
-  <div><span style="color: #FFAA27">var</span>&nbsp;messy&nbsp;<span style="color: #3CDAFF">=</span>&nbsp;require<span style="color: #999">(</span><span style="color: #3CDAFF">'messy'</span><span style="color: #999">);</span></div>
-  <div><span style="color: #FFAA27">var</span>&nbsp;expect&nbsp;<span style="color: #3CDAFF">=</span>&nbsp;require<span style="color: #999">(</span><span style="color: #3CDAFF">'unexpected'</span><span style="color: #999">).</span>clone<span style="color: #999">().</span>installPlugin<span style="color: #999">(</span>require<span style="color: #999">(</span><span style="color: #3CDAFF">'./lib/unexpectedMessy'</span><span style="color: #999">));</span></div>
+  <div><span style="color: #F92672">var</span>&nbsp;messy&nbsp;<span style="color: #F92672">=</span>&nbsp;require<span style="color: #999">(</span><span style="color: #E6DB74">'messy'</span><span style="color: #999">);</span></div>
+  <div><span style="color: #F92672">var</span>&nbsp;expect&nbsp;<span style="color: #F92672">=</span>&nbsp;require<span style="color: #999">(</span><span style="color: #E6DB74">'unexpected'</span><span style="color: #999">).</span>clone<span style="color: #999">().</span>installPlugin<span style="color: #999">(</span>require<span style="color: #999">(</span><span style="color: #E6DB74">'./lib/unexpectedMessy'</span><span style="color: #999">));</span></div>
 </div><div class="code lang-javascript">
-  <div>expect<span style="color: #999">(</span><span style="color: #FFAA27">new</span>&nbsp;messy<span style="color: #999">.</span>HttpResponse<span style="color: #999">(</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #3CDAFF">'HTTP/1.1&nbsp;200&nbsp;OK\r\n'</span>&nbsp;<span style="color: #3CDAFF">+</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #3CDAFF">'Content-Type:&nbsp;application/json\r\n'</span>&nbsp;<span style="color: #3CDAFF">+</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #3CDAFF">'\r\n'</span>&nbsp;<span style="color: #3CDAFF">+</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #3CDAFF">'{&quot;foo&quot;:&quot;bar&quot;,&quot;baz&quot;:456}'</span></div>
-  <div><span style="color: #999">),</span>&nbsp;<span style="color: #3CDAFF">'to&nbsp;satisfy'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">{</span>statusCode<span style="color: #999">:</span>&nbsp;<span style="color: white">404</span><span style="color: #999">,</span>&nbsp;body<span style="color: #999">:</span>&nbsp;<span style="color: #999">{</span>baz<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #3CDAFF">'to&nbsp;be&nbsp;greater&nbsp;than'</span><span style="color: #999">,</span>&nbsp;<span style="color: white">1024</span><span style="color: #999">)}});</span></div>
+  <div>expect<span style="color: #999">(</span><span style="color: #F92672">new</span>&nbsp;messy<span style="color: #999">.</span>HttpResponse<span style="color: #999">(</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E6DB74">'HTTP/1.1&nbsp;200&nbsp;OK\r\n'</span>&nbsp;<span style="color: #F92672">+</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E6DB74">'Content-Type:&nbsp;application/json\r\n'</span>&nbsp;<span style="color: #F92672">+</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E6DB74">'\r\n'</span>&nbsp;<span style="color: #F92672">+</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E6DB74">'{&quot;foo&quot;:&quot;bar&quot;,&quot;baz&quot;:456}'</span></div>
+  <div><span style="color: #999">),</span>&nbsp;<span style="color: #E6DB74">'to&nbsp;satisfy'</span><span style="color: #999">,</span>&nbsp;<span style="color: #999">{</span>statusCode<span style="color: #999">:</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">404</span><span style="color: #999">,</span>&nbsp;body<span style="color: #999">:</span>&nbsp;<span style="color: #999">{</span>baz<span style="color: #999">:</span>&nbsp;expect<span style="color: #999">.</span>it<span style="color: #999">(</span><span style="color: #E6DB74">'to&nbsp;be&nbsp;greater&nbsp;than'</span><span style="color: #999">,</span>&nbsp;<span style="color: #66D9EF; font-weight: bold">1024</span><span style="color: #999">)}});</span></div>
 </div><div class="output">
-  <div><span style="color: red; font-weight: bold">expected</span></div>
+  <div><span style="color: #F92672; font-weight: bold">expected</span></div>
   <div><div style="display: inline-block; vertical-align: top">
   <div><span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span>&nbsp;<span style="color: cyan">200</span>&nbsp;<span style="color: yellow">OK</span></div>
   <div><div style="display: inline-block; vertical-align: top">
@@ -62,24 +62,24 @@
   <div><span style="color: gray">Content-Type:</span>&nbsp;<span style="color: cyan">application/json</span></div>
 </div></div>
   <div>&nbsp;</div>
-  <div>{&nbsp;<span style="color: #939393">foo</span>:&nbsp;<span style="color: #3CDAFF">'bar'</span>,&nbsp;<span style="color: #939393">baz</span>:&nbsp;456&nbsp;}</div>
+  <div>{&nbsp;<span style="color: #CCC">foo</span>:&nbsp;<span style="color: #E6DB74">'bar'</span>,&nbsp;<span style="color: #CCC">baz</span>:&nbsp;<span style="color: #66D9EF">456</span>&nbsp;}</div>
 </div></div>
 </div></div>
-  <div><span style="color: red; font-weight: bold">to&nbsp;satisfy</span>&nbsp;{&nbsp;<span style="color: #939393">statusCode</span>:&nbsp;404,&nbsp;<span style="color: #939393">body</span>:&nbsp;{&nbsp;<span style="color: #939393">baz</span>:&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div>expect.it(<span style="color: #3CDAFF">'to&nbsp;be&nbsp;greater&nbsp;than'</span>,&nbsp;1024)</div>
+  <div><span style="color: #F92672; font-weight: bold">to&nbsp;satisfy</span>&nbsp;{&nbsp;<span style="color: #CCC">statusCode</span>:&nbsp;<span style="color: #66D9EF">404</span>,&nbsp;<span style="color: #CCC">body</span>:&nbsp;{&nbsp;<span style="color: #CCC">baz</span>:&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div>expect.it(<span style="color: #E6DB74">'to&nbsp;be&nbsp;greater&nbsp;than'</span>,&nbsp;<span style="color: #66D9EF">1024</span>)</div>
 </div>&nbsp;}&nbsp;}</div>
   <div>&nbsp;</div>
   <div><div style="display: inline-block; vertical-align: top">
   <div><span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span>&nbsp;<span style="color: cyan">200</span>&nbsp;<span style="color: yellow">OK</span>&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">//</span></div>
-  <div><span style="color: red; font-weight: bold">//</span></div>
-  <div><span style="color: red; font-weight: bold">//</span></div>
-  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: #F92672; font-weight: bold">//</span></div>
+  <div><span style="color: #F92672; font-weight: bold">//</span></div>
+  <div><span style="color: #F92672; font-weight: bold">//</span></div>
+  <div><span style="color: #F92672; font-weight: bold">//</span></div>
 </div>&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">should&nbsp;be</span>&nbsp;<span style="color: cyan">404</span>&nbsp;<span style="color: yellow">Not&nbsp;Found</span></div>
+  <div><span style="color: #F92672; font-weight: bold">should&nbsp;be</span>&nbsp;<span style="color: cyan">404</span>&nbsp;<span style="color: yellow">Not&nbsp;Found</span></div>
   <div>&nbsp;</div>
-  <div><span style="color: red">HTTP/1.1&nbsp;</span><span style="background-color: red; color: black">200</span><span style="color: red">&nbsp;</span><span style="background-color: red; color: black">OK</span></div>
-  <div><span style="color: green">HTTP/1.1&nbsp;</span><span style="background-color: green; color: black">404</span><span style="color: green">&nbsp;</span><span style="background-color: green; color: black">Not&nbsp;Found</span></div>
+  <div><span style="color: #F92672">HTTP/1.1&nbsp;</span><span style="background-color: #F92672; color: black">200</span><span style="color: #F92672">&nbsp;</span><span style="background-color: #F92672; color: black">OK</span></div>
+  <div><span style="color: #A6E22E">HTTP/1.1&nbsp;</span><span style="background-color: #A6E22E; color: black">404</span><span style="color: #A6E22E">&nbsp;</span><span style="background-color: #A6E22E; color: black">Not&nbsp;Found</span></div>
 </div></div>
   <div><div style="display: inline-block; vertical-align: top">
   <div><div style="display: inline-block; vertical-align: top">
@@ -88,15 +88,15 @@
   <div>&nbsp;</div>
   <div>{</div>
   <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: #939393">foo</span>:&nbsp;<span style="color: #3CDAFF">'bar'</span>,</div>
+  <div><span style="color: #CCC">foo</span>:&nbsp;<span style="color: #E6DB74">'bar'</span>,</div>
 </div></div>
   <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: #939393">baz</span>:&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div>456&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: #CCC">baz</span>:&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #66D9EF">456</span>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #F92672; font-weight: bold">//</span></div>
 </div>&nbsp;<div style="display: inline-block; vertical-align: top">
   <div><div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">should&nbsp;be&nbsp;greater&nbsp;than</span>&nbsp;1024</div>
+  <div><span style="color: #F92672; font-weight: bold">should&nbsp;be&nbsp;greater&nbsp;than</span>&nbsp;<span style="color: #66D9EF">1024</span></div>
 </div></div>
 </div></div>
 </div></div>
