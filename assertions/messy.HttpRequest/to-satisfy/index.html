@@ -51,6 +51,17 @@
         </li>
         
         <li>
+            <h3>messy.HttpRequest</h3>
+            <ul>
+                
+                <li class="active">
+                    <a href="">to satisfy</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        <li>
             <h3>messy.HttpConversation</h3>
             <ul>
                 
@@ -73,17 +84,6 @@
         </li>
         
         <li>
-            <h3>messy.HttpRequest</h3>
-            <ul>
-                
-                <li class="active">
-                    <a href="">to satisfy</a>
-                </li>
-                
-            </ul>
-        </li>
-        
-        <li>
             <h3>messy.HttpResponse</h3>
             <ul>
                 
@@ -95,22 +95,22 @@
         </li>
         
         <li>
-            <h3>messy.Mail</h3>
+            <h3>messy.Message</h3>
             <ul>
                 
                 <li class="">
-                    <a href="../../messy.Mail/to-satisfy">to satisfy</a>
+                    <a href="../../messy.Message/to-satisfy">to satisfy</a>
                 </li>
                 
             </ul>
         </li>
         
         <li>
-            <h3>messy.Message</h3>
+            <h3>messy.Mail</h3>
             <ul>
                 
                 <li class="">
-                    <a href="../../messy.Message/to-satisfy">to satisfy</a>
+                    <a href="../../messy.Mail/to-satisfy">to satisfy</a>
                 </li>
                 
             </ul>
@@ -187,7 +187,17 @@ for use with <a href="https://github.com/papandreou/messy">messy.HttpRequest</a>
   <div>}</div>
   <div>&nbsp;</div>
   <div><div style="display: inline-block; vertical-align: top">
-  <div><span style="color: blue">GET</span>&nbsp;<span style="color: gray">/foo</span>&nbsp;<span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span>&nbsp;<span style="color: red; font-weight: bold">//&nbsp;should&nbsp;be&nbsp;</span><span style="color: blue">POST</span></div>
+  <div><span style="color: blue">GET</span>&nbsp;<span style="color: gray">/foo</span>&nbsp;<span style="color: blue">HTTP</span><span style="color: cyan">/1.1</span>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: red; font-weight: bold">//</span></div>
+</div>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">should&nbsp;be</span>&nbsp;<span style="color: blue">POST</span></div>
+  <div>&nbsp;</div>
+  <div><span style="background-color: red; color: white">GET</span><span style="color: red">&nbsp;/</span><span style="background-color: red; color: white">foo</span><span style="color: red">&nbsp;HTTP/1.1</span></div>
+  <div><span style="background-color: green; color: white">POST</span><span style="color: green">&nbsp;/&nbsp;HTTP/1.1</span></div>
+</div></div>
   <div><div style="display: inline-block; vertical-align: top">
   <div><div style="display: inline-block; vertical-align: top">
   <div><span style="color: gray">Content-Type:</span>&nbsp;<span style="color: cyan">text/plain;&nbsp;charset=UTF-8</span></div>
