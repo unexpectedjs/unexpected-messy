@@ -1,4 +1,5 @@
-/*global messy:true, global*/
+/* global messy:true, global */
+/* exported messy */
 var argv = require('minimist')(process.argv.slice(2));
 
 global.require = require;

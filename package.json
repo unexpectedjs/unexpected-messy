@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "jshint .",
+    "lint": "eslint .",
     "test": "mocha && npm run lint && mocha documentation",
     "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedMessy -s unexpectedMessy > unexpectedMessy.min.js",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
@@ -44,8 +44,9 @@
     "browserify": "11.0.1",
     "bundle-collapser": "1.2.1",
     "coveralls": "2.11.1",
+    "eslint": "2.7.0",
+    "eslint-config-onelint": "1.0.2",
     "istanbul": "0.3.17",
-    "jshint": "2.5.5",
     "mocha": "2.2.5",
     "unexpected": "10.10.5",
     "unexpected-documentation-site-generator": "^4.0.0",
