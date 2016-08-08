@@ -8,7 +8,7 @@ var httpResponse = new messy.HttpResponse({
     headers: {
         'Content-Type': 'image/png'
     },
-    body: require('fs').readFileSync('node_modules/unexpected/node_modules/magicpen/images/magic-pen-6-colours.jpg')
+    body: require('fs').readFileSync('documentation/assertions/messy.HttpResponse/magic-pen-6-colours.jpg')
 });
 
 expect(httpResponse, 'to satisfy', { headers: { 'Content-Type': 'image/gif' } });
