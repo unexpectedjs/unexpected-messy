@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../../static/bug-icon-black.ico">
     <title>messy.HttpResponse - to satisfy</title>
 </head>
-<body class="sidebar-hidden has-sidebar">
+<body class="sidebar-hidden has-sidebar"> 
     <header>
         <div class="logo-icon"></div>
         <nav>
@@ -21,7 +21,7 @@
                 <li class=""><a href="../../..">unexpected-messy</a></li>
                 
                 
-                <li class="active"><a href="../../messy.Headers/to-satisfy">Assertions</a></li>
+                <li class="active"><a href="../../messy.HttpConversation/to-satisfy">Assertions</a></li>
                 
                 
                 
@@ -38,29 +38,11 @@
 <section id="assertions">
     <nav id="assertion-menu" class="sidebar js-remember-scroll-position">
     
-        <h3 class=""><a href="../../messy.Headers">messy.Headers</a></h3>
-        <ul>
-            
-            <li class="">
-                <a href="../../messy.Headers/to-satisfy">to satisfy</a>
-            </li>
-            
-        </ul>
-    
         <h3 class=""><a href="../../messy.HttpConversation">messy.HttpConversation</a></h3>
         <ul>
             
             <li class="">
                 <a href="../../messy.HttpConversation/to-satisfy">to satisfy</a>
-            </li>
-            
-        </ul>
-    
-        <h3 class=""><a href="../../messy.HttpExchange">messy.HttpExchange</a></h3>
-        <ul>
-            
-            <li class="">
-                <a href="../../messy.HttpExchange/to-satisfy">to satisfy</a>
             </li>
             
         </ul>
@@ -74,6 +56,15 @@
             
         </ul>
     
+        <h3 class=""><a href="../../messy.Headers">messy.Headers</a></h3>
+        <ul>
+            
+            <li class="">
+                <a href="../../messy.Headers/to-satisfy">to satisfy</a>
+            </li>
+            
+        </ul>
+    
         <h3 class=""><a href="..">messy.HttpResponse</a></h3>
         <ul>
             
@@ -83,11 +74,11 @@
             
         </ul>
     
-        <h3 class=""><a href="../../messy.Message">messy.Message</a></h3>
+        <h3 class=""><a href="../../messy.HttpExchange">messy.HttpExchange</a></h3>
         <ul>
             
             <li class="">
-                <a href="../../messy.Message/to-satisfy">to satisfy</a>
+                <a href="../../messy.HttpExchange/to-satisfy">to satisfy</a>
             </li>
             
         </ul>
@@ -97,6 +88,15 @@
             
             <li class="">
                 <a href="../../messy.Mail/to-satisfy">to satisfy</a>
+            </li>
+            
+        </ul>
+    
+        <h3 class=""><a href="../../messy.Message">messy.Message</a></h3>
+        <ul>
+            
+            <li class="">
+                <a href="../../messy.Message/to-satisfy">to satisfy</a>
             </li>
             
         </ul>
@@ -133,7 +133,7 @@ for use with <a href="https://github.com/papandreou/messy">messy.HttpResponse</a
   <div>&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'image/png'</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
-  <div>&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">'fs'</span><span style="color: #000000">).</span><span style="color: #000000">readFileSync</span><span style="color: #000000">(</span><span style="color: #df5000">'node_modules/unexpected/node_modules/magicpen/images/magic-pen-6-colours.jpg'</span><span style="color: #000000">)</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">'fs'</span><span style="color: #000000">).</span><span style="color: #000000">readFileSync</span><span style="color: #000000">(</span><span style="color: #df5000">'documentation/assertions/messy.HttpResponse/magic-pen-6-colours.jpg'</span><span style="color: #000000">)</span></div>
   <div><span style="color: #000000">});</span></div>
   <div>&nbsp;</div>
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span>httpResponse<span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span>&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'image/gif'</span>&nbsp;<span style="color: #000000">}</span>&nbsp;<span style="color: #000000">});</span></div>
