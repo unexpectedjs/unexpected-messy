@@ -993,6 +993,30 @@ describe('unexpected-messy', function () {
                     });
                 });
 
+                it('should not break when the subject message is not multipart', function () {
+                    expect(function () {
+                        expect(new Message(
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'fooøbar'
+                        ), 'to satisfy', {
+                            parts: [ {body: 'bar'} ]
+                        });
+                    }, 'to throw',
+                        "expected\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "fooøbar\n" +
+                        "to satisfy { parts: [ { body: 'bar' } ] }\n" +
+                        "\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "fooøbar\n" +
+                        "// should be a multipart message\n" +
+                        "// should have number of parts 1"
+                    );
+                });
+
                 it('should produce a diff when the assertion fails', function () {
                     expect(function () {
                         expect(multiPartMessage, 'to satisfy', {
