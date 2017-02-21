@@ -562,6 +562,38 @@ describe('unexpected-messy', function () {
                     '----------------------------231099812216460892104111--'
                 );
             });
+
+            it('should render a multipart message parsed as a Buffer correctly', function () {
+                var message = new Message(new Buffer(
+                    'Content-Type: multipart/form-data;\r\n' +
+                    ' boundary=--------------------------231099812216460892104111\r\n' +
+                    '\r\n' +
+                    '----------------------------231099812216460892104111\r\n' +
+                    'Content-Disposition: form-data; name="recipient"\r\n' +
+                    '\r\n' +
+                    'andreas@one.com\r\n' +
+                    '----------------------------231099812216460892104111\r\n' +
+                    'Content-Disposition: form-data; name="Message "\r\n' +
+                    '\r\n' +
+                    'The message\r\n' +
+                    '----------------------------231099812216460892104111--\r\n'
+                ));
+                expect(
+                    message,
+                    'to inspect as',
+                    'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
+                    '\n' +
+                    '----------------------------231099812216460892104111\n' +
+                    'Content-Disposition: form-data; name="recipient"\n' +
+                    '\n' +
+                    'andreas@one.com\n' +
+                    '----------------------------231099812216460892104111\n' +
+                    'Content-Disposition: form-data; name="Message "\n' +
+                    '\n' +
+                    'The message\n' +
+                    '----------------------------231099812216460892104111--'
+                );
+            });
         });
 
         describe('#diff', function () {
