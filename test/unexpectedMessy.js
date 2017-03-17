@@ -1884,6 +1884,26 @@ describe('unexpected-messy', function () {
         });
 
         describe('"to satisfy" assertion', function () {
+            describe('against a number', function () {
+                it('should succeed when the number is equal to the status code', function () {
+                    expect(new HttpResponse('HTTP/1.1 412 OK'), 'to satisfy', 412);
+                });
+
+                it('should fail when the number is different from the status code', function () {
+                    expect(function () {
+                        expect(new HttpResponse('HTTP/1.1 412 Precondition Failed\r\nContent-Type: text/html'), 'to satisfy', 200);
+                    }, 'to throw',
+                        'expected\n' +
+                        'HTTP/1.1 412 Precondition Failed\n' +
+                        'Content-Type: text/html\n' +
+                        'to satisfy 200\n' +
+                        '\n' +
+                        'HTTP/1.1 412 Precondition Failed // should be 200 OK\n' +
+                        'Content-Type: text/html'
+                    );
+                });
+            });
+
             it('must not break with undefined', function () {
                 expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'), 'to satisfy', undefined);
             });
