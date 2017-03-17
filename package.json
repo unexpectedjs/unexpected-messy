@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
-    "messy": "^6.12.0",
+    "messy": "^6.15.2",
     "magicpen-media": "^1.5.0",
     "unexpected": "^10.10.0"
   },
@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "magicpen-media": "^1.5.0",
-    "messy": "^6.12.0",
+    "messy": "^6.15.2",
     "minimist": "1.1.1",
     "underscore": "1.7.0"
   }
