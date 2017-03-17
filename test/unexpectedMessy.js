@@ -737,6 +737,15 @@ describe('unexpected-messy', function () {
                 expect(new Message('foo: bar\n\nthe body'), 'to satisfy', {body: /he b/});
             });
 
+            it('should support matching a JSON body given as a string against a string', function () {
+                expect(new messy.Message({
+                    headers: { 'Content-Type': 'application/json'},
+                    body: '{"foo":   123}'
+                }), 'to satisfy', {
+                    body: '{"foo":   123}'
+                });
+            });
+
             describe('when matching the decoded body with a regexp', function () {
                 it('should succeed', function () {
                     expect(new Message(
