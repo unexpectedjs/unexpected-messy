@@ -642,6 +642,76 @@ describe('unexpected-messy', function () {
                 );
             });
 
+            describe('when satisfying a textual message against a string', function () {
+                it('should succeed', function () {
+                    expect(new messy.Message(
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        'Content-Type: text/plain\r\n\r\nfoo'
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.Message(
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            'Content-Type: text/plain\r\n\r\nfoo'
+                        );
+                    }, 'to throw',
+                        "expected\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "foobar\n" +
+                        "to satisfy 'Content-Type: text/plain\\r\\n\\r\\nfoo'\n" +
+                        "\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "-foobar\n" +
+                        "+foo"
+                    );
+                });
+            });
+
+            describe('when satisfying a textual message against a Buffer', function () {
+                it('should succeed', function () {
+                    expect(new messy.Message(
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.Message(
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        );
+                    }, 'to throw',
+                        'expected\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
+                        'to satisfy Buffer([0x43, 0x6F, 0x6E, 0x74, 0x65, 0x6E, 0x74, 0x2D, 0x54, 0x79, 0x70, 0x65, 0x3A, 0x20, 0x74, 0x65 /* 15 more */ ])\n' +
+                        '\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
+                    );
+                });
+            });
+
             it('against a messy.Message instance', function () {
                 expect(function () {
                     expect(new messy.Message('Content-Type: application/json'), 'to satisfy', new messy.Message('Foo: quux'));
@@ -1438,6 +1508,86 @@ describe('unexpected-messy', function () {
                 });
             });
 
+            describe('when satisfying a textual request against a string', function () {
+                it('should succeed', function () {
+                    expect(new messy.HttpRequest(
+                        'GET / HTTP/1.1\r\n' +
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        'GET / HTTP/1.1\r\n' +
+                        'Content-Type: text/plain\r\n\r\nfoo'
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.HttpRequest(
+                            'GET / HTTP/1.1\r\n' +
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            'GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo'
+                        );
+                    }, 'to throw',
+                        "expected\n" +
+                        'GET / HTTP/1.1\n' +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "foobar\n" +
+                        "to satisfy 'GET / HTTP/1.1\\r\\nContent-Type: text/plain\\r\\n\\r\\nfoo'\n" +
+                        "\n" +
+                        "GET / HTTP/1.1\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "-foobar\n" +
+                        "+foo"
+                    );
+                });
+            });
+
+            describe('when satisfying a textual request against a Buffer', function () {
+                it('should succeed', function () {
+                    expect(new messy.HttpRequest(
+                        'GET / HTTP/1.1\r\n' +
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.HttpRequest(
+                            'GET / HTTP/1.1\r\n' +
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        );
+                    }, 'to throw',
+                        'expected\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
+
+                        'to satisfy Buffer([0x47, 0x45, 0x54, 0x20, 0x2F, 0x20, 0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x0D, 0x0A /* 31 more */ ])\n' +
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
+                    );
+                });
+            });
+
             describe('with a string as the RHS', function () {
                 it('should succeed', function () {
                     expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', '/foo');
@@ -1900,6 +2050,85 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'HTTP/1.1 412 Precondition Failed // should be 200 OK\n' +
                         'Content-Type: text/html'
+                    );
+                });
+            });
+
+            describe('when satisfying a textual request against a string', function () {
+                it('should succeed', function () {
+                    expect(new messy.HttpResponse(
+                        'HTTP/1.1 200 OK\r\n' +
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        'HTTP/1.1 200 OK\r\n' +
+                        'Content-Type: text/plain\r\n\r\nfoo'
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.HttpResponse(
+                            'HTTP/1.1 200 OK\r\n' +
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo'
+                        );
+                    }, 'to throw',
+                        "expected\n" +
+                        'HTTP/1.1 200 OK\n' +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "foobar\n" +
+                        "to satisfy 'HTTP/1.1 200 OK\\r\\nContent-Type: text/plain\\r\\n\\r\\nfoo'\n" +
+                        "\n" +
+                        "HTTP/1.1 200 OK\n" +
+                        "Content-Type: text/plain\n" +
+                        "\n" +
+                        "-foobar\n" +
+                        "+foo"
+                    );
+                });
+            });
+
+            describe('when satisfying a textual request against a Buffer', function () {
+                it('should succeed', function () {
+                    expect(new messy.HttpResponse(
+                        'HTTP/1.1 200 OK\r\n' +
+                        'Content-Type: text/plain\r\n' +
+                        '\r\n' +
+                        'foo'
+                    ), 'to satisfy',
+                        new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    );
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new messy.HttpResponse(
+                            'HTTP/1.1 200 OK\r\n' +
+                            'Content-Type: text/plain\r\n' +
+                            '\r\n' +
+                            'foobar'
+                        ), 'to satisfy',
+                            new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        );
+                    }, 'to throw',
+                        'expected\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
+                        'to satisfy Buffer([0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x20, 0x32, 0x30, 0x30, 0x20, 0x4F, 0x4B, 0x0D /* 32 more */ ])\n' +
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
                     );
                 });
             });
