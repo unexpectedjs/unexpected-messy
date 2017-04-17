@@ -38,7 +38,7 @@
   "peerDependencies": {
     "messy": "^6.12.0",
     "magicpen-media": "^1.5.0",
-    "unexpected": "^10.10.0"
+    "unexpected": "^10.27.0"
   },
   "devDependencies": {
     "browserify": "11.0.1",
@@ -48,7 +48,7 @@
     "eslint-config-onelint": "1.2.0",
     "istanbul": "0.3.17",
     "mocha": "2.2.5",
-    "unexpected": "unexpectedjs/unexpected#d10718ac1a1e3dc90f3dadacafd391132e4ebc94",
+    "unexpected": "10.27.0",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"
   },
