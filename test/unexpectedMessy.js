@@ -12,7 +12,7 @@ var messy = require('messy'),
 
 describe('unexpected-messy', function () {
     var expect = unexpected.clone()
-        .installPlugin(require('../lib/unexpectedMessy'))
+        .use(require('../lib/unexpectedMessy'))
         .addAssertion('<array> to produce a diff of <string>', function (expect, subject, value) {
             expect.errorMode = 'bubble';
             expect(expect.diff(
@@ -1359,6 +1359,23 @@ describe('unexpected-messy', function () {
                         '\n' +
                         'The message\n' +
                         '----------------------------231099812216460892104111--');
+                });
+
+                it('should allow matching a 7-bit, Content-Type-less, Content-Dispostion: form-data body (originally instantiated from a Buffer) against a string', function () {
+                    expect(new Message(new Buffer(
+                        'Content-Type: multipart/form-data;\r\n' +
+                        ' boundary=--------------------------231099812216460892104111\r\n' +
+                        '\r\n' +
+                        '----------------------------231099812216460892104111\r\n' +
+                        'Content-Disposition: form-data\r\n' +
+                        '\r\n' +
+                        'foobar\r\n' +
+                        '----------------------------231099812216460892104111--\r\n'
+                    )), 'to satisfy', {
+                        parts: [
+                            { body: 'foobar' }
+                        ]
+                    });
                 });
             });
         });
