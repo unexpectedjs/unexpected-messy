@@ -1432,7 +1432,7 @@ describe('unexpected-messy', function () {
                 }, 'to throw',
                     'expected GET / HTTP/1.1 to satisfy { method: /^P(?:UT|POST)$/ }\n' +
                     '\n' +
-                    'GET / HTTP/1.1 // should satisfy { method: /^P(?:UT|POST)$/ }'
+                    'GET / HTTP/1.1 // method should satisfy /^P(?:UT|POST)$/'
                 );
             });
 
@@ -1531,6 +1531,35 @@ describe('unexpected-messy', function () {
                     headers: {
                         'Content-Type': 'text/html'
                     }
+                });
+            });
+
+            describe('when matching the url against an expect.it', function () {
+                it('should succeed', function () {
+                    expect(new HttpRequest({
+                        url: '/foo/bar'
+                    }), 'to satisfy', {
+                        url: expect.it('to begin with', '/foo')
+                    });
+                });
+
+                it('should fail with a diff', function () {
+                    expect(function () {
+                        expect(new HttpRequest({
+                            url: '/foo/bar'
+                        }), 'to satisfy', {
+                            url: expect.it('to begin with', '/foo/quux')
+                        });
+                    }, 'to throw',
+                        "expected /foo/bar to satisfy { url: expect.it('to begin with', '/foo/quux') }\n" +
+                        "\n" +
+                        "/foo/bar // url should satisfy expect.it('to begin with', '/foo/quux')\n" +
+                        "         //\n" +
+                        "         // expected '/foo/bar' to begin with '/foo/quux'\n" +
+                        "         //\n" +
+                        "         // /foo/bar\n" +
+                        "         // ^^^^^\n"
+                    );
                 });
             });
 
