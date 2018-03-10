@@ -1448,6 +1448,112 @@ describe('unexpected-messy', function () {
                     '               // +POST / HTTP/1.1'
                 );
             });
+
+            describe('with a query', function () {
+                describe('passed as an object', function () {
+                    it('should succeed when there is an exact match for every query parameter', function () {
+                        expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: {foo: 'bar'}});
+                    });
+
+                    it('should succeed when the parameters come in a different order', function () {
+                        expect(new RequestLine('GET /?foo=bar&quux=baz HTTP/1.1'), 'to satisfy', {
+                            query: {
+                                quux: 'baz',
+                                foo: 'bar'
+                            }
+                        });
+                    });
+
+                    it('should succeed when there are extra parameters not named in the object', function () {
+                        expect(new RequestLine('GET /?foo=bar&yeah=blah HTTP/1.1'), 'to satisfy', {query: {foo: 'bar'}});
+                    });
+
+                    it('should fail with a diff when a parameter has another value', function () {
+                        expect(function () {
+                            expect(
+                                new RequestLine('GET /?foo=bar HTTP/1.1'),
+                                'to satisfy',
+                                {query: {foo: 'baz'}}
+                            );
+                        }, 'to throw',
+                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
+                            "\n" +
+                            "GET /?foo=bar HTTP/1.1 // query should satisfy { foo: 'baz' }\n" +
+                            "                       //\n" +
+                            "                       // {\n" +
+                            "                       //   foo: 'bar' // should equal 'baz'\n" +
+                            "                       //              //\n" +
+                            "                       //              // -bar\n" +
+                            "                       //              // +baz\n" +
+                            "                       // }"
+                        );
+                    });
+
+                    it('should fail with a diff when a parameter is missing', function () {
+                        expect(function () {
+                            expect(
+                                new RequestLine('GET /?foo=bar HTTP/1.1'),
+                                'to satisfy',
+                                {query: {quux: 'baz'}}
+                            );
+                        }, 'to throw',
+                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { quux: 'baz' } }\n" +
+                            "\n" +
+                            "GET /?foo=bar HTTP/1.1 // query should satisfy { quux: 'baz' }\n" +
+                            "                       //\n" +
+                            "                       // {\n" +
+                            "                       //   foo: 'bar'\n" +
+                            "                       //   // missing quux: 'baz'\n" +
+                            "                       // }"
+                        );
+                    });
+                });
+
+                describe('passed as a string', function () {
+                    it('should succeed when there is an exact match for the entire string', function () {
+                        expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: 'foo=bar'});
+                    });
+
+                    it('should fail when there are extra parameters', function () {
+                        expect(function () {
+                            expect(new RequestLine('GET /?foo=bar&yeah=blah HTTP/1.1'), 'to satisfy', {query: 'foo=bar'});
+                        }, 'to throw',
+                            "expected GET /?foo=bar&yeah=blah HTTP/1.1 to satisfy { query: 'foo=bar' }\n" +
+                            "\n" +
+                            "GET /?foo=bar&yeah=blah HTTP/1.1 // should be /?foo=bar\n" +
+                            "                                 //\n" +
+                            "                                 // -GET /?foo=bar&yeah=blah HTTP/1.1\n" +
+                            "                                 // +GET /?foo=bar HTTP/1.1"
+                        );
+                    });
+                });
+
+                describe('passed as an expect.it', function () {
+                    it('should succeed when the expect.it accepts the query string', function () {
+                        expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: expect.it('to equal', {foo: 'bar'})});
+                    });
+
+                    it('should fail when the expect.it does not accept the query string', function () {
+                        expect(function () {
+                            expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: expect.it('to equal', {foo: 'baz'})});
+                        }, 'to throw',
+                            "expected GET /?foo=bar HTTP/1.1\n" +
+                            "to satisfy { query: expect.it('to equal', { foo: 'baz' }) }\n" +
+                            "\n" +
+                            "GET /?foo=bar HTTP/1.1 // query should satisfy expect.it('to equal', { foo: 'baz' })\n" +
+                            "                       //\n" +
+                            "                       // expected { foo: 'bar' } to equal { foo: 'baz' }\n" +
+                            "                       //\n" +
+                            "                       // {\n" +
+                            "                       //   foo: 'bar' // should equal 'baz'\n" +
+                            "                       //              //\n" +
+                            "                       //              // -bar\n" +
+                            "                       //              // +baz\n" +
+                            "                       // }"
+                        );
+                    });
+                });
+            });
         });
     });
 
@@ -1927,6 +2033,27 @@ describe('unexpected-messy', function () {
                     '\n' +
                     'argh'
                 );
+            });
+
+            // Quick tests that make sure that the property is forwarded to <messyRequestLine> to satisfy...
+            describe('with a query', function () {
+                describe('passed as an object', function () {
+                    it('should succeed when there is an exact match for every query parameter', function () {
+                        expect(new HttpRequest('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: {foo: 'bar'}});
+                    });
+
+                    it('should fail with a diff when a parameter has another value', function () {
+                        expect(function () {
+                            expect(
+                                new HttpRequest('GET /?foo=bar HTTP/1.1'),
+                                'to satisfy',
+                                {query: {foo: 'baz'}}
+                            );
+                        }, 'to throw',
+                            ''
+                        );
+                    });
+                });
             });
         });
     });
