@@ -2050,7 +2050,16 @@ describe('unexpected-messy', function () {
                                 {query: {foo: 'baz'}}
                             );
                         }, 'to throw',
-                            ''
+                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
+                            "\n" +
+                            "GET /?foo=bar HTTP/1.1 // query should satisfy { foo: 'baz' }\n" +
+                            "                       //\n" +
+                            "                       // {\n" +
+                            "                       //   foo: 'bar' // should equal 'baz'\n" +
+                            "                       //              //\n" +
+                            "                       //              // -bar\n" +
+                            "                       //              // +baz\n" +
+                            "                       // }\n"
                         );
                     });
                 });
