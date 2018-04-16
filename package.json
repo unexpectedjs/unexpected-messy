@@ -40,22 +40,22 @@
     "unexpected": "^10.27.0"
   },
   "devDependencies": {
-    "browserify": "16.2.0",
-    "bundle-collapser": "1.2.1",
-    "coveralls": "3.0.0",
-    "eslint": "4.19.1",
-    "eslint-config-onelint": "3.0.0",
-    "istanbul": "0.3.17",
-    "mocha": "5.1.0",
-    "unexpected": "10.37.4",
+    "browserify": "^16.2.0",
+    "bundle-collapser": "^1.2.1",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-onelint": "^3.0.0",
+    "istanbul": "^0.3.17",
+    "mocha": "^5.1.0",
+    "unexpected": "^10.37.4",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"
   },
   "dependencies": {
     "magicpen-media": "^1.5.0",
     "messy": "^6.16.0",
-    "minimist": "1.2.0",
-    "qs": "6.5.1",
-    "underscore": "1.8.3"
+    "minimist": "^1.2.0",
+    "qs": "^6.5.1",
+    "underscore": "^1.8.3"
   }
 }
