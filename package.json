@@ -47,7 +47,7 @@
     "eslint-config-onelint": "1.2.0",
     "istanbul": "0.3.17",
     "mocha": "5.1.0",
-    "unexpected": "10.27.0",
+    "unexpected": "10.37.4",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"
   },
