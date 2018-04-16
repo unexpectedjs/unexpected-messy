@@ -43,7 +43,7 @@
     "browserify": "16.2.0",
     "bundle-collapser": "1.2.1",
     "coveralls": "3.0.0",
-    "eslint": "2.13.1",
+    "eslint": "4.19.1",
     "eslint-config-onelint": "1.2.0",
     "istanbul": "0.3.17",
     "mocha": "2.2.5",
