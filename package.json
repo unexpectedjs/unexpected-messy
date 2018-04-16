@@ -54,7 +54,7 @@
   "dependencies": {
     "magicpen-media": "^1.5.0",
     "messy": "^6.16.0",
-    "minimist": "1.1.1",
+    "minimist": "1.2.0",
     "qs": "6.5.1",
     "underscore": "1.7.0"
   }
