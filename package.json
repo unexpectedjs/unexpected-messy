@@ -4,7 +4,8 @@
   "description": "Unexpected plugin for the messy library",
   "main": "lib/unexpectedMessy.js",
   "files": [
-    "lib"  
+    "lib",
+    "unexpectedMessy.min.js"
   ],
   "directories": {
     "test": "test"
