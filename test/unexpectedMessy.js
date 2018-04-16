@@ -59,46 +59,46 @@ describe('unexpected-messy', function () {
                 ]
             })
         }, 'to inspect as',
-            "{\n" +
-            "  headers:\n" +
-            "    Foo: quux\n" +
-            "    Baz: bar,\n" +
-            "  message:\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
-            "    { foo: 123 },\n" +
-            "  httpRequest:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Bar: baz\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpResponse:\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Bar: baz\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpExchange:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
+        '{\n' +
+            '  headers:\n' +
+            '    Foo: quux\n' +
+            '    Baz: bar,\n' +
+            '  message:\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
+            '    { foo: 123 },\n' +
+            '  httpRequest:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Bar: baz\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpResponse:\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Bar: baz\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpExchange:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
             "    { foo: 'bar' }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Content-Type: text/html\n" +
-            "\n" +
-            "    argh,\n" +
-            "  httpConversation:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Content-Type: application/json\n" +
-            "    Quux: Baz\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "}");
+            '\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Content-Type: text/html\n' +
+            '\n' +
+            '    argh,\n' +
+            '  httpConversation:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Content-Type: application/json\n' +
+            '    Quux: Baz\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '}');
     });
 
     it('should produce diffs that are proper blocks', function () {
@@ -139,138 +139,138 @@ describe('unexpected-messy', function () {
                 }
             });
         }, 'to throw',
-            "expected\n" +
-            "{\n" +
-            "  headers:\n" +
-            "    Foo: quux\n" +
-            "    Baz: bar,\n" +
-            "  message:\n" +
-            "    Foo: Bar\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
-            "    { foo: 123 },\n" +
-            "  httpRequest:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Bar: baz\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpResponse:\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Bar: baz\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpExchange:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
+        'expected\n' +
+            '{\n' +
+            '  headers:\n' +
+            '    Foo: quux\n' +
+            '    Baz: bar,\n' +
+            '  message:\n' +
+            '    Foo: Bar\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
+            '    { foo: 123 },\n' +
+            '  httpRequest:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Bar: baz\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpResponse:\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Bar: baz\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpExchange:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
             "    { foo: 'bar' }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Content-Type: text/html\n" +
-            "\n" +
-            "    argh,\n" +
-            "  httpConversation:\n" +
-            "    GET / HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK\n" +
-            "    Content-Type: application/json\n" +
-            "    Quux: Baz\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "}\n" +
-            "to satisfy\n" +
-            "{\n" +
+            '\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Content-Type: text/html\n' +
+            '\n' +
+            '    argh,\n' +
+            '  httpConversation:\n' +
+            '    GET / HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '\n' +
+            '    HTTP/1.1 200 OK\n' +
+            '    Content-Type: application/json\n' +
+            '    Quux: Baz\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '}\n' +
+            'to satisfy\n' +
+            '{\n' +
             "  headers: { foo: 'quux1', baz: 'bar' },\n" +
-            "  message: {\n" +
+            '  message: {\n' +
             "    headers: { Foo: 'Baz', 'Content-Type': 'application/json' },\n" +
-            "    body: { foo: 456 }\n" +
-            "  },\n" +
+            '    body: { foo: 456 }\n' +
+            '  },\n' +
             "  httpRequest: { requestLine: 'GET /foo HTTP/1.1', headers: { bar: 'baz' }, body: 'foo' },\n" +
             "  httpResponse: { statusLine: 'HTTP/1.1 404', headers: { bar: 'quux' }, body: 'foo' },\n" +
-            "  httpExchange: {\n" +
+            '  httpExchange: {\n' +
             "    request: { path: '/foo', headers: ... },\n" +
-            "    response: { statusCode: 404, headers: ... }\n" +
-            "  },\n" +
-            "  httpConversation: { exchanges: [ ... ] }\n" +
-            "}\n" +
-            "\n" +
-            "{\n" +
-            "  headers:\n" +
-            "    Foo: quux // should equal quux1\n" +
-            "              //\n" +
-            "              // -quux\n" +
-            "              // +quux1\n" +
-            "    Baz: bar,\n" +
-            "  message:\n" +
-            "    Foo: Bar // should equal Baz\n" +
-            "             //\n" +
-            "             // -Bar\n" +
-            "             // +Baz\n" +
-            "    Content-Type: application/json\n" +
-            "\n" +
-            "    {\n" +
-            "      foo: 123 // should equal 456\n" +
-            "    },\n" +
-            "  httpRequest:\n" +
-            "    GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n" +
-            "                   //\n" +
-            "                   // -GET / HTTP/1.1\n" +
-            "                   // +GET /foo HTTP/1.1\n" +
-            "    Bar: baz\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpResponse:\n" +
-            "    HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n" +
-            "                    //\n" +
-            "                    // -HTTP/1.1 200 OK\n" +
-            "                    // +HTTP/1.1 404 Not Found\n" +
-            "    Bar: baz // should equal quux\n" +
-            "             //\n" +
-            "             // -baz\n" +
-            "             // +quux\n" +
-            "\n" +
-            "    foo,\n" +
-            "  httpExchange:\n" +
-            "    GET / HTTP/1.1 // should be /foo\n" +
-            "                   //\n" +
-            "                   // -GET / HTTP/1.1\n" +
-            "                   // +GET /foo HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "    // missing Foo: quux\n" +
-            "\n" +
+            '    response: { statusCode: 404, headers: ... }\n' +
+            '  },\n' +
+            '  httpConversation: { exchanges: [ ... ] }\n' +
+            '}\n' +
+            '\n' +
+            '{\n' +
+            '  headers:\n' +
+            '    Foo: quux // should equal quux1\n' +
+            '              //\n' +
+            '              // -quux\n' +
+            '              // +quux1\n' +
+            '    Baz: bar,\n' +
+            '  message:\n' +
+            '    Foo: Bar // should equal Baz\n' +
+            '             //\n' +
+            '             // -Bar\n' +
+            '             // +Baz\n' +
+            '    Content-Type: application/json\n' +
+            '\n' +
+            '    {\n' +
+            '      foo: 123 // should equal 456\n' +
+            '    },\n' +
+            '  httpRequest:\n' +
+            '    GET / HTTP/1.1 // should be GET /foo HTTP/1.1\n' +
+            '                   //\n' +
+            '                   // -GET / HTTP/1.1\n' +
+            '                   // +GET /foo HTTP/1.1\n' +
+            '    Bar: baz\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpResponse:\n' +
+            '    HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n' +
+            '                    //\n' +
+            '                    // -HTTP/1.1 200 OK\n' +
+            '                    // +HTTP/1.1 404 Not Found\n' +
+            '    Bar: baz // should equal quux\n' +
+            '             //\n' +
+            '             // -baz\n' +
+            '             // +quux\n' +
+            '\n' +
+            '    foo,\n' +
+            '  httpExchange:\n' +
+            '    GET / HTTP/1.1 // should be /foo\n' +
+            '                   //\n' +
+            '                   // -GET / HTTP/1.1\n' +
+            '                   // +GET /foo HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '    // missing Foo: quux\n' +
+            '\n' +
             "    { foo: 'bar' }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
-            "                    //\n" +
-            "                    // -HTTP/1.1 200 OK\n" +
-            "                    // +HTTP/1.1 404 Not Found\n" +
-            "    Content-Type: text/html\n" +
-            "    // missing Bar: baz\n" +
-            "\n" +
-            "    argh,\n" +
-            "  httpConversation:\n" +
-            "    GET / HTTP/1.1 // should be /foo\n" +
-            "                   //\n" +
-            "                   // -GET / HTTP/1.1\n" +
-            "                   // +GET /foo HTTP/1.1\n" +
-            "    Content-Type: application/json\n" +
-            "    // missing Foo: quux\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "\n" +
-            "    HTTP/1.1 200 OK // should be 404 Not Found\n" +
-            "                    //\n" +
-            "                    // -HTTP/1.1 200 OK\n" +
-            "                    // +HTTP/1.1 404 Not Found\n" +
-            "    Content-Type: application/json\n" +
-            "    Quux: Baz\n" +
-            "    // missing Bar: baz\n" +
-            "\n" +
-            "    { foo: 123 }\n" +
-            "}"
+            '\n' +
+            '    HTTP/1.1 200 OK // should be 404 Not Found\n' +
+            '                    //\n' +
+            '                    // -HTTP/1.1 200 OK\n' +
+            '                    // +HTTP/1.1 404 Not Found\n' +
+            '    Content-Type: text/html\n' +
+            '    // missing Bar: baz\n' +
+            '\n' +
+            '    argh,\n' +
+            '  httpConversation:\n' +
+            '    GET / HTTP/1.1 // should be /foo\n' +
+            '                   //\n' +
+            '                   // -GET / HTTP/1.1\n' +
+            '                   // +GET /foo HTTP/1.1\n' +
+            '    Content-Type: application/json\n' +
+            '    // missing Foo: quux\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '\n' +
+            '    HTTP/1.1 200 OK // should be 404 Not Found\n' +
+            '                    //\n' +
+            '                    // -HTTP/1.1 200 OK\n' +
+            '                    // +HTTP/1.1 404 Not Found\n' +
+            '    Content-Type: application/json\n' +
+            '    Quux: Baz\n' +
+            '    // missing Bar: baz\n' +
+            '\n' +
+            '    { foo: 123 }\n' +
+            '}'
         );
     });
 
@@ -299,7 +299,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nQuux: Baz'),
                     new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz')
                 ], 'to produce a diff of',
-                    'Foo: Bar\n' +
+                'Foo: Bar\n' +
                     'Quux: Baz\n' +
                     '// missing Baz: Blah'
                 );
@@ -310,7 +310,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz'),
                     new Headers('Foo: Bar\nQuux: Baz')
                 ], 'to produce a diff of',
-                    'Foo: Bar\n' +
+                'Foo: Bar\n' +
                     'Baz: Blah // should be removed\n' +
                     'Quux: Baz'
                 );
@@ -321,7 +321,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nQuux: Baz'),
                     new Headers('Foo: Baz\nQuux: Blaz')
                 ], 'to produce a diff of',
-                    'Foo: Bar // should be Baz\n' +
+                'Foo: Bar // should be Baz\n' +
                     'Quux: Baz // should be Blaz'
                 );
             });
@@ -331,7 +331,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nFoo: Baz'),
                     new Headers('Foo: Blah\nFoo: Baz')
                 ], 'to produce a diff of',
-                    'Foo: Baz\n' +
+                'Foo: Baz\n' +
                     'Foo: Bar // should be Blah'
                 );
             });
@@ -341,7 +341,7 @@ describe('unexpected-messy', function () {
                     new Headers('Foo: Bar\nFoo: Baz'),
                     new Headers('Foo: Bar\nFoo: Blaz')
                 ], 'to produce a diff of',
-                    'Foo: Bar\n' +
+                'Foo: Bar\n' +
                     'Foo: Baz // should be Blaz'
                 );
             });
@@ -417,7 +417,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Headers({foo: 'a'}), 'to satisfy', {foo: undefined});
                 }, 'to throw',
-                    'expected Foo: a to satisfy { foo: undefined }\n' +
+                'expected Foo: a to satisfy { foo: undefined }\n' +
                     '\n' +
                     'Foo: a // should be removed');
             });
@@ -439,7 +439,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Headers({foo: 'a', bar: 'b'}), 'to satisfy', {bar: /c/, hey: 'there'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'Foo: a\n' +
                     'Bar: b\n' +
                     "to satisfy { bar: /c/, hey: 'there' }\n" +
@@ -457,10 +457,10 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Headers({foo: 'bla'}), 'to satisfy', {foo: expect.it('not to match', /a/)});
                 }, 'to throw',
-                    "expected Foo: bla to satisfy { foo: expect.it('not to match', /a/) }\n" +
+                "expected Foo: bla to satisfy { foo: expect.it('not to match', /a/) }\n" +
                     '\n' +
                     "Foo: bla // should satisfy expect.it('not to match', /a/)\n" +
-                    "         //\n" +
+                    '         //\n' +
                     "         // expected 'bla' not to match /a/\n" +
                     '         //\n' +
                     '         // bla\n' +
@@ -471,10 +471,10 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Headers('Foo: Bar'), 'to satisfy', { Foo: expect.it('to satisfy', 'Baz') });
                 }, 'to throw',
-                    "expected Foo: Bar to satisfy { Foo: expect.it('to satisfy', 'Baz') }\n" +
+                "expected Foo: Bar to satisfy { Foo: expect.it('to satisfy', 'Baz') }\n" +
                     '\n' +
                     "Foo: Bar // should satisfy expect.it('to satisfy', 'Baz')\n" +
-                    "         //\n" +
+                    '         //\n' +
                     "         // expected 'Bar' to equal 'Baz'\n" +
                     '         //\n' +
                     '         // -Bar\n' +
@@ -492,21 +492,21 @@ describe('unexpected-messy', function () {
                         }),
                         'when rejected',
                         'to have message',
-                            "expected\n" +
-                            "GET / HTTP/1.1\n" +
-                            "Content-Type: application/json\n" +
-                            "\n" +
-                            "{ foo: 123 }\n" +
+                        'expected\n' +
+                            'GET / HTTP/1.1\n' +
+                            'Content-Type: application/json\n' +
+                            '\n' +
+                            '{ foo: 123 }\n' +
                             "to satisfy { body: expect.it('when delayed a little bit', 'to equal', { foo: 987 }) }\n" +
-                            "\n" +
-                            "GET / HTTP/1.1\n" +
-                            "Content-Type: application/json\n" +
-                            "\n" +
-                            "expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n" +
-                            "\n" +
-                            "{\n" +
-                            "  foo: 123 // should equal 987\n" +
-                            "}"
+                            '\n' +
+                            'GET / HTTP/1.1\n' +
+                            'Content-Type: application/json\n' +
+                            '\n' +
+                            'expected { foo: 123 } when delayed a little bit to equal { foo: 987 }\n' +
+                            '\n' +
+                            '{\n' +
+                            '  foo: 123 // should equal 987\n' +
+                            '}'
                     );
                 });
             });
@@ -602,7 +602,7 @@ describe('unexpected-messy', function () {
                     new Message('Content-Type: application/json\n\n{"foo":123}'),
                     new Message('Content-Type: application/json\nQuux: Baz\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    'Content-Type: application/json\n' +
+                'Content-Type: application/json\n' +
                     '// missing Quux: Baz\n' +
                     '\n' +
                     '{\n' +
@@ -616,7 +616,7 @@ describe('unexpected-messy', function () {
                     new Message('Content-Type: application/json\n\n{"foo":123}'),
                     new Message('Content-Type: application/json\n\n{"foo":456}')
                 ], 'to produce a diff of',
-                    'Content-Type: application/json\n' +
+                'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
                     '  foo: 123 // should equal 456\n' +
@@ -638,7 +638,7 @@ describe('unexpected-messy', function () {
                     '\r\n' +
                     'foo\r\n'
                 ), 'to satisfy',
-                    'To: <recipient@example.com>\r\nFrom: <foo@example.com>\r\nSubject: Hey\r\n\r\nfoo\r\n'
+                'To: <recipient@example.com>\r\nFrom: <foo@example.com>\r\nSubject: Hey\r\n\r\nfoo\r\n'
                 );
             });
 
@@ -649,7 +649,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        'Content-Type: text/plain\r\n\r\nfoo'
+                    'Content-Type: text/plain\r\n\r\nfoo'
                     );
                 });
 
@@ -660,19 +660,19 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            'Content-Type: text/plain\r\n\r\nfoo'
+                        'Content-Type: text/plain\r\n\r\nfoo'
                         );
                     }, 'to throw',
-                        "expected\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "foobar\n" +
+                    'expected\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
                         "to satisfy 'Content-Type: text/plain\\r\\n\\r\\nfoo'\n" +
-                        "\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "-foobar\n" +
-                        "+foo"
+                        '\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
                     );
                 });
             });
@@ -684,7 +684,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
                     );
                 });
 
@@ -695,10 +695,10 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
                         );
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: text/plain\n' +
                         '\n' +
                         'foobar\n' +
@@ -716,10 +716,10 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new messy.Message('Content-Type: application/json'), 'to satisfy', new messy.Message('Foo: quux'));
                 }, 'to throw',
-                    "expected Content-Type: application/json to satisfy Foo: quux\n" +
-                    "\n" +
-                    "Content-Type: application/json\n" +
-                    "// missing Foo: quux"
+                'expected Content-Type: application/json to satisfy Foo: quux\n' +
+                    '\n' +
+                    'Content-Type: application/json\n' +
+                    '// missing Foo: quux'
                 );
             });
 
@@ -762,12 +762,12 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new Message({headers: {foo: 'a'}}), 'to satisfy', 'foo: b');
                     }, 'to throw',
-                        "expected Foo: a to satisfy 'foo: b'\n" +
-                        "\n" +
-                        "Foo: a // should equal b\n" +
-                        "       //\n" +
-                        "       // -a\n" +
-                        "       // +b"
+                    "expected Foo: a to satisfy 'foo: b'\n" +
+                        '\n' +
+                        'Foo: a // should equal b\n' +
+                        '       //\n' +
+                        '       // -a\n' +
+                        '       // +b'
                     );
                 });
 
@@ -785,12 +785,12 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new Message({headers: {foo: 'a'}}), 'to satisfy', {headers: 'foo: b'});
                     }, 'to throw',
-                        "expected Foo: a to satisfy { headers: 'foo: b' }\n" +
-                        "\n" +
-                        "Foo: a // should equal b\n" +
-                        "       //\n" +
-                        "       // -a\n" +
-                        "       // +b"
+                    "expected Foo: a to satisfy { headers: 'foo: b' }\n" +
+                        '\n' +
+                        'Foo: a // should equal b\n' +
+                        '       //\n' +
+                        '       // -a\n' +
+                        '       // +b'
                     );
                 });
 
@@ -829,7 +829,7 @@ describe('unexpected-messy', function () {
                             'Content-Type: text/plain; charset=iso-8859-1\n' +
                             'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {body: 'æ'});
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
@@ -850,7 +850,7 @@ describe('unexpected-messy', function () {
                             'Content-Type: text/plain; charset=iso-8859-1\n' +
                             'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {headers: {Foo: 'quux'}, body: 'æ'});
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Foo: bar\n' +
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
@@ -889,7 +889,7 @@ describe('unexpected-messy', function () {
                             ])
                         ), 'to satisfy', {body: new Buffer([1, 2, 3, 5])});
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: application/octet-stream\n' +
                         '\n' +
                         'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
@@ -935,37 +935,37 @@ describe('unexpected-messy', function () {
                         rawBody: expect.it('to contain', 'Wikipedia')
                     });
                 }, 'to throw',
-                    "expected\n" +
-                    "Content-Type: text/plain; charset=UTF-8\n" +
-                    "Transfer-Encoding: chunked\n" +
-                    "\n" +
-                    "Wikipedia in\r\n" +
-                    "\r\n" +
-                    "chunks.\n" +
+                'expected\n' +
+                    'Content-Type: text/plain; charset=UTF-8\n' +
+                    'Transfer-Encoding: chunked\n' +
+                    '\n' +
+                    'Wikipedia in\r\n' +
+                    '\r\n' +
+                    'chunks.\n' +
                     "to satisfy { rawBody: expect.it('to contain', 'Wikipedia') }\n" +
-                    "\n" +
-                    "Content-Type: text/plain; charset=UTF-8\n" +
-                    "Transfer-Encoding: chunked\n" +
-                    "\n" +
-                    "Wikipedia in\r\n" +
-                    "\r\n" +
-                    "chunks.\n" +
+                    '\n' +
+                    'Content-Type: text/plain; charset=UTF-8\n' +
+                    'Transfer-Encoding: chunked\n' +
+                    '\n' +
+                    'Wikipedia in\r\n' +
+                    '\r\n' +
+                    'chunks.\n' +
                     "// should have raw body satisfying expect.it('to contain', 'Wikipedia')\n" +
                     "// expected '4\\r\\nWiki\\r\\n5\\r\\npedia\\r\\ne\\r\\n in\\r\\n\\r\\nchunks.\\r\\n0\\r\\n\\r\\n'\n" +
                     "// to contain 'Wikipedia'\n" +
-                    "//\n" +
-                    "// 4\r\n" +
-                    "// Wiki\r\n" +
-                    "// ^^^^\n" +
-                    "// 5\r\n" +
-                    "// pedia\r\n" +
-                    "// e\r\n" +
-                    "//  in\r\n" +
-                    "// \r\n" +
-                    "// chunks.\r\n" +
-                    "// 0\r\n" +
-                    "// \r\n" +
-                    "//"
+                    '//\n' +
+                    '// 4\r\n' +
+                    '// Wiki\r\n' +
+                    '// ^^^^\n' +
+                    '// 5\r\n' +
+                    '// pedia\r\n' +
+                    '// e\r\n' +
+                    '//  in\r\n' +
+                    '// \r\n' +
+                    '// chunks.\r\n' +
+                    '// 0\r\n' +
+                    '// \r\n' +
+                    '//'
                 );
             });
 
@@ -982,7 +982,7 @@ describe('unexpected-messy', function () {
                         'Content-Type: text/plain; charset=iso-8859-1\n' +
                         'Content-Transfer-Encoding: quoted-printable\n\n=F8'), 'to satisfy', {fileName: /foo/});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'Content-Disposition: attachment; filename=abcdef.txt\n' +
                     'Content-Type: text/plain; charset=iso-8859-1\n' +
                     'Content-Transfer-Encoding: quoted-printable\n' +
@@ -1018,7 +1018,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new Message({headers: {foo: 'a', bar: 'b'}, body: 'foo'}), 'to satisfy', {headers: {bar: /c/}, body: /bar/});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'Foo: a\n' +
                     'Bar: b\n' +
                     '\n' +
@@ -1046,34 +1046,34 @@ describe('unexpected-messy', function () {
                         }
                     });
                 }, 'to throw',
-                       "expected\n" +
-                       "Content-Type: application/json\n" +
-                       "\n" +
+                'expected\n' +
+                       'Content-Type: application/json\n' +
+                       '\n' +
                        "{ foo: 'foo', bar: 'bar' }\n" +
-                       "to satisfy\n" +
-                       "{\n" +
-                       "  body: {\n" +
-                       "    foo: /fo/,\n" +
+                       'to satisfy\n' +
+                       '{\n' +
+                       '  body: {\n' +
+                       '    foo: /fo/,\n' +
                        "    bar: expect.it('to be a string')\n" +
                        "                 .and('to have length', 2)\n" +
-                       "  }\n" +
-                       "}\n" +
-                       "\n" +
-                       "Content-Type: application/json\n" +
-                       "\n" +
-                       "{\n" +
+                       '  }\n' +
+                       '}\n' +
+                       '\n' +
+                       'Content-Type: application/json\n' +
+                       '\n' +
+                       '{\n' +
                        "  foo: 'foo',\n" +
                        "  bar: 'bar' // ✓ should be a string and\n" +
-                       "             // ⨯ should have length 2\n" +
-                       "             //     expected 3 to be 2\n" +
-                       "}");
+                       '             // ⨯ should have length 2\n' +
+                       '             //     expected 3 to be 2\n' +
+                       '}');
             });
 
             it('should produce sensible output when matching an empty body against a regexp', function () {
                 expect(function () {
                     expect(new Message({headers: {Foo: 'a'}, body: ''}), 'to satisfy', {body: /bar/});
                 }, 'to throw',
-                    'expected Foo: a to satisfy { body: /bar/ }\n' +
+                'expected Foo: a to satisfy { body: /bar/ }\n' +
                     '\n' +
                     'Foo: a\n' +
                     '\n' +
@@ -1114,17 +1114,17 @@ describe('unexpected-messy', function () {
                             parts: [ {body: 'bar'} ]
                         });
                     }, 'to throw',
-                        "expected\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "fooøbar\n" +
+                    'expected\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'fooøbar\n' +
                         "to satisfy { parts: [ { body: 'bar' } ] }\n" +
-                        "\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "fooøbar\n" +
-                        "// should be a multipart message\n" +
-                        "// should have number of parts 1"
+                        '\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'fooøbar\n' +
+                        '// should be a multipart message\n' +
+                        '// should have number of parts 1'
                     );
                 });
 
@@ -1134,7 +1134,7 @@ describe('unexpected-messy', function () {
                             parts: expect.it('to have length', 3)
                         });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
                         '----------------------------231099812216460892104111\n' +
@@ -1202,7 +1202,7 @@ describe('unexpected-messy', function () {
                             parts: [{}, {}, {}]
                         });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
                         '----------------------------231099812216460892104111\n' +
@@ -1240,7 +1240,7 @@ describe('unexpected-messy', function () {
                             parts: [{}]
                         });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
                         '----------------------------231099812216460892104111\n' +
@@ -1279,7 +1279,7 @@ describe('unexpected-messy', function () {
                             parts: {abc: {}}
                         });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
                         '----------------------------231099812216460892104111\n' +
@@ -1327,7 +1327,7 @@ describe('unexpected-messy', function () {
                             ]
                         });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'Content-Type: multipart/form-data; boundary=--------------------------231099812216460892104111\n' +
                         '\n' +
                         '----------------------------231099812216460892104111\n' +
@@ -1353,7 +1353,7 @@ describe('unexpected-messy', function () {
                         '         // +quux\n' +
                         'Content-Transfer-Encoding: quoted-printable\n' +
                         '\n' +
-                        "fooøbar\n" +
+                        'fooøbar\n' +
                         '----------------------------231099812216460892104111\n' +
                         'Content-Disposition: attachment; filename="blah.txt"\n' +
                         '\n' +
@@ -1388,10 +1388,10 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET / HTTP/1.1'),
                     new RequestLine('POST / HTTP/1.1')
                 ], 'to produce a diff of',
-                    "GET / HTTP/1.1 // should be POST / HTTP/1.1\n" +
-                    "               //\n" +
-                    "               // -GET / HTTP/1.1\n" +
-                    "               // +POST / HTTP/1.1"
+                'GET / HTTP/1.1 // should be POST / HTTP/1.1\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST / HTTP/1.1'
 
                 );
             });
@@ -1401,10 +1401,10 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET / HTTP/1.1'),
                     new RequestLine('GET / HTTP/1.0')
                 ], 'to produce a diff of',
-                    "GET / HTTP/1.1 // should be HTTP/1.0\n" +
-                    "               //\n" +
-                    "               // -GET / HTTP/1.1\n" +
-                    "               // +GET / HTTP/1.0"
+                'GET / HTTP/1.1 // should be HTTP/1.0\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +GET / HTTP/1.0'
                 );
             });
 
@@ -1413,10 +1413,10 @@ describe('unexpected-messy', function () {
                     new RequestLine('GET /foo HTTP/1.1'),
                     new RequestLine('GET /bar HTTP/1.1')
                 ], 'to produce a diff of',
-                    "GET /foo HTTP/1.1 // should be /bar HTTP/1.1\n" +
-                    "                  //\n" +
-                    "                  // -GET /foo HTTP/1.1\n" +
-                    "                  // +GET /bar HTTP/1.1"
+                'GET /foo HTTP/1.1 // should be /bar HTTP/1.1\n' +
+                    '                  //\n' +
+                    '                  // -GET /foo HTTP/1.1\n' +
+                    '                  // +GET /bar HTTP/1.1'
                 );
             });
         });
@@ -1430,7 +1430,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: /^P(?:UT|POST)$/});
                 }, 'to throw',
-                    'expected GET / HTTP/1.1 to satisfy { method: /^P(?:UT|POST)$/ }\n' +
+                'expected GET / HTTP/1.1 to satisfy { method: /^P(?:UT|POST)$/ }\n' +
                     '\n' +
                     'GET / HTTP/1.1 // method should satisfy /^P(?:UT|POST)$/'
                 );
@@ -1440,7 +1440,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {method: 'POST', url: '/'});
                 }, 'to throw',
-                    "expected GET / HTTP/1.1 to satisfy { method: 'POST', url: '/' }\n" +
+                "expected GET / HTTP/1.1 to satisfy { method: 'POST', url: '/' }\n" +
                     '\n' +
                     'GET / HTTP/1.1 // should be POST /\n' +
                     '               //\n' +
@@ -1476,16 +1476,16 @@ describe('unexpected-messy', function () {
                                 {query: {foo: 'baz'}}
                             );
                         }, 'to throw',
-                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
-                            "\n" +
+                        "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
+                            '\n' +
                             "GET /?foo=bar HTTP/1.1 // query should satisfy { foo: 'baz' }\n" +
-                            "                       //\n" +
-                            "                       // {\n" +
+                            '                       //\n' +
+                            '                       // {\n' +
                             "                       //   foo: 'bar' // should equal 'baz'\n" +
-                            "                       //              //\n" +
-                            "                       //              // -bar\n" +
-                            "                       //              // +baz\n" +
-                            "                       // }"
+                            '                       //              //\n' +
+                            '                       //              // -bar\n' +
+                            '                       //              // +baz\n' +
+                            '                       // }'
                         );
                     });
 
@@ -1497,14 +1497,14 @@ describe('unexpected-messy', function () {
                                 {query: {quux: 'baz'}}
                             );
                         }, 'to throw',
-                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { quux: 'baz' } }\n" +
-                            "\n" +
+                        "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { quux: 'baz' } }\n" +
+                            '\n' +
                             "GET /?foo=bar HTTP/1.1 // query should satisfy { quux: 'baz' }\n" +
-                            "                       //\n" +
-                            "                       // {\n" +
+                            '                       //\n' +
+                            '                       // {\n' +
                             "                       //   foo: 'bar'\n" +
                             "                       //   // missing quux: 'baz'\n" +
-                            "                       // }"
+                            '                       // }'
                         );
                     });
                 });
@@ -1518,12 +1518,12 @@ describe('unexpected-messy', function () {
                         expect(function () {
                             expect(new RequestLine('GET /?foo=bar&yeah=blah HTTP/1.1'), 'to satisfy', {query: 'foo=bar'});
                         }, 'to throw',
-                            "expected GET /?foo=bar&yeah=blah HTTP/1.1 to satisfy { query: 'foo=bar' }\n" +
-                            "\n" +
-                            "GET /?foo=bar&yeah=blah HTTP/1.1 // should be /?foo=bar\n" +
-                            "                                 //\n" +
-                            "                                 // -GET /?foo=bar&yeah=blah HTTP/1.1\n" +
-                            "                                 // +GET /?foo=bar HTTP/1.1"
+                        "expected GET /?foo=bar&yeah=blah HTTP/1.1 to satisfy { query: 'foo=bar' }\n" +
+                            '\n' +
+                            'GET /?foo=bar&yeah=blah HTTP/1.1 // should be /?foo=bar\n' +
+                            '                                 //\n' +
+                            '                                 // -GET /?foo=bar&yeah=blah HTTP/1.1\n' +
+                            '                                 // +GET /?foo=bar HTTP/1.1'
                         );
                     });
                 });
@@ -1537,19 +1537,19 @@ describe('unexpected-messy', function () {
                         expect(function () {
                             expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {query: expect.it('to equal', {foo: 'baz'})});
                         }, 'to throw',
-                            "expected GET /?foo=bar HTTP/1.1\n" +
+                        'expected GET /?foo=bar HTTP/1.1\n' +
                             "to satisfy { query: expect.it('to equal', { foo: 'baz' }) }\n" +
-                            "\n" +
+                            '\n' +
                             "GET /?foo=bar HTTP/1.1 // query should satisfy expect.it('to equal', { foo: 'baz' })\n" +
-                            "                       //\n" +
+                            '                       //\n' +
                             "                       // expected { foo: 'bar' } to equal { foo: 'baz' }\n" +
-                            "                       //\n" +
-                            "                       // {\n" +
+                            '                       //\n' +
+                            '                       // {\n' +
                             "                       //   foo: 'bar' // should equal 'baz'\n" +
-                            "                       //              //\n" +
-                            "                       //              // -bar\n" +
-                            "                       //              // +baz\n" +
-                            "                       // }"
+                            '                       //              //\n' +
+                            '                       //              // -bar\n' +
+                            '                       //              // +baz\n' +
+                            '                       // }'
                         );
                     });
                 });
@@ -1578,10 +1578,10 @@ describe('unexpected-messy', function () {
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'),
                     new HttpRequest('POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    "GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n" +
-                    "               //\n" +
-                    "               // -GET / HTTP/1.1\n" +
-                    "               // +POST /foo HTTP/1.1\n" +
+                'GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n' +
+                    '               //\n' +
+                    '               // -GET / HTTP/1.1\n' +
+                    '               // +POST /foo HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -1595,7 +1595,7 @@ describe('unexpected-messy', function () {
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'),
                     new HttpRequest('GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     'Quux: Baz // should be removed\n' +
                     '\n' +
@@ -1610,19 +1610,19 @@ describe('unexpected-messy', function () {
                     new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
                     new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1')
                 ], 'to produce a diff of',
-                    "GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n" +
-                    "                     //\n" +
-                    "                     // -GET /blabla HTTP/1.1\n" +
-                    "                     // +GET /hey HTTP/1.1\n" +
-                    "Host: www.example.com:987 // should be somewhereelse.com\n" +
-                    "Metadata: {\n" +
+                'GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n' +
+                    '                     //\n' +
+                    '                     // -GET /blabla HTTP/1.1\n' +
+                    '                     // +GET /hey HTTP/1.1\n' +
+                    'Host: www.example.com:987 // should be somewhereelse.com\n' +
+                    'Metadata: {\n' +
                     "  host: 'www.example.com', // should equal 'somewhereelse.com'\n" +
-                    "                           //\n" +
-                    "                           // -www.example.com\n" +
-                    "                           // +somewhereelse.com\n" +
-                    "  port: 987, // should equal 80\n" +
-                    "  encrypted: true // should equal false\n" +
-                    "}"
+                    '                           //\n' +
+                    '                           // -www.example.com\n' +
+                    '                           // +somewhereelse.com\n' +
+                    '  port: 987, // should equal 80\n' +
+                    '  encrypted: true // should equal false\n' +
+                    '}'
                 );
             });
         });
@@ -1657,14 +1657,14 @@ describe('unexpected-messy', function () {
                             url: expect.it('to begin with', '/foo/quux')
                         });
                     }, 'to throw',
-                        "expected /foo/bar to satisfy { url: expect.it('to begin with', '/foo/quux') }\n" +
-                        "\n" +
+                    "expected /foo/bar to satisfy { url: expect.it('to begin with', '/foo/quux') }\n" +
+                        '\n' +
                         "/foo/bar // url should satisfy expect.it('to begin with', '/foo/quux')\n" +
-                        "         //\n" +
+                        '         //\n' +
                         "         // expected '/foo/bar' to begin with '/foo/quux'\n" +
-                        "         //\n" +
-                        "         // /foo/bar\n" +
-                        "         // ^^^^^\n"
+                        '         //\n' +
+                        '         // /foo/bar\n' +
+                        '         // ^^^^^\n'
                     );
                 });
             });
@@ -1677,7 +1677,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        'GET / HTTP/1.1\r\n' +
+                    'GET / HTTP/1.1\r\n' +
                         'Content-Type: text/plain\r\n\r\nfoo'
                     );
                 });
@@ -1690,21 +1690,21 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            'GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo'
+                        'GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo'
                         );
                     }, 'to throw',
-                        "expected\n" +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "foobar\n" +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
                         "to satisfy 'GET / HTTP/1.1\\r\\nContent-Type: text/plain\\r\\n\\r\\nfoo'\n" +
-                        "\n" +
-                        "GET / HTTP/1.1\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "-foobar\n" +
-                        "+foo"
+                        '\n' +
+                        'GET / HTTP/1.1\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
                     );
                 });
             });
@@ -1717,7 +1717,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
                     );
                 });
 
@@ -1729,10 +1729,10 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        new Buffer('GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
                         );
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: text/plain\n' +
                         '\n' +
@@ -1758,12 +1758,12 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', 'POST /bar');
                     }, 'to throw',
-                        "expected GET /foo HTTP/1.1 to satisfy 'POST /bar'\n" +
-                        "\n" +
-                        "GET /foo HTTP/1.1 // should be POST /bar\n" +
-                        "                  //\n" +
-                        "                  // -GET /foo HTTP/1.1\n" +
-                        "                  // +POST /bar HTTP/1.1\n"
+                    "expected GET /foo HTTP/1.1 to satisfy 'POST /bar'\n" +
+                        '\n' +
+                        'GET /foo HTTP/1.1 // should be POST /bar\n' +
+                        '                  //\n' +
+                        '                  // -GET /foo HTTP/1.1\n' +
+                        '                  // +POST /bar HTTP/1.1\n'
                     );
                 });
             });
@@ -1783,18 +1783,18 @@ describe('unexpected-messy', function () {
                             port: 123
                         });
                     }, 'to throw',
-                        "expected\n" +
-                        "GET /blabla HTTP/1.1\n" +
-                        "Host: www.example.com:987\n" +
+                    'expected\n' +
+                        'GET /blabla HTTP/1.1\n' +
+                        'Host: www.example.com:987\n' +
                         "to satisfy { host: 'blabla.com', port: 123 }\n" +
-                        "\n" +
-                        "GET /blabla HTTP/1.1\n" +
-                        "Host: www.example.com:987\n" +
+                        '\n' +
+                        'GET /blabla HTTP/1.1\n' +
+                        'Host: www.example.com:987\n' +
                         "// host: expected 'www.example.com' to equal 'blabla.com'\n" +
-                        "//\n" +
-                        "// -www.example.com\n" +
-                        "// +blabla.com\n" +
-                        "// port: expected 987 to equal 123"
+                        '//\n' +
+                        '// -www.example.com\n' +
+                        '// +blabla.com\n' +
+                        '// port: expected 987 to equal 123'
                     );
                 });
             });
@@ -1812,7 +1812,7 @@ describe('unexpected-messy', function () {
                             encrypted: true
                         });
                     }, 'to throw',
-                        'expected GET / HTTP/1.1 to satisfy { encrypted: true }\n' +
+                    'expected GET / HTTP/1.1 to satisfy { encrypted: true }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
@@ -1825,7 +1825,7 @@ describe('unexpected-messy', function () {
                         httpRequest.encrypted = true;
                         expect(httpRequest, 'to satisfy', { encrypted: false });
                     }, 'to throw',
-                        'expected GET / HTTP/1.1 to satisfy { encrypted: false }\n' +
+                    'expected GET / HTTP/1.1 to satisfy { encrypted: false }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
@@ -1838,7 +1838,7 @@ describe('unexpected-messy', function () {
                         httpRequest.encrypted = false;
                         expect(httpRequest, 'to satisfy', { encrypted: expect.it('to be ok') });
                     }, 'to throw',
-                        "expected GET / HTTP/1.1 to satisfy { encrypted: expect.it('to be ok') }\n" +
+                    "expected GET / HTTP/1.1 to satisfy { encrypted: expect.it('to be ok') }\n" +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
@@ -1872,7 +1872,7 @@ describe('unexpected-messy', function () {
                             key: new Buffer([8])
                         });
                     }, 'to throw',
-                        'expected GET / HTTP/1.1 to satisfy { cert: Buffer([0x05]), key: Buffer([0x08]) }\n' +
+                    'expected GET / HTTP/1.1 to satisfy { cert: Buffer([0x05]), key: Buffer([0x08]) }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         '\n' +
@@ -1927,7 +1927,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -1957,7 +1957,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'GET'}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -1984,7 +1984,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'text/html'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2011,7 +2011,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpRequest('GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {requestLine: {method: 'POST'}, headers: {'Content-Type': 'application/json'}});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2050,16 +2050,16 @@ describe('unexpected-messy', function () {
                                 {query: {foo: 'baz'}}
                             );
                         }, 'to throw',
-                            "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
-                            "\n" +
+                        "expected GET /?foo=bar HTTP/1.1 to satisfy { query: { foo: 'baz' } }\n" +
+                            '\n' +
                             "GET /?foo=bar HTTP/1.1 // query should satisfy { foo: 'baz' }\n" +
-                            "                       //\n" +
-                            "                       // {\n" +
+                            '                       //\n' +
+                            '                       // {\n' +
                             "                       //   foo: 'bar' // should equal 'baz'\n" +
-                            "                       //              //\n" +
-                            "                       //              // -bar\n" +
-                            "                       //              // +baz\n" +
-                            "                       // }\n"
+                            '                       //              //\n' +
+                            '                       //              // -bar\n' +
+                            '                       //              // +baz\n' +
+                            '                       // }\n'
                         );
                     });
                 });
@@ -2074,7 +2074,7 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 OK'),
                     new StatusLine('HTTP/1.1 412 Precondition Failed')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
                     '                //\n' +
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.1 412 Precondition Failed'
@@ -2086,7 +2086,7 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 OK'),
                     new StatusLine('HTTP/1.0 200 OK')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK\n' +
+                'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK\n' +
                     '                //\n' +
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.0 200 OK'
@@ -2098,7 +2098,7 @@ describe('unexpected-messy', function () {
                     new StatusLine('HTTP/1.1 200 Okie-dokie'),
                     new StatusLine('HTTP/1.1 200 OK')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 Okie-dokie // should be OK\n' +
+                'HTTP/1.1 200 Okie-dokie // should be OK\n' +
                     '                        //\n' +
                     '                        // -HTTP/1.1 200 Okie-dokie\n' +
                     '                        // +HTTP/1.1 200 OK'
@@ -2120,7 +2120,7 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 412);
                     }, 'to throw',
-                        'expected HTTP/1.1 200 OK to satisfy 412\n' +
+                    'expected HTTP/1.1 200 OK to satisfy 412\n' +
                         '\n' +
                         'HTTP/1.1 200 OK // should be 412 Precondition Failed');
                 });
@@ -2135,7 +2135,7 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', expect.it('to equal', 412));
                     }, 'to throw',
-                        "expected HTTP/1.1 200 OK to satisfy expect.it('to equal', 412)\n" +
+                    "expected HTTP/1.1 200 OK to satisfy expect.it('to equal', 412)\n" +
                         '\n' +
                         'HTTP/1.1 200 OK // expected 200 to equal 412');
                 });
@@ -2144,9 +2144,9 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', expect.it('to be within', 400, 599));
                     }, 'to throw',
-                        "expected HTTP/1.1 200 OK to satisfy expect.it('to be within', 400, 599)\n" +
+                    "expected HTTP/1.1 200 OK to satisfy expect.it('to be within', 400, 599)\n" +
                         '\n' +
-                        "HTTP/1.1 200 OK // expected 200 to be within 400..599");
+                        'HTTP/1.1 200 OK // expected 200 to be within 400..599');
                 });
             });
 
@@ -2154,7 +2154,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {protocolVersion: /^2\.\d+$/});
                 }, 'to throw',
-                    'expected HTTP/1.1 200 OK to satisfy { protocolVersion: /^2\\.\\d+$/ }\n' +
+                'expected HTTP/1.1 200 OK to satisfy { protocolVersion: /^2\\.\\d+$/ }\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should satisfy { protocolVersion: /^2\\.\\d+$/ }'
                 );
@@ -2164,7 +2164,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {statusCode: 412});
                 }, 'to throw',
-                    "expected HTTP/1.1 200 OK to satisfy { statusCode: 412 }\n" +
+                'expected HTTP/1.1 200 OK to satisfy { statusCode: 412 }\n' +
                     '\n' +
                     'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
                     '                //\n' +
@@ -2196,7 +2196,7 @@ describe('unexpected-messy', function () {
                     new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
                     new HttpResponse('HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
+                'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
                     '                //\n' +
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.1 412 Precondition Failed\n' +
@@ -2213,7 +2213,7 @@ describe('unexpected-messy', function () {
                     new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":123}'),
                     new HttpResponse('HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}')
                 ], 'to produce a diff of',
-                    'HTTP/1.1 200 OK\n' +
+                'HTTP/1.1 200 OK\n' +
                     'Content-Type: application/json\n' +
                     '// missing Quux: Baz\n' +
                     '\n' +
@@ -2234,7 +2234,7 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new HttpResponse('HTTP/1.1 412 Precondition Failed\r\nContent-Type: text/html'), 'to satisfy', 200);
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'HTTP/1.1 412 Precondition Failed\n' +
                         'Content-Type: text/html\n' +
                         'to satisfy 200\n' +
@@ -2253,7 +2253,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        'HTTP/1.1 200 OK\r\n' +
+                    'HTTP/1.1 200 OK\r\n' +
                         'Content-Type: text/plain\r\n\r\nfoo'
                     );
                 });
@@ -2266,21 +2266,21 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo'
+                        'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo'
                         );
                     }, 'to throw',
-                        "expected\n" +
+                    'expected\n' +
                         'HTTP/1.1 200 OK\n' +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "foobar\n" +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        'foobar\n' +
                         "to satisfy 'HTTP/1.1 200 OK\\r\\nContent-Type: text/plain\\r\\n\\r\\nfoo'\n" +
-                        "\n" +
-                        "HTTP/1.1 200 OK\n" +
-                        "Content-Type: text/plain\n" +
-                        "\n" +
-                        "-foobar\n" +
-                        "+foo"
+                        '\n' +
+                        'HTTP/1.1 200 OK\n' +
+                        'Content-Type: text/plain\n' +
+                        '\n' +
+                        '-foobar\n' +
+                        '+foo'
                     );
                 });
             });
@@ -2293,7 +2293,7 @@ describe('unexpected-messy', function () {
                         '\r\n' +
                         'foo'
                     ), 'to satisfy',
-                        new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                    new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
                     );
                 });
 
@@ -2305,10 +2305,10 @@ describe('unexpected-messy', function () {
                             '\r\n' +
                             'foobar'
                         ), 'to satisfy',
-                            new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                        new Buffer('HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo', 'utf-8')
                         );
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'HTTP/1.1 200 OK\n' +
                         'Content-Type: text/plain\n' +
                         '\n' +
@@ -2345,12 +2345,12 @@ describe('unexpected-messy', function () {
                     expect(function () {
                         expect(new HttpResponse('HTTP/1.1 200 OK'), 'to satisfy', 'HTTP/1.1 404 Not Found');
                     }, 'to throw',
-                        "expected HTTP/1.1 200 OK to satisfy 'HTTP/1.1 404 Not Found'\n" +
-                        "\n" +
-                        "HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n" +
-                        "                //\n" +
-                        "                // -HTTP/1.1 200 OK\n" +
-                        "                // +HTTP/1.1 404 Not Found\n"
+                    "expected HTTP/1.1 200 OK to satisfy 'HTTP/1.1 404 Not Found'\n" +
+                        '\n' +
+                        'HTTP/1.1 200 OK // should be HTTP/1.1 404 Not Found\n' +
+                        '                //\n' +
+                        '                // -HTTP/1.1 200 OK\n' +
+                        '                // +HTTP/1.1 404 Not Found\n'
                     );
                 });
             });
@@ -2408,7 +2408,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 412}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2438,7 +2438,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 200}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2465,7 +2465,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 200}, headers: {'Content-Type': 'application/json'}, body: 'blah'});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2492,7 +2492,7 @@ describe('unexpected-messy', function () {
                 expect(function () {
                     expect(new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'), 'to satisfy', {statusLine: {statusCode: 412}, headers: {'Content-Type': 'application/json'}});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: text/html\n' +
                     '\n' +
@@ -2525,7 +2525,7 @@ describe('unexpected-messy', function () {
                     request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                     response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
                 }), 'to inspect as',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{ foo: 123 }\n' +
@@ -2542,7 +2542,7 @@ describe('unexpected-messy', function () {
                 expect(new HttpExchange({
                     response: 'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
                 }), 'to inspect as',
-                    '<no request>\n' +
+                '<no request>\n' +
                     '\n' +
                     'HTTP/1.1 200 OK\n' +
                     'Content-Type: application/json\n' +
@@ -2556,7 +2556,7 @@ describe('unexpected-messy', function () {
                 expect(new HttpExchange({
                     request: 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
                 }), 'to inspect as',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{ foo: 123 }\n' +
@@ -2578,7 +2578,7 @@ describe('unexpected-messy', function () {
                         response: 'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
                     })
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -2614,7 +2614,7 @@ describe('unexpected-messy', function () {
                         response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
                     }), 'to satisfy', {request: {url: '/foo'}, response: {body: 'blah'}});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
@@ -2649,7 +2649,7 @@ describe('unexpected-messy', function () {
                         response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
                     }), 'to satisfy', {request: {url: '/'}, response: {body: 'blah'}});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
@@ -2681,7 +2681,7 @@ describe('unexpected-messy', function () {
                         response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
                     }), 'to satisfy', {request: {url: '/foo'}, response: {body: 'argh'}});
                 }, 'to throw',
-                    'expected\n' +
+                'expected\n' +
                     'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
@@ -2725,7 +2725,7 @@ describe('unexpected-messy', function () {
                         }
                     ]
                 }), 'to inspect as',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{ foo: 123 }\n' +
@@ -2778,7 +2778,7 @@ describe('unexpected-messy', function () {
                         ]
                     })
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -2839,7 +2839,7 @@ describe('unexpected-messy', function () {
                         ]
                     })
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -2894,7 +2894,7 @@ describe('unexpected-messy', function () {
                         ]
                     })
                 ], 'to produce a diff of',
-                    'GET / HTTP/1.1\n' +
+                'GET / HTTP/1.1\n' +
                     'Content-Type: application/json\n' +
                     '\n' +
                     '{\n' +
@@ -2946,16 +2946,16 @@ describe('unexpected-messy', function () {
                         ]
                     });
                 }, 'to error',
-                    "expected <empty conversation> to satisfy { exchanges: [ { response: ... } ] }\n" +
-                    "\n" +
-                    "// missing:\n" +
-                    "// <no request>\n" +
-                    "//\n" +
-                    "// HTTP/1.1 404 Not Found\n" +
-                    "// Server: CouchDB/1.6.0 (Erlang OTP/17)\n" +
-                    "// Cache-Control: must-revalidate\n" +
-                    "// Content-Type: application/json\n" +
-                    "//\n" +
+                'expected <empty conversation> to satisfy { exchanges: [ { response: ... } ] }\n' +
+                    '\n' +
+                    '// missing:\n' +
+                    '// <no request>\n' +
+                    '//\n' +
+                    '// HTTP/1.1 404 Not Found\n' +
+                    '// Server: CouchDB/1.6.0 (Erlang OTP/17)\n' +
+                    '// Cache-Control: must-revalidate\n' +
+                    '// Content-Type: application/json\n' +
+                    '//\n' +
                     "// { error: 'not_found', reason: 'Document is missing attachment' }"
                 );
             });
@@ -2987,7 +2987,7 @@ describe('unexpected-messy', function () {
                             ]
                         }), 'to satisfy', { exchanges: [ { request: { method: 'GET', path: '/foo' } } ] });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
@@ -2998,7 +2998,7 @@ describe('unexpected-messy', function () {
                         'Quux: Baz\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: [ { request: ... } ] }\n" +
+                        'to satisfy { exchanges: [ { request: ... } ] }\n' +
                         '\n' +
                         'GET / HTTP/1.1 // should be GET /foo\n' +
                         '               //\n' +
@@ -3031,7 +3031,7 @@ describe('unexpected-messy', function () {
                             ]
                         }), 'to satisfy', { exchanges: [ {} ] });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
@@ -3051,7 +3051,7 @@ describe('unexpected-messy', function () {
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: [ {} ] }\n" +
+                        'to satisfy { exchanges: [ {} ] }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
@@ -3087,7 +3087,7 @@ describe('unexpected-messy', function () {
                             ]
                         }), 'to satisfy', { exchanges: [ {}, { request: { url: 'GET /', headers: { Quux: 'baz' } } } ] });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
@@ -3097,7 +3097,7 @@ describe('unexpected-messy', function () {
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: [ {}, { request: ... } ] }\n" +
+                        'to satisfy { exchanges: [ {}, { request: ... } ] }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
@@ -3128,7 +3128,7 @@ describe('unexpected-messy', function () {
                             ]
                         }), 'to satisfy', { exchanges: [ {}, { request: { url: 'GET /', headers: { Foo: /bar/, Quux: 'baz' } } } ] });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
@@ -3138,7 +3138,7 @@ describe('unexpected-messy', function () {
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: [ {}, { request: ... } ] }\n" +
+                        'to satisfy { exchanges: [ {}, { request: ... } ] }\n' +
                         '\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
@@ -3183,7 +3183,7 @@ describe('unexpected-messy', function () {
                             ]
                         }), 'to satisfy', { exchanges: { 0: { request: { method: 'GET', path: '/foo' } } } });
                     }, 'to throw',
-                        'expected\n' +
+                    'expected\n' +
                         'GET / HTTP/1.1\n' +
                         'Content-Type: application/json\n' +
                         '\n' +
@@ -3194,7 +3194,7 @@ describe('unexpected-messy', function () {
                         'Quux: Baz\n' +
                         '\n' +
                         '{ foo: 456 }\n' +
-                        "to satisfy { exchanges: { 0: { request: ... } } }\n" +
+                        'to satisfy { exchanges: { 0: { request: ... } } }\n' +
                         '\n' +
                         'GET / HTTP/1.1 // should be GET /foo\n' +
                         '               //\n' +
@@ -3243,7 +3243,7 @@ describe('unexpected-messy', function () {
                         }),
                         'when rejected',
                         'to have message',
-                            'expected\n' +
+                        'expected\n' +
                             'GET / HTTP/1.1\n' +
                             'Content-Type: application/json\n' +
                             '\n' +
@@ -3254,7 +3254,7 @@ describe('unexpected-messy', function () {
                             'Quux: Baz\n' +
                             '\n' +
                             '{ foo: 456 }\n' +
-                            "to satisfy { exchanges: [ { request: ..., response: ... } ] }\n" +
+                            'to satisfy { exchanges: [ { request: ..., response: ... } ] }\n' +
                             '\n' +
                             'GET / HTTP/1.1 // should be GET /foo\n' +
                             '               //\n' +
@@ -3271,11 +3271,11 @@ describe('unexpected-messy', function () {
                             'HTTP/1.1 200 OK\n' +
                             'Content-Type: application/json\n' +
                             "Quux: Baz // should satisfy expect.it('when delayed a little bit', 'to equal', 'bar')\n" +
-                            "          //\n" +
+                            '          //\n' +
                             "          // expected 'Baz' when delayed a little bit to equal 'bar'\n" +
-                            "          //\n" +
-                            "          // -Baz\n" +
-                            "          // +bar\n" +
+                            '          //\n' +
+                            '          // -Baz\n' +
+                            '          // +bar\n' +
                             '\n' +
                             'expected { foo: 456 } when delayed a little bit to equal { foo: 789 }\n' +
                             '\n' +
