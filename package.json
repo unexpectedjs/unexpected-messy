@@ -3,6 +3,9 @@
   "version": "7.4.1",
   "description": "Unexpected plugin for the messy library",
   "main": "lib/unexpectedMessy.js",
+  "files": [
+    "lib"  
+  ],
   "directories": {
     "test": "test"
   },
