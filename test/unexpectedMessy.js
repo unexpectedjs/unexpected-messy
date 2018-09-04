@@ -2126,7 +2126,7 @@ describe('unexpected-messy', function () {
                 );
             });
 
-            it('must diff the status line when the status mesage', function () {
+            it('must diff the status line when the status message', function () {
                 expect([
                     new StatusLine('HTTP/1.1 200 Okie-dokie'),
                     new StatusLine('HTTP/1.1 200 OK')
@@ -2135,6 +2135,19 @@ describe('unexpected-messy', function () {
                     '                        //\n' +
                     '                        // -HTTP/1.1 200 Okie-dokie\n' +
                     '                        // +HTTP/1.1 200 OK'
+                );
+            });
+
+            it('must break to the next line when the status line + diff exceeds preferredWidth', function () {
+                expect([
+                    new StatusLine('HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK'),
+                    new StatusLine('HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed')
+                ], 'to produce a diff of',
+                'HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
+                    '// should be 412 Precondition Failed Precondition Failed Precondition Failed\n' +
+                    '//\n' +
+                    '// -HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
+                    '// +HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed'
                 );
             });
         });
@@ -2203,6 +2216,25 @@ describe('unexpected-messy', function () {
                     '                //\n' +
                     '                // -HTTP/1.1 200 OK\n' +
                     '                // +HTTP/1.1 412 Precondition Failed'
+                );
+            });
+
+            it('must break to the next line when the status line + diff exceeds preferredWidth', function () {
+                expect(function () {
+                    expect(
+                        new StatusLine('HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK'),
+                        'to satisfy',
+                        'HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed'
+                    );
+                }, 'to throw',
+                'expected HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
+                    "to satisfy 'HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed'\n" +
+                    '\n' +
+                    'HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
+                    '// should be HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed\n' +
+                    '//\n' +
+                    '// -HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
+                    '// +HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed'
                 );
             });
         });
