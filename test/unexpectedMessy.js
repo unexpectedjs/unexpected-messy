@@ -1419,6 +1419,19 @@ describe('unexpected-messy', function () {
                     '                  // +GET /bar HTTP/1.1'
                 );
             });
+
+            it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function () {
+                expect([
+                    new RequestLine('GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1'),
+                    new RequestLine('GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1')
+                ], 'to produce a diff of',
+                'GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
+                    '// should be /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1\n' +
+                    '//\n' +
+                    '// -GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
+                    '// +GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1'
+                );
+            });
         });
 
         describe('"to satisfy" assertion', function () {
@@ -1446,6 +1459,25 @@ describe('unexpected-messy', function () {
                     '               //\n' +
                     '               // -GET / HTTP/1.1\n' +
                     '               // +POST / HTTP/1.1'
+                );
+            });
+
+            it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function () {
+                expect(function () {
+                    expect(
+                        new RequestLine('GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1'),
+                        'to satisfy',
+                        'GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1'
+                    );
+                }, 'to throw',
+                'expected GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
+                    "to satisfy 'GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1'\n" +
+                    '\n' +
+                    'GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
+                    '// should be GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1\n' +
+                    '//\n' +
+                    '// -GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
+                    '// +GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1'
                 );
             });
 
@@ -1540,16 +1572,17 @@ describe('unexpected-messy', function () {
                         'expected GET /?foo=bar HTTP/1.1\n' +
                             "to satisfy { query: expect.it('to equal', { foo: 'baz' }) }\n" +
                             '\n' +
-                            "GET /?foo=bar HTTP/1.1 // query should satisfy expect.it('to equal', { foo: 'baz' })\n" +
-                            '                       //\n' +
-                            "                       // expected { foo: 'bar' } to equal { foo: 'baz' }\n" +
-                            '                       //\n' +
-                            '                       // {\n' +
-                            "                       //   foo: 'bar' // should equal 'baz'\n" +
-                            '                       //              //\n' +
-                            '                       //              // -bar\n' +
-                            '                       //              // +baz\n' +
-                            '                       // }'
+                            'GET /?foo=bar HTTP/1.1\n' +
+                            "// query should satisfy expect.it('to equal', { foo: 'baz' })\n" +
+                            '//\n' +
+                            "// expected { foo: 'bar' } to equal { foo: 'baz' }\n" +
+                            '//\n' +
+                            '// {\n' +
+                            "//   foo: 'bar' // should equal 'baz'\n" +
+                            '//              //\n' +
+                            '//              // -bar\n' +
+                            '//              // +baz\n' +
+                            '// }'
                         );
                     });
                 });
