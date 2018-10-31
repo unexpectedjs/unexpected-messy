@@ -52,7 +52,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.1.0",
     "unexpected": "^10.37.4",
-    "unexpected-documentation-site-generator": "^4.0.0",
+    "unexpected-documentation-site-generator": "^5.0.0",
     "unexpected-markdown": "^1.4.0"
   },
   "dependencies": {
