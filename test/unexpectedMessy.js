@@ -25,10 +25,9 @@ describe('unexpected-messy', function () {
             expect(expect.inspect(subject).toString(), 'to equal', value);
         })
         .addAssertion('<any> when delayed a little bit <assertion>', function (expect, subject) {
-            var that = this;
             return expect.promise(function (run) {
                 setTimeout(run(function () {
-                    return that.shift(expect, subject, 0);
+                    return expect.shift(subject);
                 }), 1);
             });
         })
