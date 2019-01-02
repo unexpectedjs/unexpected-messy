@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "test": "mocha && mocha documentation",
     "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedMessy -s unexpectedMessy > unexpectedMessy.min.js",
-    "ci": "npm test && npm run lint && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
+    "ci": "npm test && npm run lint && npm run coverage && npm run generate-site",
     "coverage": "NODE_ENV=development istanbul cover --report text --report lcov _mocha -- --reporter dot && echo google-chrome coverage/lcov-report/index.html",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
     "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
