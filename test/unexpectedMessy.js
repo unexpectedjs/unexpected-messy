@@ -710,7 +710,7 @@ describe('unexpected-messy', function() {
 
       it('should render a multipart message parsed as a Buffer correctly', function() {
         var message = new Message(
-          new Buffer(
+          Buffer.from(
             'Content-Type: multipart/form-data;\r\n' +
               ' boundary=--------------------------231099812216460892104111\r\n' +
               '\r\n' +
@@ -837,7 +837,7 @@ describe('unexpected-messy', function() {
           expect(
             new messy.Message('Content-Type: text/plain\r\n' + '\r\n' + 'foo'),
             'to satisfy',
-            new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+            Buffer.from('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
           );
         });
 
@@ -849,7 +849,7 @@ describe('unexpected-messy', function() {
                   'Content-Type: text/plain\r\n' + '\r\n' + 'foobar'
                 ),
                 'to satisfy',
-                new Buffer('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
+                Buffer.from('Content-Type: text/plain\r\n\r\nfoo', 'utf-8')
               );
             },
             'to throw',
@@ -1107,12 +1107,12 @@ describe('unexpected-messy', function() {
           expect(
             new Message(
               Buffer.concat([
-                new Buffer('Content-Type: application/octet-stream\n\n'),
-                new Buffer([1, 2, 3, 4])
+                Buffer.from('Content-Type: application/octet-stream\n\n'),
+                Buffer.from([1, 2, 3, 4])
               ])
             ),
             'to satisfy',
-            { body: new Buffer([1, 2, 3, 4]) }
+            { body: Buffer.from([1, 2, 3, 4]) }
           );
         });
 
@@ -1122,12 +1122,12 @@ describe('unexpected-messy', function() {
               expect(
                 new Message(
                   Buffer.concat([
-                    new Buffer('Content-Type: application/octet-stream\n\n'),
-                    new Buffer([1, 2, 3, 4])
+                    Buffer.from('Content-Type: application/octet-stream\n\n'),
+                    Buffer.from([1, 2, 3, 4])
                   ])
                 ),
                 'to satisfy',
-                { body: new Buffer([1, 2, 3, 5]) }
+                { body: Buffer.from([1, 2, 3, 5]) }
               );
             },
             'to throw',
@@ -1258,16 +1258,16 @@ describe('unexpected-messy', function() {
 
       it('should support matching a Buffer body with a Buffer', function() {
         expect(
-          new Message(new Buffer('foo: bar\n\nthe body', 'utf-8')),
+          new Message(Buffer.from('foo: bar\n\nthe body', 'utf-8')),
           'to satisfy',
-          { body: new Buffer('the body', 'utf-8') }
+          { body: Buffer.from('the body', 'utf-8') }
         );
       });
 
       it('should support matching a Buffer body with an object when the Content-Type is application/json', function() {
         expect(
           new Message(
-            new Buffer(
+            Buffer.from(
               'Content-Type: application/json\n\n{"the": "body"}',
               'utf-8'
             )
@@ -1682,7 +1682,7 @@ describe('unexpected-messy', function() {
         it('should allow matching a 7-bit, Content-Type-less, Content-Dispostion: form-data body (originally instantiated from a Buffer) against a string', function() {
           expect(
             new Message(
-              new Buffer(
+              Buffer.from(
                 'Content-Type: multipart/form-data;\r\n' +
                   ' boundary=--------------------------231099812216460892104111\r\n' +
                   '\r\n' +
@@ -2177,7 +2177,7 @@ describe('unexpected-messy', function() {
                 'foo'
             ),
             'to satisfy',
-            new Buffer(
+            Buffer.from(
               'GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo',
               'utf-8'
             )
@@ -2195,7 +2195,7 @@ describe('unexpected-messy', function() {
                     'foobar'
                 ),
                 'to satisfy',
-                new Buffer(
+                Buffer.from(
                   'GET / HTTP/1.1\r\nContent-Type: text/plain\r\n\r\nfoo',
                   'utf-8'
                 )
@@ -2350,15 +2350,15 @@ describe('unexpected-messy', function() {
         it('should succeed', function() {
           expect(
             new HttpRequest({
-              cert: new Buffer([1]),
-              key: new Buffer([2]),
-              ca: new Buffer([3])
+              cert: Buffer.from([1]),
+              key: Buffer.from([2]),
+              ca: Buffer.from([3])
             }),
             'to satisfy',
             {
-              cert: new Buffer([1]),
-              key: new Buffer([2]),
-              ca: new Buffer([3])
+              cert: Buffer.from([1]),
+              key: Buffer.from([2]),
+              ca: Buffer.from([3])
             }
           );
         });
@@ -2369,13 +2369,13 @@ describe('unexpected-messy', function() {
               expect(
                 new HttpRequest({
                   requestLine: 'GET / HTTP/1.1',
-                  cert: new Buffer([1]),
-                  key: new Buffer([2])
+                  cert: Buffer.from([1]),
+                  key: Buffer.from([2])
                 }),
                 'to satisfy',
                 {
-                  cert: new Buffer([5]),
-                  key: new Buffer([8])
+                  cert: Buffer.from([5]),
+                  key: Buffer.from([8])
                 }
               );
             },
@@ -2993,7 +2993,7 @@ describe('unexpected-messy', function() {
                 'foo'
             ),
             'to satisfy',
-            new Buffer(
+            Buffer.from(
               'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo',
               'utf-8'
             )
@@ -3011,7 +3011,7 @@ describe('unexpected-messy', function() {
                     'foobar'
                 ),
                 'to satisfy',
-                new Buffer(
+                Buffer.from(
                   'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nfoo',
                   'utf-8'
                 )
