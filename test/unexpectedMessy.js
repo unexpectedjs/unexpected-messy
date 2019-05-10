@@ -857,7 +857,7 @@ describe('unexpected-messy', function() {
               'Content-Type: text/plain\n' +
               '\n' +
               'foobar\n' +
-              'to satisfy Buffer([0x43, 0x6F, 0x6E, 0x74, 0x65, 0x6E, 0x74, 0x2D, 0x54, 0x79, 0x70, 0x65, 0x3A, 0x20, 0x74, 0x65 /* 15 more */ ])\n' +
+              'to satisfy Buffer.from([0x43, 0x6F, 0x6E, 0x74, 0x65, 0x6E, 0x74, 0x2D, 0x54, 0x79, 0x70, 0x65, 0x3A, 0x20, 0x74, 0x65 /* 15 more */ ])\n' +
               '\n' +
               'Content-Type: text/plain\n' +
               '\n' +
@@ -1134,8 +1134,8 @@ describe('unexpected-messy', function() {
             'expected\n' +
               'Content-Type: application/octet-stream\n' +
               '\n' +
-              'Buffer([0x01, 0x02, 0x03, 0x04])\n' +
-              'to satisfy { body: Buffer([0x01, 0x02, 0x03, 0x05]) }\n' +
+              'Buffer.from([0x01, 0x02, 0x03, 0x04])\n' +
+              'to satisfy { body: Buffer.from([0x01, 0x02, 0x03, 0x05]) }\n' +
               '\n' +
               'Content-Type: application/octet-stream\n' +
               '\n' +
@@ -2207,7 +2207,7 @@ describe('unexpected-messy', function() {
               'Content-Type: text/plain\n' +
               '\n' +
               'foobar\n' +
-              'to satisfy Buffer([0x47, 0x45, 0x54, 0x20, 0x2F, 0x20, 0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x0D, 0x0A /* 31 more */ ])\n' +
+              'to satisfy Buffer.from([0x47, 0x45, 0x54, 0x20, 0x2F, 0x20, 0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x0D, 0x0A /* 31 more */ ])\n' +
               '\n' +
               'GET / HTTP/1.1\n' +
               'Content-Type: text/plain\n' +
@@ -2380,15 +2380,16 @@ describe('unexpected-messy', function() {
               );
             },
             'to throw',
-            'expected GET / HTTP/1.1 to satisfy { cert: Buffer([0x05]), key: Buffer([0x08]) }\n' +
+            'expected GET / HTTP/1.1\n' +
+              'to satisfy { cert: Buffer.from([0x05]), key: Buffer.from([0x08]) }\n' +
               '\n' +
               'GET / HTTP/1.1\n' +
               '\n' +
-              '// cert: expected Buffer([0x01]) to equal Buffer([0x05])\n' +
+              '// cert: expected Buffer.from([0x01]) to equal Buffer.from([0x05])\n' +
               '//\n' +
               '// -01                                               │.│\n' +
               '// +05                                               │.│\n' +
-              '// key: expected Buffer([0x02]) to equal Buffer([0x08])\n' +
+              '// key: expected Buffer.from([0x02]) to equal Buffer.from([0x08])\n' +
               '//\n' +
               '// -02                                               │.│\n' +
               '// +08                                               │.│'
@@ -3023,7 +3024,7 @@ describe('unexpected-messy', function() {
               'Content-Type: text/plain\n' +
               '\n' +
               'foobar\n' +
-              'to satisfy Buffer([0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x20, 0x32, 0x30, 0x30, 0x20, 0x4F, 0x4B, 0x0D /* 32 more */ ])\n' +
+              'to satisfy Buffer.from([0x48, 0x54, 0x54, 0x50, 0x2F, 0x31, 0x2E, 0x31, 0x20, 0x32, 0x30, 0x30, 0x20, 0x4F, 0x4B, 0x0D /* 32 more */ ])\n' +
               '\n' +
               'HTTP/1.1 200 OK\n' +
               'Content-Type: text/plain\n' +
