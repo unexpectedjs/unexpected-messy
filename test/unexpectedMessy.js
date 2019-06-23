@@ -1,4 +1,3 @@
-/*global describe, it, setTimeout*/
 var messy = require('messy');
 
 var Headers = messy.Headers;
