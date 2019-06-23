@@ -1,21 +1,12 @@
 var messy = require('messy');
-
 var Headers = messy.Headers;
-
 var Message = messy.Message;
-
 var RequestLine = messy.RequestLine;
-
 var HttpRequest = messy.HttpRequest;
-
 var StatusLine = messy.StatusLine;
-
 var HttpResponse = messy.HttpResponse;
-
 var HttpExchange = messy.HttpExchange;
-
 var HttpConversation = messy.HttpConversation;
-
 var unexpected = require('unexpected');
 
 describe('unexpected-messy', function() {
