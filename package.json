@@ -55,7 +55,7 @@
     "prettier": "^1.15.3",
     "unexpected": "^11.5.0",
     "unexpected-documentation-site-generator": "^6.0.0",
-    "unexpected-markdown": "^3.0.0"
+    "unexpected-markdown": "^4.0.0"
   },
   "dependencies": {
     "magicpen-media": "^1.5.0",
