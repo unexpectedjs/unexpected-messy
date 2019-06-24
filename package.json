@@ -58,7 +58,7 @@
     "unexpected-markdown": "^3.0.0"
   },
   "dependencies": {
-    "magicpen-media": "^1.5.0",
+    "magicpen-media": "^2.0.0",
     "messy": "^6.16.0",
     "minimist": "^1.2.0",
     "qs": "^6.5.1",
