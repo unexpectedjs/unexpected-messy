@@ -1,1 +1,7 @@
 package.json
+
+/testdata/
+/node_modules/
+/coverage/
+/site-build/
+/unexpectedMessy.min.js
