@@ -894,12 +894,6 @@ describe('unexpected-messy', function() {
         expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
           headers: { foo: 'a' }
         });
-      });
-
-      it('should support matching the headers', function() {
-        expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
-          headers: { foo: 'a' }
-        });
 
         expect(new Message({ headers: { foo: 'a' } }), 'not to satisfy', {
           headers: { bar: 'a' }
@@ -2731,22 +2725,6 @@ describe('unexpected-messy', function() {
             new StatusLine('HTTP/1.1 200 OK'),
             'to satisfy',
             expect.it('to equal', 200)
-          );
-        });
-
-        it('should fail when the function throws when passed the status code', function() {
-          expect(
-            function() {
-              expect(
-                new StatusLine('HTTP/1.1 200 OK'),
-                'to satisfy',
-                expect.it('to equal', 412)
-              );
-            },
-            'to throw',
-            "expected HTTP/1.1 200 OK to satisfy expect.it('to equal', 412)\n" +
-              '\n' +
-              'HTTP/1.1 200 OK // expected 200 to equal 412'
           );
         });
 
