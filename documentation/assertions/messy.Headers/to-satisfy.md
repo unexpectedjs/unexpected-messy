@@ -6,7 +6,7 @@ the presence of headers by providing an object with the expected headers:
 
 ```js
 expect(new messy.Headers('foo: bar'), 'to satisfy', {
-    Foo: 'bar'
+  Foo: 'bar',
 });
 ```
 
@@ -16,7 +16,7 @@ You can assert the absence of a header by passing a value of `undefined`:
 
 ```js
 expect(new messy.Headers('Quux: baz\r\nFoo: bar'), 'to satisfy', {
-    Foo: undefined
+  Foo: undefined,
 });
 ```
 
@@ -34,22 +34,30 @@ Multi-value headers are supported. Satisfying a multi-value header against a
 string will check that at least one of the values is equal to the string:
 
 ```js
-expect(new messy.Headers({
-    Foo: ['bar', 'quux']
-}), 'to satisfy', {
-    Foo: 'bar'
-});
+expect(
+  new messy.Headers({
+    Foo: ['bar', 'quux'],
+  }),
+  'to satisfy',
+  {
+    Foo: 'bar',
+  }
+);
 ```
 
 Satisfying a multi-value header against a string will assert that all the
 array items are present as values of the given header:
 
 ```js
-expect(new messy.Headers({
-    Foo: 'bar'
-}), 'to satisfy', {
-    Foo: ['quux', 'bar']
-});
+expect(
+  new messy.Headers({
+    Foo: 'bar',
+  }),
+  'to satisfy',
+  {
+    Foo: ['quux', 'bar'],
+  }
+);
 ```
 
 ```output

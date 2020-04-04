@@ -9,11 +9,11 @@ var HttpExchange = messy.HttpExchange;
 var HttpConversation = messy.HttpConversation;
 var unexpected = require('unexpected');
 
-describe('unexpected-messy', function() {
+describe('unexpected-messy', function () {
   var expect = unexpected
     .clone()
     .use(require('../lib/unexpectedMessy'))
-    .addAssertion('<array> to produce a diff of <string>', function(
+    .addAssertion('<array> to produce a diff of <string>', function (
       expect,
       subject,
       value
@@ -21,7 +21,7 @@ describe('unexpected-messy', function() {
       expect.errorMode = 'bubble';
       expect(expect.diff(subject[0], subject[1]).toString(), 'to equal', value);
     })
-    .addAssertion('<any> to inspect as <string>', function(
+    .addAssertion('<any> to inspect as <string>', function (
       expect,
       subject,
       value
@@ -29,20 +29,20 @@ describe('unexpected-messy', function() {
       expect.errorMode = 'bubble';
       expect(expect.inspect(subject).toString(), 'to equal', value);
     })
-    .addAssertion('<any> when delayed a little bit <assertion>', function(
+    .addAssertion('<any> when delayed a little bit <assertion>', function (
       expect,
       subject
     ) {
-      return expect.promise(function(run) {
+      return expect.promise(function (run) {
         setTimeout(
-          run(function() {
+          run(function () {
             return expect.shift(subject);
           }),
           1
         );
       });
     })
-    .addAssertion('<Error> 2 have message <string>', function(
+    .addAssertion('<Error> 2 have message <string>', function (
       expect,
       subject,
       value
@@ -57,7 +57,7 @@ describe('unexpected-messy', function() {
 
   expect.output.preferredWidth = 80;
 
-  it('should inspect objects as blocks', function() {
+  it('should inspect objects as blocks', function () {
     expect(
       {
         headers: new Headers({ foo: 'quux', baz: 'bar' }),
@@ -65,17 +65,17 @@ describe('unexpected-messy', function() {
         httpRequest: new HttpRequest({
           requestLine: 'GET / HTTP/1.1',
           headers: { bar: 'baz' },
-          body: 'foo'
+          body: 'foo',
         }),
         httpResponse: new HttpResponse({
           statusLine: 'HTTP/1.1 200 OK',
           headers: { bar: 'baz' },
-          body: 'foo'
+          body: 'foo',
         }),
         httpExchange: new HttpExchange({
           request:
             'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
-          response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+          response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
         }),
         httpConversation: new HttpConversation({
           exchanges: [
@@ -83,10 +83,10 @@ describe('unexpected-messy', function() {
               request:
                 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
               response:
-                'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-            }
-          ]
-        })
+                'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+            },
+          ],
+        }),
       },
       'to inspect as',
       '{\n' +
@@ -132,9 +132,9 @@ describe('unexpected-messy', function() {
     );
   });
 
-  it('should produce diffs that are proper blocks', function() {
+  it('should produce diffs that are proper blocks', function () {
     expect(
-      function() {
+      function () {
         expect(
           {
             headers: new Headers({ foo: 'quux', baz: 'bar' }),
@@ -144,17 +144,18 @@ describe('unexpected-messy', function() {
             httpRequest: new HttpRequest({
               requestLine: 'GET / HTTP/1.1',
               headers: { bar: 'baz' },
-              body: 'foo'
+              body: 'foo',
             }),
             httpResponse: new HttpResponse({
               statusLine: 'HTTP/1.1 200 OK',
               headers: { bar: 'baz' },
-              body: 'foo'
+              body: 'foo',
             }),
             httpExchange: new HttpExchange({
               request:
                 'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
-              response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+              response:
+                'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
             }),
             httpConversation: new HttpConversation({
               exchanges: [
@@ -162,40 +163,40 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                }
-              ]
-            })
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+                },
+              ],
+            }),
           },
           'to satisfy',
           {
             headers: { foo: 'quux1', baz: 'bar' },
             message: {
               headers: { Foo: 'Baz', 'Content-Type': 'application/json' },
-              body: { foo: 456 }
+              body: { foo: 456 },
             },
             httpRequest: {
               requestLine: 'GET /foo HTTP/1.1',
               headers: { bar: 'baz' },
-              body: 'foo'
+              body: 'foo',
             },
             httpResponse: {
               statusLine: 'HTTP/1.1 404',
               headers: { bar: 'quux' },
-              body: 'foo'
+              body: 'foo',
             },
             httpExchange: {
               request: { path: '/foo', headers: { Foo: 'quux' } },
-              response: { statusCode: 404, headers: { Bar: 'baz' } }
+              response: { statusCode: 404, headers: { Bar: 'baz' } },
             },
             httpConversation: {
               exchanges: [
                 {
                   request: { path: '/foo', headers: { Foo: 'quux' } },
-                  response: { statusCode: 404, headers: { Bar: 'baz' } }
-                }
-              ]
-            }
+                  response: { statusCode: 404, headers: { Bar: 'baz' } },
+                },
+              ],
+            },
           }
         );
       },
@@ -335,17 +336,17 @@ describe('unexpected-messy', function() {
     );
   });
 
-  describe('Headers', function() {
-    describe('#inspect', function() {
-      it('should render no headers as the empty string', function() {
+  describe('Headers', function () {
+    describe('#inspect', function () {
+      it('should render no headers as the empty string', function () {
         expect(new Headers(''), 'to inspect as', '');
       });
 
-      it('should render a single header headers with no newline at the end', function() {
+      it('should render a single header headers with no newline at the end', function () {
         expect(new Headers({ foo: 'bar' }), 'to inspect as', 'Foo: bar');
       });
 
-      it('should render two headers single header headers with no newline at the end', function() {
+      it('should render two headers single header headers with no newline at the end', function () {
         expect(
           new Headers({ foo: 'bar', quux: 'baz' }),
           'to inspect as',
@@ -353,7 +354,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render header names with special cased capitalization correctly', function() {
+      it('should render header names with special cased capitalization correctly', function () {
         expect(
           new Headers('mime-version: 1.0'),
           'to inspect as',
@@ -362,56 +363,56 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('must show missing headers', function() {
+    describe('#diff', function () {
+      it('must show missing headers', function () {
         expect(
           [
             new Headers('Foo: Bar\nQuux: Baz'),
-            new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz')
+            new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz'),
           ],
           'to produce a diff of',
           'Foo: Bar\n' + 'Quux: Baz\n' + '// missing Baz: Blah'
         );
       });
 
-      it('must show extraneous headers', function() {
+      it('must show extraneous headers', function () {
         expect(
           [
             new Headers('Foo: Bar\nBaz: Blah\nQuux: Baz'),
-            new Headers('Foo: Bar\nQuux: Baz')
+            new Headers('Foo: Bar\nQuux: Baz'),
           ],
           'to produce a diff of',
           'Foo: Bar\n' + 'Baz: Blah // should be removed\n' + 'Quux: Baz'
         );
       });
 
-      it('must show headers that have a wrong value', function() {
+      it('must show headers that have a wrong value', function () {
         expect(
           [
             new Headers('Foo: Bar\nQuux: Baz'),
-            new Headers('Foo: Baz\nQuux: Blaz')
+            new Headers('Foo: Baz\nQuux: Blaz'),
           ],
           'to produce a diff of',
           'Foo: Bar // should be Baz\n' + 'Quux: Baz // should be Blaz'
         );
       });
 
-      it('must show repeated headers where the first has a wrong value', function() {
+      it('must show repeated headers where the first has a wrong value', function () {
         expect(
           [
             new Headers('Foo: Bar\nFoo: Baz'),
-            new Headers('Foo: Blah\nFoo: Baz')
+            new Headers('Foo: Blah\nFoo: Baz'),
           ],
           'to produce a diff of',
           'Foo: Baz\n' + 'Foo: Bar // should be Blah'
         );
       });
 
-      it('must show repeated headers where the second has a wrong value', function() {
+      it('must show repeated headers where the second has a wrong value', function () {
         expect(
           [
             new Headers('Foo: Bar\nFoo: Baz'),
-            new Headers('Foo: Bar\nFoo: Blaz')
+            new Headers('Foo: Bar\nFoo: Blaz'),
           ],
           'to produce a diff of',
           'Foo: Bar\n' + 'Foo: Baz // should be Blaz'
@@ -419,46 +420,46 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(new Headers({ foo: 'a' }), 'to satisfy', undefined);
       });
 
-      it('must match an empty object', function() {
+      it('must match an empty object', function () {
         expect(new Headers({ foo: 'a' }), 'to satisfy', {});
       });
 
-      it('must match an empty object exhaustively', function() {
+      it('must match an empty object exhaustively', function () {
         expect(new Headers({}), 'to exhaustively satisfy', {});
       });
 
-      it('must match a single-valued header', function() {
+      it('must match a single-valued header', function () {
         expect(new Headers({ foo: 'a' }), 'to satisfy', { foo: 'a' });
       });
 
-      it('must match a single-valued header specified with a different casing', function() {
+      it('must match a single-valued header specified with a different casing', function () {
         expect(new Headers({ Foo: 'a' }), 'to satisfy', { fOO: 'a' });
       });
 
-      it('must match exhaustively when a single header is matched', function() {
+      it('must match exhaustively when a single header is matched', function () {
         expect(new Headers({ foo: 'a' }), 'to exhaustively satisfy', {
-          foo: 'a'
+          foo: 'a',
         });
       });
 
-      it('must match a string against a number (should stringify everything)', function() {
+      it('must match a string against a number (should stringify everything)', function () {
         expect(new Headers({ foo: '123' }), 'to satisfy', { foo: 123 });
       });
 
-      it('must match a number against a string (should stringify everything)', function() {
+      it('must match a number against a string (should stringify everything)', function () {
         expect(new Headers({ foo: 123 }), 'to satisfy', { foo: '123' });
       });
 
-      it('should match in spite of excess headers when not matching exhaustively', function() {
+      it('should match in spite of excess headers when not matching exhaustively', function () {
         expect(new Headers({ foo: 'a', bar: 'a' }), 'to satisfy', { foo: 'a' });
       });
 
-      it('should not match exhaustively when there are excess headers', function() {
+      it('should not match exhaustively when there are excess headers', function () {
         expect(
           new Headers({ foo: 'a', bar: 'a' }),
           'not to exhaustively satisfy',
@@ -466,11 +467,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should match in spite of excess values when not matching exhaustively', function() {
+      it('should match in spite of excess values when not matching exhaustively', function () {
         expect(new Headers({ foo: ['a', 'b'] }), 'to satisfy', { foo: 'a' });
       });
 
-      it('should not match exhaustively when there are excess values', function() {
+      it('should not match exhaustively when there are excess values', function () {
         expect(
           new Headers({ foo: ['a', 'b'] }),
           'not to exhaustively satisfy',
@@ -478,19 +479,19 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should match multiple values exhaustively', function() {
+      it('should match multiple values exhaustively', function () {
         expect(new Headers({ foo: ['a', 'b'] }), 'to exhaustively satisfy', {
-          foo: ['a', 'b']
+          foo: ['a', 'b'],
         });
       });
 
-      it('should match multiple values exhaustively when ordered differently', function() {
+      it('should match multiple values exhaustively when ordered differently', function () {
         expect(new Headers({ foo: ['a', 'b'] }), 'to exhaustively satisfy', {
-          foo: ['b', 'a']
+          foo: ['b', 'a'],
         });
       });
 
-      it('should not match exhaustively unless all values are actually named', function() {
+      it('should not match exhaustively unless all values are actually named', function () {
         expect(
           new Headers({ foo: ['a', 'b'] }),
           'not to exhaustively satisfy',
@@ -498,14 +499,14 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should assert the absence of a header when the value is given as undefined', function() {
+      it('should assert the absence of a header when the value is given as undefined', function () {
         expect(new Headers({ foo: 'a' }), 'to satisfy', { bar: undefined });
         expect(new Headers({ foo: 'a' }), 'not to satisfy', { foo: undefined });
       });
 
-      it('should produce the correct output when a present header is expected to be undefined', function() {
+      it('should produce the correct output when a present header is expected to be undefined', function () {
         expect(
-          function() {
+          function () {
             expect(new Headers({ foo: 'a' }), 'to satisfy', { foo: undefined });
           },
           'to throw',
@@ -515,14 +516,14 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should match exhaustively even when absent headers are also asserted absent', function() {
+      it('should match exhaustively even when absent headers are also asserted absent', function () {
         expect(new Headers({ foo: 'a' }), 'to exhaustively satisfy', {
           foo: 'a',
-          bar: undefined
+          bar: undefined,
         });
       });
 
-      it('should support passing the expected set of headers as a string', function() {
+      it('should support passing the expected set of headers as a string', function () {
         expect(
           new Headers({ foo: 'a', bar: 'b' }),
           'to satisfy',
@@ -539,12 +540,12 @@ describe('unexpected-messy', function() {
         expect(new Headers({ foo: 'a' }), 'not to exhaustively satisfy', '');
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(new Headers({ foo: 'a', bar: 'b' }), 'to satisfy', {
               bar: /c/,
-              hey: 'there'
+              hey: 'there',
             });
           },
           'to throw',
@@ -559,17 +560,17 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support expect.it', function() {
+      it('should support expect.it', function () {
         expect(new Headers({ foo: 'a' }), 'to satisfy', {
-          foo: expect.it('not to match', /b/)
+          foo: expect.it('not to match', /b/),
         });
       });
 
-      it('should produce the correct diff when an expect.it assertion fails', function() {
+      it('should produce the correct diff when an expect.it assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(new Headers({ foo: 'bla' }), 'to satisfy', {
-              foo: expect.it('not to match', /a/)
+              foo: expect.it('not to match', /a/),
             });
           },
           'to throw',
@@ -584,11 +585,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should display a diff if available', function() {
+      it('should display a diff if available', function () {
         expect(
-          function() {
+          function () {
             expect(new Headers('Foo: Bar'), 'to satisfy', {
-              Foo: expect.it('to satisfy', 'Baz')
+              Foo: expect.it('to satisfy', 'Baz'),
             });
           },
           'to throw',
@@ -603,8 +604,8 @@ describe('unexpected-messy', function() {
         );
       });
 
-      describe('in an async setting', function() {
-        it('should fail with a diff', function() {
+      describe('in an async setting', function () {
+        it('should fail with a diff', function () {
           return expect(
             expect(
               new HttpRequest(
@@ -613,8 +614,8 @@ describe('unexpected-messy', function() {
               'to satisfy',
               {
                 body: expect.it('when delayed a little bit', 'to equal', {
-                  foo: 987
-                })
+                  foo: 987,
+                }),
               }
             ),
             'when rejected',
@@ -640,13 +641,13 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('Message', function() {
-    describe('#inspect', function() {
-      it('should render a message with no headers and no body as the empty string', function() {
+  describe('Message', function () {
+    describe('#inspect', function () {
+      it('should render a message with no headers and no body as the empty string', function () {
         expect(new Message(), 'to inspect as', '');
       });
 
-      it('should render a message with a single header and no body without a newline at the end', function() {
+      it('should render a message with a single header and no body without a newline at the end', function () {
         expect(
           new Message({ headers: { foo: 'bar' } }),
           'to inspect as',
@@ -654,7 +655,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render a message with a single header and a body correctly', function() {
+      it('should render a message with a single header and a body correctly', function () {
         expect(
           new Message({ headers: { foo: 'bar' }, body: 'baz' }),
           'to inspect as',
@@ -662,11 +663,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render a message no headers and a body correctly', function() {
+      it('should render a message no headers and a body correctly', function () {
         expect(new Message({ body: 'baz' }), 'to inspect as', 'baz');
       });
 
-      it('should render a multipart message correctly', function() {
+      it('should render a multipart message correctly', function () {
         var message = new Message(
           'Content-Type: multipart/form-data;\r\n' +
             ' boundary=--------------------------231099812216460892104111\r\n' +
@@ -698,7 +699,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render a multipart message parsed as a Buffer correctly', function() {
+      it('should render a multipart message parsed as a Buffer correctly', function () {
         var message = new Message(
           Buffer.from(
             'Content-Type: multipart/form-data;\r\n' +
@@ -733,14 +734,14 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('must show missing headers', function() {
+    describe('#diff', function () {
+      it('must show missing headers', function () {
         expect(
           [
             new Message('Content-Type: application/json\n\n{"foo":123}'),
             new Message(
               'Content-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-            )
+            ),
           ],
           'to produce a diff of',
           'Content-Type: application/json\n' +
@@ -752,11 +753,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff object bodies', function() {
+      it('must diff object bodies', function () {
         expect(
           [
             new Message('Content-Type: application/json\n\n{"foo":123}'),
-            new Message('Content-Type: application/json\n\n{"foo":456}')
+            new Message('Content-Type: application/json\n\n{"foo":456}'),
           ],
           'to produce a diff of',
           'Content-Type: application/json\n' +
@@ -768,12 +769,12 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(new messy.Message('a'), 'to satisfy', undefined);
       });
 
-      it('should satisfy against a string', function() {
+      it('should satisfy against a string', function () {
         expect(
           new messy.Message(
             'To: <recipient@example.com>\r\n' +
@@ -787,8 +788,8 @@ describe('unexpected-messy', function() {
         );
       });
 
-      describe('when satisfying a textual message against a string', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual message against a string', function () {
+        it('should succeed', function () {
           expect(
             new messy.Message('Content-Type: text/plain\r\n' + '\r\n' + 'foo'),
             'to satisfy',
@@ -796,9 +797,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.Message(
                   'Content-Type: text/plain\r\n' + '\r\n' + 'foobar'
@@ -822,8 +823,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying a textual message against a Buffer', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual message against a Buffer', function () {
+        it('should succeed', function () {
           expect(
             new messy.Message('Content-Type: text/plain\r\n' + '\r\n' + 'foo'),
             'to satisfy',
@@ -831,9 +832,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.Message(
                   'Content-Type: text/plain\r\n' + '\r\n' + 'foobar'
@@ -857,9 +858,9 @@ describe('unexpected-messy', function() {
         });
       });
 
-      it('against a messy.Message instance', function() {
+      it('against a messy.Message instance', function () {
         expect(
-          function() {
+          function () {
             expect(
               new messy.Message('Content-Type: application/json'),
               'to satisfy',
@@ -874,15 +875,15 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should throw if a non-Unexpected error is caught', function() {
+      it('should throw if a non-Unexpected error is caught', function () {
         expect(
-          function() {
+          function () {
             expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
               headers: {
                 get foo() {
                   throw new Error('wat');
-                }
-              }
+                },
+              },
             });
           },
           'to throw',
@@ -890,36 +891,36 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching the headers', function() {
+      it('should support matching the headers', function () {
         expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
-          headers: { foo: 'a' }
+          headers: { foo: 'a' },
         });
 
         expect(new Message({ headers: { foo: 'a' } }), 'not to satisfy', {
-          headers: { bar: 'a' }
+          headers: { bar: 'a' },
         });
       });
 
-      it('should support matching header values against numbers (implicitly stringified)', function() {
+      it('should support matching header values against numbers (implicitly stringified)', function () {
         expect(new Message({ headers: { foo: '2' } }), 'to satisfy', {
-          headers: { foo: 2 }
+          headers: { foo: 2 },
         });
       });
 
-      it('should support matching the serialized headers with a regular expression', function() {
+      it('should support matching the serialized headers with a regular expression', function () {
         expect(new Message({ headers: { foo: 'a', bar: 'b' } }), 'to satisfy', {
-          headers: /a\r\nBar/
+          headers: /a\r\nBar/,
         });
       });
 
-      it('should support matching individual headers with a regular expression', function() {
+      it('should support matching individual headers with a regular expression', function () {
         expect(new Message({ headers: { foo: 'abc' } }), 'to satisfy', {
-          headers: { foo: /bc$/ }
+          headers: { foo: /bc$/ },
         });
       });
 
-      describe('with the expected properties passed as a string', function() {
-        it('should succeed', function() {
+      describe('with the expected properties passed as a string', function () {
+        it('should succeed', function () {
           expect(
             new Message({ headers: { foo: 'a' } }),
             'to satisfy',
@@ -927,9 +928,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new Message({ headers: { foo: 'a' } }),
                 'to satisfy',
@@ -946,7 +947,7 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should work with "not to satisfy"', function() {
+        it('should work with "not to satisfy"', function () {
           expect(
             new Message({ headers: { foo: 'a' } }),
             'not to satisfy',
@@ -955,18 +956,18 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('with the expected headers passed as a string', function() {
-        it('should succeed', function() {
+      describe('with the expected headers passed as a string', function () {
+        it('should succeed', function () {
           expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
-            headers: 'foo: a'
+            headers: 'foo: a',
           });
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(new Message({ headers: { foo: 'a' } }), 'to satisfy', {
-                headers: 'foo: b'
+                headers: 'foo: b',
               });
             },
             'to throw',
@@ -979,40 +980,40 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should work with "not to satisfy"', function() {
+        it('should work with "not to satisfy"', function () {
           expect(new Message({ headers: { foo: 'a' } }), 'not to satisfy', {
-            headers: 'foo: b'
+            headers: 'foo: b',
           });
         });
       });
 
-      it('should support matching a string body with a string', function() {
+      it('should support matching a string body with a string', function () {
         expect(new Message('foo: bar\n\nthe body'), 'to satisfy', {
-          body: 'the body'
+          body: 'the body',
         });
       });
 
-      it('should support matching a string body with a regular expression', function() {
+      it('should support matching a string body with a regular expression', function () {
         expect(new Message('foo: bar\n\nthe body'), 'to satisfy', {
-          body: /he b/
+          body: /he b/,
         });
       });
 
-      it('should support matching a JSON body given as a string against a string', function() {
+      it('should support matching a JSON body given as a string against a string', function () {
         expect(
           new messy.Message({
             headers: { 'Content-Type': 'application/json' },
-            body: '{"foo":   123}'
+            body: '{"foo":   123}',
           }),
           'to satisfy',
           {
-            body: '{"foo":   123}'
+            body: '{"foo":   123}',
           }
         );
       });
 
-      describe('when matching the decoded body with a regexp', function() {
-        it('should succeed', function() {
+      describe('when matching the decoded body with a regexp', function () {
+        it('should succeed', function () {
           expect(
             new Message(
               'Content-Type: text/plain; charset=iso-8859-1\n' +
@@ -1023,9 +1024,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should produce a diff when failing to match', function() {
+        it('should produce a diff when failing to match', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new Message(
                   'Content-Type: text/plain; charset=iso-8859-1\n' +
@@ -1051,9 +1052,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should produce a diff when failing to match and not omit the header diff', function() {
+        it('should produce a diff when failing to match and not omit the header diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new Message(
                   'Foo: bar\n' +
@@ -1086,13 +1087,13 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when matching the decoded body with a Buffer', function() {
-        it('should succeed', function() {
+      describe('when matching the decoded body with a Buffer', function () {
+        it('should succeed', function () {
           expect(
             new Message(
               Buffer.concat([
                 Buffer.from('Content-Type: application/octet-stream\n\n'),
-                Buffer.from([1, 2, 3, 4])
+                Buffer.from([1, 2, 3, 4]),
               ])
             ),
             'to satisfy',
@@ -1100,14 +1101,14 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should support matching the decoded body with a Buffer', function() {
+        it('should support matching the decoded body with a Buffer', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new Message(
                   Buffer.concat([
                     Buffer.from('Content-Type: application/octet-stream\n\n'),
-                    Buffer.from([1, 2, 3, 4])
+                    Buffer.from([1, 2, 3, 4]),
                   ])
                 ),
                 'to satisfy',
@@ -1142,25 +1143,25 @@ describe('unexpected-messy', function() {
         '0\r\n' +
         '\r\n';
 
-      it('should support matching the raw body', function() {
+      it('should support matching the raw body', function () {
         expect(new Message(rawSrc), 'to satisfy', {
           body: 'Wikipedia in\r\n\r\nchunks.',
-          rawBody: /4\r\nWiki\r\n5\r\npedia/
+          rawBody: /4\r\nWiki\r\n5\r\npedia/,
         });
       });
 
-      it('should support matching the unchunked body', function() {
+      it('should support matching the unchunked body', function () {
         expect(new Message(rawSrc), 'to satisfy', {
           body: 'Wikipedia in\r\n\r\nchunks.',
-          unchunkedBody: /Wikipedia/
+          unchunkedBody: /Wikipedia/,
         });
       });
 
-      it('should produce a diff when failing to match the raw body', function() {
+      it('should produce a diff when failing to match the raw body', function () {
         expect(
-          function() {
+          function () {
             expect(new Message(rawSrc), 'to satisfy', {
-              rawBody: expect.it('to contain', 'Wikipedia')
+              rawBody: expect.it('to contain', 'Wikipedia'),
             });
           },
           'to throw',
@@ -1198,7 +1199,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching the file name', function() {
+      it('should support matching the file name', function () {
         expect(
           new Message(
             'Content-Disposition: attachment; filename=abcdef.txt\n' +
@@ -1209,9 +1210,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when failing to match the file name', function() {
+      it('should produce a diff when failing to match the file name', function () {
         expect(
-          function() {
+          function () {
             expect(
               new Message(
                 'Content-Disposition: attachment; filename=abcdef.txt\n' +
@@ -1240,7 +1241,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching a Buffer body with a Buffer', function() {
+      it('should support matching a Buffer body with a Buffer', function () {
         expect(
           new Message(Buffer.from('foo: bar\n\nthe body', 'utf-8')),
           'to satisfy',
@@ -1248,7 +1249,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching a Buffer body with an object when the Content-Type is application/json', function() {
+      it('should support matching a Buffer body with an object when the Content-Type is application/json', function () {
         expect(
           new Message(
             Buffer.from(
@@ -1261,7 +1262,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching a string body with an object when the Content-Type is application/json', function() {
+      it('should support matching a string body with an object when the Content-Type is application/json', function () {
         expect(
           new Message('Content-Type: application/json\n\n{"the": "body"}'),
           'to satisfy',
@@ -1269,7 +1270,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should support matching an object body (JSON) with an object', function() {
+      it('should support matching an object body (JSON) with an object', function () {
         expect(
           new Message({ body: { foo: 'bar', bar: 'baz' } }),
           'to satisfy',
@@ -1277,9 +1278,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(
               new Message({ headers: { foo: 'a', bar: 'b' }, body: 'foo' }),
               'to satisfy',
@@ -1301,23 +1302,23 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should use to satisfy semantics for the body', function() {
+      it('should use to satisfy semantics for the body', function () {
         expect(
-          function() {
+          function () {
             expect(
               new Message({
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   foo: 'foo',
-                  bar: 'bar'
-                })
+                  bar: 'bar',
+                }),
               }),
               'to satisfy',
               {
                 body: {
                   foo: /fo/,
-                  bar: expect.it('to be a string').and('to have length', 2)
-                }
+                  bar: expect.it('to be a string').and('to have length', 2),
+                },
               }
             );
           },
@@ -1346,9 +1347,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce sensible output when matching an empty body against a regexp', function() {
+      it('should produce sensible output when matching an empty body against a regexp', function () {
         expect(
-          function() {
+          function () {
             expect(
               new Message({ headers: { Foo: 'a' }, body: '' }),
               'to satisfy',
@@ -1381,23 +1382,23 @@ describe('unexpected-messy', function() {
           '----------------------------231099812216460892104111--\r\n'
       );
 
-      describe('when asserting on the parts array with expect.it', function() {
-        it('should succeed', function() {
+      describe('when asserting on the parts array with expect.it', function () {
+        it('should succeed', function () {
           expect(multiPartMessage, 'to satisfy', {
-            parts: expect.it('to have length', 2)
+            parts: expect.it('to have length', 2),
           });
         });
 
-        it('should not break when the subject message is not multipart', function() {
+        it('should not break when the subject message is not multipart', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new Message(
                   'Content-Type: text/plain\r\n' + '\r\n' + 'fooøbar'
                 ),
                 'to satisfy',
                 {
-                  parts: [{ body: 'bar' }]
+                  parts: [{ body: 'bar' }],
                 }
               );
             },
@@ -1416,11 +1417,11 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should produce a diff when the assertion fails', function() {
+        it('should produce a diff when the assertion fails', function () {
           expect(
-            function() {
+            function () {
               expect(multiPartMessage, 'to satisfy', {
-                parts: expect.it('to have length', 3)
+                parts: expect.it('to have length', 3),
               });
             },
             'to throw',
@@ -1470,28 +1471,28 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying against the individual parts of a multipart message', function() {
-        it('should succeed', function() {
+      describe('when satisfying against the individual parts of a multipart message', function () {
+        it('should succeed', function () {
           expect(multiPartMessage, 'to satisfy', {
             parts: [
               {
                 headers: {
-                  Foo: 'bar'
+                  Foo: 'bar',
                 },
-                body: 'fooøbar'
+                body: 'fooøbar',
               },
               {
-                fileName: /txt$/
-              }
-            ]
+                fileName: /txt$/,
+              },
+            ],
           });
         });
 
-        it('should throw when asserting on more parts than are present', function() {
+        it('should throw when asserting on more parts than are present', function () {
           expect(
-            function() {
+            function () {
               expect(multiPartMessage, 'to satisfy', {
-                parts: [{}, {}, {}]
+                parts: [{}, {}, {}],
               });
             },
             'to throw',
@@ -1528,11 +1529,11 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should throw when asserting on fewer parts than are present', function() {
+        it('should throw when asserting on fewer parts than are present', function () {
           expect(
-            function() {
+            function () {
               expect(multiPartMessage, 'to satisfy', {
-                parts: [{}]
+                parts: [{}],
               });
             },
             'to throw',
@@ -1569,11 +1570,11 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should throw when asserting on bogus part numbers', function() {
+        it('should throw when asserting on bogus part numbers', function () {
           expect(
-            function() {
+            function () {
               expect(multiPartMessage, 'to satisfy', {
-                parts: { abc: {} }
+                parts: { abc: {} },
               });
             },
             'to throw',
@@ -1610,21 +1611,21 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should produce a diff when failing the match', function() {
+        it('should produce a diff when failing the match', function () {
           expect(
-            function() {
+            function () {
               expect(multiPartMessage, 'to satisfy', {
                 parts: [
                   {
                     headers: {
-                      Foo: 'quux'
+                      Foo: 'quux',
                     },
-                    body: 'fooøbar'
+                    body: 'fooøbar',
                   },
                   {
-                    fileName: /txt$/
-                  }
-                ]
+                    fileName: /txt$/,
+                  },
+                ],
               });
             },
             'to throw',
@@ -1663,7 +1664,7 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should allow matching a 7-bit, Content-Type-less, Content-Dispostion: form-data body (originally instantiated from a Buffer) against a string', function() {
+        it('should allow matching a 7-bit, Content-Type-less, Content-Dispostion: form-data body (originally instantiated from a Buffer) against a string', function () {
           expect(
             new Message(
               Buffer.from(
@@ -1679,7 +1680,7 @@ describe('unexpected-messy', function() {
             ),
             'to satisfy',
             {
-              parts: [{ body: 'foobar' }]
+              parts: [{ body: 'foobar' }],
             }
           );
         });
@@ -1687,13 +1688,13 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('RequestLine', function() {
-    describe('#diff', function() {
-      it('must diff when the methods differ', function() {
+  describe('RequestLine', function () {
+    describe('#diff', function () {
+      it('must diff when the methods differ', function () {
         expect(
           [
             new RequestLine('GET / HTTP/1.1'),
-            new RequestLine('POST / HTTP/1.1')
+            new RequestLine('POST / HTTP/1.1'),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1 // should be POST / HTTP/1.1\n' +
@@ -1703,11 +1704,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff when the protocol differs', function() {
+      it('must diff when the protocol differs', function () {
         expect(
           [
             new RequestLine('GET / HTTP/1.1'),
-            new RequestLine('GET / HTTP/1.0')
+            new RequestLine('GET / HTTP/1.0'),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1 // should be HTTP/1.0\n' +
@@ -1717,11 +1718,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the status line when the url differs', function() {
+      it('must diff the status line when the url differs', function () {
         expect(
           [
             new RequestLine('GET /foo HTTP/1.1'),
-            new RequestLine('GET /bar HTTP/1.1')
+            new RequestLine('GET /bar HTTP/1.1'),
           ],
           'to produce a diff of',
           'GET /foo HTTP/1.1 // should be /bar HTTP/1.1\n' +
@@ -1731,7 +1732,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function() {
+      it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function () {
         expect(
           [
             new RequestLine(
@@ -1739,7 +1740,7 @@ describe('unexpected-messy', function() {
             ),
             new RequestLine(
               'GET /baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar HTTP/1.1'
-            )
+            ),
           ],
           'to produce a diff of',
           'GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1\n' +
@@ -1751,16 +1752,16 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', undefined);
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {
-              method: /^P(?:UT|POST)$/
+              method: /^P(?:UT|POST)$/,
             });
           },
           'to throw',
@@ -1770,12 +1771,12 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a simple diff when a failed assertion only contains equality criteria', function() {
+      it('should produce a simple diff when a failed assertion only contains equality criteria', function () {
         expect(
-          function() {
+          function () {
             expect(new RequestLine('GET / HTTP/1.1'), 'to satisfy', {
               method: 'POST',
-              url: '/'
+              url: '/',
             });
           },
           'to throw',
@@ -1788,9 +1789,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function() {
+      it('should put the diff on the next line if the request line + diff exceeds preferredWidth', function () {
         expect(
-          function() {
+          function () {
             expect(
               new RequestLine(
                 'GET /foooooooooooooooooooooooooooooooooooooooooooooooooooooo HTTP/1.1'
@@ -1811,28 +1812,28 @@ describe('unexpected-messy', function() {
         );
       });
 
-      describe('with a query', function() {
-        describe('passed as an object', function() {
-          it('should succeed when there is an exact match for every query parameter', function() {
+      describe('with a query', function () {
+        describe('passed as an object', function () {
+          it('should succeed when there is an exact match for every query parameter', function () {
             expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {
-              query: { foo: 'bar' }
+              query: { foo: 'bar' },
             });
           });
 
-          it('should succeed when the parameters come in a different order', function() {
+          it('should succeed when the parameters come in a different order', function () {
             expect(
               new RequestLine('GET /?foo=bar&quux=baz HTTP/1.1'),
               'to satisfy',
               {
                 query: {
                   quux: 'baz',
-                  foo: 'bar'
-                }
+                  foo: 'bar',
+                },
               }
             );
           });
 
-          it('should succeed when there are extra parameters not named in the object', function() {
+          it('should succeed when there are extra parameters not named in the object', function () {
             expect(
               new RequestLine('GET /?foo=bar&yeah=blah HTTP/1.1'),
               'to satisfy',
@@ -1840,9 +1841,9 @@ describe('unexpected-messy', function() {
             );
           });
 
-          it('should fail with a diff when a parameter has another value', function() {
+          it('should fail with a diff when a parameter has another value', function () {
             expect(
-              function() {
+              function () {
                 expect(
                   new RequestLine('GET /?foo=bar HTTP/1.1'),
                   'to satisfy',
@@ -1863,9 +1864,9 @@ describe('unexpected-messy', function() {
             );
           });
 
-          it('should fail with a diff when a parameter is missing', function() {
+          it('should fail with a diff when a parameter is missing', function () {
             expect(
-              function() {
+              function () {
                 expect(
                   new RequestLine('GET /?foo=bar HTTP/1.1'),
                   'to satisfy',
@@ -1885,16 +1886,16 @@ describe('unexpected-messy', function() {
           });
         });
 
-        describe('passed as a string', function() {
-          it('should succeed when there is an exact match for the entire string', function() {
+        describe('passed as a string', function () {
+          it('should succeed when there is an exact match for the entire string', function () {
             expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {
-              query: 'foo=bar'
+              query: 'foo=bar',
             });
           });
 
-          it('should fail when there are extra parameters', function() {
+          it('should fail when there are extra parameters', function () {
             expect(
-              function() {
+              function () {
                 expect(
                   new RequestLine('GET /?foo=bar&yeah=blah HTTP/1.1'),
                   'to satisfy',
@@ -1912,16 +1913,16 @@ describe('unexpected-messy', function() {
           });
         });
 
-        describe('passed as an expect.it', function() {
-          it('should succeed when the expect.it accepts the query string', function() {
+        describe('passed as an expect.it', function () {
+          it('should succeed when the expect.it accepts the query string', function () {
             expect(new RequestLine('GET /?foo=bar HTTP/1.1'), 'to satisfy', {
-              query: expect.it('to equal', { foo: 'bar' })
+              query: expect.it('to equal', { foo: 'bar' }),
             });
           });
 
-          it('should fail when the expect.it does not accept the query string', function() {
+          it('should fail when the expect.it does not accept the query string', function () {
             expect(
-              function() {
+              function () {
                 expect(
                   new RequestLine('GET /?foo=bar HTTP/1.1'),
                   'to satisfy',
@@ -1950,9 +1951,9 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('HttpRequest', function() {
-    describe('#inspect', function() {
-      it('should render an http request with no headers and no body as just the request line with no newline at the end', function() {
+  describe('HttpRequest', function () {
+    describe('#inspect', function () {
+      it('should render an http request with no headers and no body as just the request line with no newline at the end', function () {
         expect(
           new HttpRequest('GET / HTTP/1.1'),
           'to inspect as',
@@ -1960,7 +1961,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an http request with no headers as the request line, then two newlines followed by the body', function() {
+      it('should render an http request with no headers as the request line, then two newlines followed by the body', function () {
         expect(
           new HttpRequest({ requestLine: 'GET / HTTP/1.1', body: 'foo' }),
           'to inspect as',
@@ -1968,12 +1969,12 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an http request with a single header correctly', function() {
+      it('should render an http request with a single header correctly', function () {
         expect(
           new HttpRequest({
             requestLine: 'GET / HTTP/1.1',
             headers: { bar: 'baz' },
-            body: 'foo'
+            body: 'foo',
           }),
           'to inspect as',
           'GET / HTTP/1.1\nBar: baz\n\nfoo'
@@ -1981,8 +1982,8 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('must diff the request line', function() {
+    describe('#diff', function () {
+      it('must diff the request line', function () {
         expect(
           [
             new HttpRequest(
@@ -1990,7 +1991,7 @@ describe('unexpected-messy', function() {
             ),
             new HttpRequest(
               'POST /foo HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
-            )
+            ),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1 // should be POST /foo HTTP/1.1\n' +
@@ -2005,7 +2006,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the headers', function() {
+      it('must diff the headers', function () {
         expect(
           [
             new HttpRequest(
@@ -2013,7 +2014,7 @@ describe('unexpected-messy', function() {
             ),
             new HttpRequest(
               'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
-            )
+            ),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1\n' +
@@ -2026,11 +2027,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the metadata', function() {
+      it('must diff the metadata', function () {
         expect(
           [
             new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
-            new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1')
+            new HttpRequest('GET http://somewhereelse.com/hey HTTP/1.1'),
           ],
           'to produce a diff of',
           'GET /blabla HTTP/1.1 // should be /hey HTTP/1.1\n' +
@@ -2050,46 +2051,46 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(new HttpRequest('GET / HTTP/1.1'), 'to satisfy', undefined);
       });
 
-      it('should match on properties defined by Message', function() {
+      it('should match on properties defined by Message', function () {
         expect(
           new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'),
           'to satisfy',
           {
             headers: {
-              'Content-Type': 'text/html'
-            }
+              'Content-Type': 'text/html',
+            },
           }
         );
       });
 
-      describe('when matching the url against an expect.it', function() {
-        it('should succeed', function() {
+      describe('when matching the url against an expect.it', function () {
+        it('should succeed', function () {
           expect(
             new HttpRequest({
-              url: '/foo/bar'
+              url: '/foo/bar',
             }),
             'to satisfy',
             {
-              url: expect.it('to begin with', '/foo')
+              url: expect.it('to begin with', '/foo'),
             }
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpRequest({
-                  url: '/foo/bar'
+                  url: '/foo/bar',
                 }),
                 'to satisfy',
                 {
-                  url: expect.it('to begin with', '/foo/quux')
+                  url: expect.it('to begin with', '/foo/quux'),
                 }
               );
             },
@@ -2106,8 +2107,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying a textual request against a string', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual request against a string', function () {
+        it('should succeed', function () {
           expect(
             new messy.HttpRequest(
               'GET / HTTP/1.1\r\n' +
@@ -2120,9 +2121,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.HttpRequest(
                   'GET / HTTP/1.1\r\n' +
@@ -2151,8 +2152,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying a textual request against a Buffer', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual request against a Buffer', function () {
+        it('should succeed', function () {
           expect(
             new messy.HttpRequest(
               'GET / HTTP/1.1\r\n' +
@@ -2168,9 +2169,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.HttpRequest(
                   'GET / HTTP/1.1\r\n' +
@@ -2202,14 +2203,14 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('with a string as the RHS', function() {
-        it('should succeed', function() {
+      describe('with a string as the RHS', function () {
+        it('should succeed', function () {
           expect(new HttpRequest('GET /foo HTTP/1.1'), 'to satisfy', '/foo');
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpRequest('GET /foo HTTP/1.1'),
                 'to satisfy',
@@ -2227,21 +2228,21 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('with metadata properties', function() {
-        it('should succeed', function() {
+      describe('with metadata properties', function () {
+        it('should succeed', function () {
           expect(
             new HttpRequest('GET https://www.example.com:987/blabla HTTP/1.1'),
             'to satisfy',
             {
               host: 'www.example.com',
-              port: 987
+              port: 987,
             }
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpRequest(
                   'GET https://www.example.com:987/blabla HTTP/1.1'
@@ -2249,7 +2250,7 @@ describe('unexpected-messy', function() {
                 'to satisfy',
                 {
                   host: 'blabla.com',
-                  port: 123
+                  port: 123,
                 }
               );
             },
@@ -2270,18 +2271,18 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when matching the encrypted flag', function() {
-        it('should succeed', function() {
+      describe('when matching the encrypted flag', function () {
+        it('should succeed', function () {
           expect(new HttpRequest({ encrypted: true }), 'to satisfy', {
-            encrypted: true
+            encrypted: true,
           });
         });
 
-        it('should fail when asserting non-encrypted to be encrypted', function() {
+        it('should fail when asserting non-encrypted to be encrypted', function () {
           expect(
-            function() {
+            function () {
               expect(new HttpRequest('GET / HTTP/1.1'), 'to satisfy', {
-                encrypted: true
+                encrypted: true,
               });
             },
             'to throw',
@@ -2293,9 +2294,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail when asserting encrypted to be non-encrypted', function() {
+        it('should fail when asserting encrypted to be non-encrypted', function () {
           expect(
-            function() {
+            function () {
               var httpRequest = new HttpRequest('GET / HTTP/1.1');
               httpRequest.encrypted = true;
               expect(httpRequest, 'to satisfy', { encrypted: false });
@@ -2309,13 +2310,13 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail when asserting encrypted against a non-boolean', function() {
+        it('should fail when asserting encrypted against a non-boolean', function () {
           expect(
-            function() {
+            function () {
               var httpRequest = new HttpRequest('GET / HTTP/1.1');
               httpRequest.encrypted = false;
               expect(httpRequest, 'to satisfy', {
-                encrypted: expect.it('to be ok')
+                encrypted: expect.it('to be ok'),
               });
             },
             'to throw',
@@ -2330,36 +2331,36 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when matching the cert/key/ca properties', function() {
-        it('should succeed', function() {
+      describe('when matching the cert/key/ca properties', function () {
+        it('should succeed', function () {
           expect(
             new HttpRequest({
               cert: Buffer.from([1]),
               key: Buffer.from([2]),
-              ca: Buffer.from([3])
+              ca: Buffer.from([3]),
             }),
             'to satisfy',
             {
               cert: Buffer.from([1]),
               key: Buffer.from([2]),
-              ca: Buffer.from([3])
+              ca: Buffer.from([3]),
             }
           );
         });
 
-        it('should fail with a sensible error message', function() {
+        it('should fail with a sensible error message', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpRequest({
                   requestLine: 'GET / HTTP/1.1',
                   cert: Buffer.from([1]),
-                  key: Buffer.from([2])
+                  key: Buffer.from([2]),
                 }),
                 'to satisfy',
                 {
                   cert: Buffer.from([5]),
-                  key: Buffer.from([8])
+                  key: Buffer.from([8]),
                 }
               );
             },
@@ -2381,65 +2382,65 @@ describe('unexpected-messy', function() {
         });
       });
 
-      it('should support regexp matching', function() {
+      it('should support regexp matching', function () {
         expect(
           new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'),
           'to satisfy',
           {
-            protocolName: /ttp/i
+            protocolName: /ttp/i,
           }
         );
       });
 
-      it('should fail when matching on properties defined by Message', function() {
+      it('should fail when matching on properties defined by Message', function () {
         expect(
           new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'),
           'not to satisfy',
           {
             headers: {
-              'Content-Type': 'text/plain'
-            }
+              'Content-Type': 'text/plain',
+            },
           }
         );
       });
 
-      it('should match on properties', function() {
+      it('should match on properties', function () {
         expect(
           new HttpRequest('GET /foo HTTP/1.1\r\nContent-Type: text/html'),
           'to satisfy',
           {
             method: 'GET',
             url: '/foo',
-            protocolVersion: '1.1'
+            protocolVersion: '1.1',
           }
         );
       });
 
-      it('should match exhaustively on headers', function() {
+      it('should match exhaustively on headers', function () {
         expect(
           new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'),
           'to exhaustively satisfy',
           {
             headers: {
-              'Content-Type': 'text/html'
-            }
+              'Content-Type': 'text/html',
+            },
           }
         );
       });
 
-      it('should fail to match exhaustively on properties when a header is omitted', function() {
+      it('should fail to match exhaustively on properties when a header is omitted', function () {
         expect(
           new HttpRequest('GET /foo?hey HTTP/1.1\r\nContent-Type: text/html'),
           'not to exhaustively satisfy',
           {
-            headers: {}
+            headers: {},
           }
         );
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpRequest(
                 'GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'
@@ -2448,7 +2449,7 @@ describe('unexpected-messy', function() {
               {
                 requestLine: { method: 'POST' },
                 headers: { 'Content-Type': 'application/json' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -2479,9 +2480,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails but there is no diff in the status line', function() {
+      it('should produce a diff when the assertion fails but there is no diff in the status line', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpRequest(
                 'GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'
@@ -2490,7 +2491,7 @@ describe('unexpected-messy', function() {
               {
                 requestLine: { method: 'GET' },
                 headers: { 'Content-Type': 'application/json' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -2518,9 +2519,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails but there is no diff in the headers', function() {
+      it('should produce a diff when the assertion fails but there is no diff in the headers', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpRequest(
                 'GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'
@@ -2529,7 +2530,7 @@ describe('unexpected-messy', function() {
               {
                 requestLine: { method: 'POST' },
                 headers: { 'Content-Type': 'text/html' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -2557,9 +2558,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails, but there is no diff in the body', function() {
+      it('should produce a diff when the assertion fails, but there is no diff in the body', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpRequest(
                 'GET / HTTP/1.1\r\nContent-Type: text/html\r\n\r\nargh'
@@ -2567,7 +2568,7 @@ describe('unexpected-messy', function() {
               'to satisfy',
               {
                 requestLine: { method: 'POST' },
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
               }
             );
           },
@@ -2597,17 +2598,17 @@ describe('unexpected-messy', function() {
       });
 
       // Quick tests that make sure that the property is forwarded to <messyRequestLine> to satisfy...
-      describe('with a query', function() {
-        describe('passed as an object', function() {
-          it('should succeed when there is an exact match for every query parameter', function() {
+      describe('with a query', function () {
+        describe('passed as an object', function () {
+          it('should succeed when there is an exact match for every query parameter', function () {
             expect(new HttpRequest('GET /?foo=bar HTTP/1.1'), 'to satisfy', {
-              query: { foo: 'bar' }
+              query: { foo: 'bar' },
             });
           });
 
-          it('should fail with a diff when a parameter has another value', function() {
+          it('should fail with a diff when a parameter has another value', function () {
             expect(
-              function() {
+              function () {
                 expect(
                   new HttpRequest('GET /?foo=bar HTTP/1.1'),
                   'to satisfy',
@@ -2632,13 +2633,13 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('StatusLine', function() {
-    describe('#diff', function() {
-      it('must diff the status line when the status code and status message differ', function() {
+  describe('StatusLine', function () {
+    describe('#diff', function () {
+      it('must diff the status line when the status code and status message differ', function () {
         expect(
           [
             new StatusLine('HTTP/1.1 200 OK'),
-            new StatusLine('HTTP/1.1 412 Precondition Failed')
+            new StatusLine('HTTP/1.1 412 Precondition Failed'),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
@@ -2648,11 +2649,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the status line when the protocol differs', function() {
+      it('must diff the status line when the protocol differs', function () {
         expect(
           [
             new StatusLine('HTTP/1.1 200 OK'),
-            new StatusLine('HTTP/1.0 200 OK')
+            new StatusLine('HTTP/1.0 200 OK'),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 OK // should be HTTP/1.0 200 OK\n' +
@@ -2662,11 +2663,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the status line when the status message', function() {
+      it('must diff the status line when the status message', function () {
         expect(
           [
             new StatusLine('HTTP/1.1 200 Okie-dokie'),
-            new StatusLine('HTTP/1.1 200 OK')
+            new StatusLine('HTTP/1.1 200 OK'),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 Okie-dokie // should be OK\n' +
@@ -2676,7 +2677,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must break to the next line when the status line + diff exceeds preferredWidth', function() {
+      it('must break to the next line when the status line + diff exceeds preferredWidth', function () {
         expect(
           [
             new StatusLine(
@@ -2684,7 +2685,7 @@ describe('unexpected-messy', function() {
             ),
             new StatusLine(
               'HTTP/1.1 412 Precondition Failed Precondition Failed Precondition Failed'
-            )
+            ),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK\n' +
@@ -2696,19 +2697,19 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', undefined);
       });
 
-      describe('when satisfying against a number', function() {
-        it('should succeed when the number is equal to the status code', function() {
+      describe('when satisfying against a number', function () {
+        it('should succeed when the number is equal to the status code', function () {
           expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 200);
         });
 
-        it('should fail when the number is different from the status code', function() {
+        it('should fail when the number is different from the status code', function () {
           expect(
-            function() {
+            function () {
               expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', 412);
             },
             'to throw',
@@ -2719,8 +2720,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying against a function (expect.it)', function() {
-        it('should succeed when the function accepts the status code', function() {
+      describe('when satisfying against a function (expect.it)', function () {
+        it('should succeed when the function accepts the status code', function () {
           expect(
             new StatusLine('HTTP/1.1 200 OK'),
             'to satisfy',
@@ -2728,9 +2729,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail when the function throws when passed the status code', function() {
+        it('should fail when the function throws when passed the status code', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new StatusLine('HTTP/1.1 200 OK'),
                 'to satisfy',
@@ -2745,11 +2746,11 @@ describe('unexpected-messy', function() {
         });
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {
-              protocolVersion: /^2\.\d+$/
+              protocolVersion: /^2\.\d+$/,
             });
           },
           'to throw',
@@ -2759,11 +2760,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a simple diff when a failed assertion only contains equality criteria', function() {
+      it('should produce a simple diff when a failed assertion only contains equality criteria', function () {
         expect(
-          function() {
+          function () {
             expect(new StatusLine('HTTP/1.1 200 OK'), 'to satisfy', {
-              statusCode: 412
+              statusCode: 412,
             });
           },
           'to throw',
@@ -2776,9 +2777,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must break to the next line when the status line + diff exceeds preferredWidth', function() {
+      it('must break to the next line when the status line + diff exceeds preferredWidth', function () {
         expect(
-          function() {
+          function () {
             expect(
               new StatusLine(
                 'HTTP/1.1 200 OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK OK'
@@ -2801,9 +2802,9 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('HttpResponse', function() {
-    describe('#inspect', function() {
-      it('should render an http response with no headers and no body as just the status line with no newline at the end', function() {
+  describe('HttpResponse', function () {
+    describe('#inspect', function () {
+      it('should render an http response with no headers and no body as just the status line with no newline at the end', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK'),
           'to inspect as',
@@ -2811,7 +2812,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an http response with no headers as the status line, then two newlines followed by the body', function() {
+      it('should render an http response with no headers as the status line, then two newlines followed by the body', function () {
         expect(
           new HttpResponse({ statusLine: 'HTTP/1.1 200 OK', body: 'foo' }),
           'to inspect as',
@@ -2819,12 +2820,12 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an http response with a single header correctly', function() {
+      it('should render an http response with a single header correctly', function () {
         expect(
           new HttpResponse({
             statusLine: 'HTTP/1.1 200 OK',
             headers: { bar: 'baz' },
-            body: 'foo'
+            body: 'foo',
           }),
           'to inspect as',
           'HTTP/1.1 200 OK\nBar: baz\n\nfoo'
@@ -2832,8 +2833,8 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('must diff the status line', function() {
+    describe('#diff', function () {
+      it('must diff the status line', function () {
         expect(
           [
             new HttpResponse(
@@ -2841,7 +2842,7 @@ describe('unexpected-messy', function() {
             ),
             new HttpResponse(
               'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":123}'
-            )
+            ),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 OK // should be 412 Precondition Failed\n' +
@@ -2856,7 +2857,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must diff the headers', function() {
+      it('must diff the headers', function () {
         expect(
           [
             new HttpResponse(
@@ -2864,7 +2865,7 @@ describe('unexpected-messy', function() {
             ),
             new HttpResponse(
               'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-            )
+            ),
           ],
           'to produce a diff of',
           'HTTP/1.1 200 OK\n' +
@@ -2878,15 +2879,15 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      describe('against a number', function() {
-        it('should succeed when the number is equal to the status code', function() {
+    describe('"to satisfy" assertion', function () {
+      describe('against a number', function () {
+        it('should succeed when the number is equal to the status code', function () {
           expect(new HttpResponse('HTTP/1.1 412 OK'), 'to satisfy', 412);
         });
 
-        it('should fail when the number is different from the status code', function() {
+        it('should fail when the number is different from the status code', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpResponse(
                   'HTTP/1.1 412 Precondition Failed\r\nContent-Type: text/html'
@@ -2907,8 +2908,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying a textual request against a string', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual request against a string', function () {
+        it('should succeed', function () {
           expect(
             new messy.HttpResponse(
               'HTTP/1.1 200 OK\r\n' +
@@ -2921,9 +2922,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.HttpResponse(
                   'HTTP/1.1 200 OK\r\n' +
@@ -2952,8 +2953,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('when satisfying a textual request against a Buffer', function() {
-        it('should succeed', function() {
+      describe('when satisfying a textual request against a Buffer', function () {
+        it('should succeed', function () {
           expect(
             new messy.HttpResponse(
               'HTTP/1.1 200 OK\r\n' +
@@ -2969,9 +2970,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new messy.HttpResponse(
                   'HTTP/1.1 200 OK\r\n' +
@@ -3003,7 +3004,7 @@ describe('unexpected-messy', function() {
         });
       });
 
-      it('must not break with undefined', function() {
+      it('must not break with undefined', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'to satisfy',
@@ -3011,20 +3012,20 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should match on properties defined by Message', function() {
+      it('should match on properties defined by Message', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'to satisfy',
           {
             headers: {
-              'Content-Type': 'text/html'
-            }
+              'Content-Type': 'text/html',
+            },
           }
         );
       });
 
-      describe('with a string as the RHS', function() {
-        it('should succeed', function() {
+      describe('with a string as the RHS', function () {
+        it('should succeed', function () {
           expect(
             new HttpResponse('HTTP/1.1 200 OK'),
             'to satisfy',
@@ -3032,9 +3033,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpResponse('HTTP/1.1 200 OK'),
                 'to satisfy',
@@ -3052,62 +3053,62 @@ describe('unexpected-messy', function() {
         });
       });
 
-      it('should support regexp matching', function() {
+      it('should support regexp matching', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'to satisfy',
           {
-            protocolName: /ttp/i
+            protocolName: /ttp/i,
           }
         );
       });
 
-      it('should fail when matching on properties defined by Message', function() {
+      it('should fail when matching on properties defined by Message', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'not to satisfy',
           {
             headers: {
-              'Content-Type': 'text/plain'
-            }
+              'Content-Type': 'text/plain',
+            },
           }
         );
       });
 
-      it('should match on properties', function() {
+      it('should match on properties', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'to satisfy',
           {
             statusCode: 200,
-            protocolVersion: '1.1'
+            protocolVersion: '1.1',
           }
         );
       });
 
-      it('should match exhaustively on headers', function() {
+      it('should match exhaustively on headers', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'to exhaustively satisfy',
           {
             headers: {
-              'Content-Type': 'text/html'
-            }
+              'Content-Type': 'text/html',
+            },
           }
         );
       });
 
-      it('should fail to match exhaustively on properties when a header is omitted', function() {
+      it('should fail to match exhaustively on properties when a header is omitted', function () {
         expect(
           new HttpResponse('HTTP/1.1 200 OK\r\nContent-Type: text/html'),
           'not to exhaustively satisfy',
           {
-            headers: {}
+            headers: {},
           }
         );
       });
 
-      it('should fail to match exhaustively on properties when a property defined by Message is omitted', function() {
+      it('should fail to match exhaustively on properties when a property defined by Message is omitted', function () {
         expect(
           new HttpResponse(
             'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nargh'
@@ -3121,15 +3122,15 @@ describe('unexpected-messy', function() {
             protocolName: 'HTTP',
             protocolVersion: '1.1',
             headers: {
-              'Content-Type': 'text/html'
-            }
+              'Content-Type': 'text/html',
+            },
           }
         );
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpResponse(
                 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
@@ -3138,7 +3139,7 @@ describe('unexpected-messy', function() {
               {
                 statusLine: { statusCode: 412 },
                 headers: { 'Content-Type': 'application/json' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -3169,9 +3170,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails but there is no diff in the status line', function() {
+      it('should produce a diff when the assertion fails but there is no diff in the status line', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpResponse(
                 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
@@ -3180,7 +3181,7 @@ describe('unexpected-messy', function() {
               {
                 statusLine: { statusCode: 200 },
                 headers: { 'Content-Type': 'application/json' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -3208,9 +3209,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails but there is no diff in the headers', function() {
+      it('should produce a diff when the assertion fails but there is no diff in the headers', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpResponse(
                 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
@@ -3219,7 +3220,7 @@ describe('unexpected-messy', function() {
               {
                 statusLine: { statusCode: 200 },
                 headers: { 'Content-Type': 'application/json' },
-                body: 'blah'
+                body: 'blah',
               }
             );
           },
@@ -3247,9 +3248,9 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when the assertion fails, but there is no diff in the body', function() {
+      it('should produce a diff when the assertion fails, but there is no diff in the body', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpResponse(
                 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
@@ -3257,7 +3258,7 @@ describe('unexpected-messy', function() {
               'to satisfy',
               {
                 statusLine: { statusCode: 412 },
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
               }
             );
           },
@@ -3288,15 +3289,15 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('HttpExchange', function() {
-    describe('#inspect', function() {
-      it('should render an exchange', function() {
+  describe('HttpExchange', function () {
+    describe('#inspect', function () {
+      it('should render an exchange', function () {
         expect(
           new HttpExchange({
             request:
               'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
             response:
-              'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+              'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
           }),
           'to inspect as',
           'GET / HTTP/1.1\n' +
@@ -3312,11 +3313,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an exchange without a request', function() {
+      it('should render an exchange without a request', function () {
         expect(
           new HttpExchange({
             response:
-              'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+              'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
           }),
           'to inspect as',
           '<no request>\n' +
@@ -3329,11 +3330,11 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should render an exchange without a response', function() {
+      it('should render an exchange without a response', function () {
         expect(
           new HttpExchange({
             request:
-              'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}'
+              'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
           }),
           'to inspect as',
           'GET / HTTP/1.1\n' +
@@ -3346,22 +3347,22 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('should diff two HttpExchange instances', function() {
+    describe('#diff', function () {
+      it('should diff two HttpExchange instances', function () {
         expect(
           [
             new HttpExchange({
               request:
                 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
               response:
-                'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
             }),
             new HttpExchange({
               request:
                 'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
               response:
-                'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-            })
+                'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
+            }),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1\n' +
@@ -3385,28 +3386,28 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('must not break with undefined', function() {
+    describe('"to satisfy" assertion', function () {
+      it('must not break with undefined', function () {
         expect(
           new HttpExchange({
             request:
               'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
-            response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+            response: 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
           }),
           'to satisfy',
           undefined
         );
       });
 
-      it('should produce a diff when the assertion fails', function() {
+      it('should produce a diff when the assertion fails', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpExchange({
                 request:
                   'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
                 response:
-                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
               }),
               'to satisfy',
               { request: { url: '/foo' }, response: { body: 'blah' } }
@@ -3441,15 +3442,15 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when there is no diff in the request', function() {
+      it('should produce a diff when there is no diff in the request', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpExchange({
                 request:
                   'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
                 response:
-                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
               }),
               'to satisfy',
               { request: { url: '/' }, response: { body: 'blah' } }
@@ -3481,15 +3482,15 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should produce a diff when there is no diff in the response', function() {
+      it('should produce a diff when there is no diff in the response', function () {
         expect(
-          function() {
+          function () {
             expect(
               new HttpExchange({
                 request:
                   'GET / HTTP/1.1\r\nContent-Type: application/json\r\n\r\n{"foo":"bar"}',
                 response:
-                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh'
+                  'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\nargh',
               }),
               'to satisfy',
               { request: { url: '/foo' }, response: { body: 'argh' } }
@@ -3525,9 +3526,9 @@ describe('unexpected-messy', function() {
     });
   });
 
-  describe('HttpConversation', function() {
-    describe('#inspect', function() {
-      it('should render a conversation with two exchanges', function() {
+  describe('HttpConversation', function () {
+    describe('#inspect', function () {
+      it('should render a conversation with two exchanges', function () {
         expect(
           new HttpConversation({
             exchanges: [
@@ -3535,15 +3536,15 @@ describe('unexpected-messy', function() {
                 request:
                   'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                 response:
-                  'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                  'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
               },
               {
                 request:
                   'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                 response:
-                  'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-              }
-            ]
+                  'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+              },
+            ],
           }),
           'to inspect as',
           'GET / HTTP/1.1\n' +
@@ -3571,8 +3572,8 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('#diff', function() {
-      it('should diff two conversations of the same length', function() {
+    describe('#diff', function () {
+      it('should diff two conversations of the same length', function () {
         expect(
           [
             new HttpConversation({
@@ -3581,15 +3582,15 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
                 },
                 {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                }
-              ]
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+                },
+              ],
             }),
             new HttpConversation({
               exchanges: [
@@ -3597,16 +3598,16 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
                 },
                 {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-                }
-              ]
-            })
+                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
+                },
+              ],
+            }),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1\n' +
@@ -3647,7 +3648,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should diff conversations where the first has more exchanges', function() {
+      it('should diff conversations where the first has more exchanges', function () {
         expect(
           [
             new HttpConversation({
@@ -3656,15 +3657,15 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
                 },
                 {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                }
-              ]
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+                },
+              ],
             }),
             new HttpConversation({
               exchanges: [
@@ -3672,10 +3673,10 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-                }
-              ]
-            })
+                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
+                },
+              ],
+            }),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1\n' +
@@ -3710,7 +3711,7 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('should diff conversations where the second has more exchanges', function() {
+      it('should diff conversations where the second has more exchanges', function () {
         expect(
           [
             new HttpConversation({
@@ -3719,9 +3720,9 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}'
-                }
-              ]
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":123}',
+                },
+              ],
             }),
             new HttpConversation({
               exchanges: [
@@ -3729,16 +3730,16 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
+                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
                 },
                 {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}'
-                }
-              ]
-            })
+                    'HTTP/1.1 412 Precondition Failed\nContent-Type: application/json\n\n{"foo":456}',
+                },
+              ],
+            }),
           ],
           'to produce a diff of',
           'GET / HTTP/1.1\n' +
@@ -3773,13 +3774,13 @@ describe('unexpected-messy', function() {
       });
     });
 
-    describe('"to satisfy" assertion', function() {
-      it('should satisfy a missing HttpExchange against an object with a messy.HttpResponse instance', function() {
+    describe('"to satisfy" assertion', function () {
+      it('should satisfy a missing HttpExchange against an object with a messy.HttpResponse instance', function () {
         return expect(
-          function() {
+          function () {
             return expect(
               new messy.HttpConversation({
-                exchanges: []
+                exchanges: [],
               }),
               'to satisfy',
               {
@@ -3792,9 +3793,9 @@ describe('unexpected-messy', function() {
                         'Content-Type: application/json\n' +
                         '\n' +
                         '{"error":"not_found","reason":"Document is missing attachment"}'
-                    )
-                  }
-                ]
+                    ),
+                  },
+                ],
               }
             );
           },
@@ -3813,12 +3814,12 @@ describe('unexpected-messy', function() {
         );
       });
 
-      it('must not break with undefined', function() {
+      it('must not break with undefined', function () {
         expect(new HttpConversation(), 'to satisfy', undefined);
       });
 
-      describe('against an array', function() {
-        it('should succeed', function() {
+      describe('against an array', function () {
+        it('should succeed', function () {
           expect(
             new HttpConversation({
               exchanges: [
@@ -3826,25 +3827,25 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
-                }
-              ]
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}',
+                },
+              ],
             }),
             'to satisfy',
             {
               exchanges: [
                 {
                   request: { method: 'GET', path: '/' },
-                  response: { headers: { Quux: 'Baz' } }
-                }
-              ]
+                  response: { headers: { Quux: 'Baz' } },
+                },
+              ],
             }
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpConversation({
                   exchanges: [
@@ -3852,9 +3853,9 @@ describe('unexpected-messy', function() {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
-                    }
-                  ]
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}',
+                    },
+                  ],
                 }),
                 'to satisfy',
                 { exchanges: [{ request: { method: 'GET', path: '/foo' } }] }
@@ -3890,9 +3891,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff when the value contains too few exchanges', function() {
+        it('should fail with a diff when the value contains too few exchanges', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpConversation({
                   exchanges: [
@@ -3900,15 +3901,15 @@ describe('unexpected-messy', function() {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}',
                     },
                     {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
-                    }
-                  ]
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}',
+                    },
+                  ],
                 }),
                 'to satisfy',
                 { exchanges: [{}] }
@@ -3960,9 +3961,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff when the value contains too many exchanges', function() {
+        it('should fail with a diff when the value contains too many exchanges', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpConversation({
                   exchanges: [
@@ -3970,16 +3971,16 @@ describe('unexpected-messy', function() {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
-                    }
-                  ]
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}',
+                    },
+                  ],
                 }),
                 'to satisfy',
                 {
                   exchanges: [
                     {},
-                    { request: { url: 'GET /', headers: { Quux: 'baz' } } }
-                  ]
+                    { request: { url: 'GET /', headers: { Quux: 'baz' } } },
+                  ],
                 }
               );
             },
@@ -4014,9 +4015,9 @@ describe('unexpected-messy', function() {
           );
         });
 
-        it('should fail with a diff when the value contains too many exchanges and the value contains complex "to satisfy" terms', function() {
+        it('should fail with a diff when the value contains too many exchanges and the value contains complex "to satisfy" terms', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpConversation({
                   exchanges: [
@@ -4024,9 +4025,9 @@ describe('unexpected-messy', function() {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}'
-                    }
-                  ]
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\n\n{"foo":456}',
+                    },
+                  ],
                 }),
                 'to satisfy',
                 {
@@ -4035,10 +4036,10 @@ describe('unexpected-messy', function() {
                     {
                       request: {
                         url: 'GET /',
-                        headers: { Foo: /bar/, Quux: 'baz' }
-                      }
-                    }
-                  ]
+                        headers: { Foo: /bar/, Quux: 'baz' },
+                      },
+                    },
+                  ],
                 }
               );
             },
@@ -4075,8 +4076,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('against an object', function() {
-        it('should succeed', function() {
+      describe('against an object', function () {
+        it('should succeed', function () {
           expect(
             new HttpConversation({
               exchanges: [
@@ -4084,25 +4085,25 @@ describe('unexpected-messy', function() {
                   request:
                     'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                   response:
-                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
-                }
-              ]
+                    'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}',
+                },
+              ],
             }),
             'to satisfy',
             {
               exchanges: {
                 0: {
                   request: { method: 'GET', path: '/' },
-                  response: { headers: { Quux: 'Baz' } }
-                }
-              }
+                  response: { headers: { Quux: 'Baz' } },
+                },
+              },
             }
           );
         });
 
-        it('should fail with a diff', function() {
+        it('should fail with a diff', function () {
           expect(
-            function() {
+            function () {
               expect(
                 new HttpConversation({
                   exchanges: [
@@ -4110,13 +4111,15 @@ describe('unexpected-messy', function() {
                       request:
                         'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                       response:
-                        'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
-                    }
-                  ]
+                        'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}',
+                    },
+                  ],
                 }),
                 'to satisfy',
                 {
-                  exchanges: { 0: { request: { method: 'GET', path: '/foo' } } }
+                  exchanges: {
+                    0: { request: { method: 'GET', path: '/foo' } },
+                  },
                 }
               );
             },
@@ -4151,8 +4154,8 @@ describe('unexpected-messy', function() {
         });
       });
 
-      describe('in an async setting', function() {
-        it('should fail with a diff', function() {
+      describe('in an async setting', function () {
+        it('should fail with a diff', function () {
           return expect(
             expect(
               new HttpConversation({
@@ -4161,9 +4164,9 @@ describe('unexpected-messy', function() {
                     request:
                       'GET / HTTP/1.1\nContent-Type: application/json\n\n{"foo":123}',
                     response:
-                      'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}'
-                  }
-                ]
+                      'HTTP/1.1 200 OK\nContent-Type: application/json\nQuux: Baz\n\n{"foo":456}',
+                  },
+                ],
               }),
               'to satisfy',
               {
@@ -4173,8 +4176,8 @@ describe('unexpected-messy', function() {
                       method: 'GET',
                       path: '/foo',
                       body: expect.it('when delayed a little bit', 'to equal', {
-                        foo: 987
-                      })
+                        foo: 987,
+                      }),
                     },
                     response: {
                       statusCode: expect.it(
@@ -4187,14 +4190,14 @@ describe('unexpected-messy', function() {
                           'when delayed a little bit',
                           'to equal',
                           'bar'
-                        )
+                        ),
                       },
                       body: expect.it('when delayed a little bit', 'to equal', {
-                        foo: 789
-                      })
-                    }
-                  }
-                ]
+                        foo: 789,
+                      }),
+                    },
+                  },
+                ],
               }
             ),
             'when rejected',

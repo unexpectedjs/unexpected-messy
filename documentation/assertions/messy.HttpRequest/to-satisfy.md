@@ -5,7 +5,7 @@ Asserts that a `messy.HttpRequest` instance satisfies the given spec:
 
 ```js
 var httpRequest = new messy.HttpRequest(
-    'GET /foo HTTP/1.1\n' +
+  'GET /foo HTTP/1.1\n' +
     'Content-Type: text/plain; charset=UTF-8\n' +
     'Content-Length: 13\n' +
     '\n' +
@@ -13,12 +13,12 @@ var httpRequest = new messy.HttpRequest(
 );
 
 expect(httpRequest, 'to satisfy', {
-    method: 'POST',
-    headers: {
-        Foo: 'bar',
-        'Content-Length': 13
-    },
-    body: /Hi/
+  method: 'POST',
+  headers: {
+    Foo: 'bar',
+    'Content-Length': 13,
+  },
+  body: /Hi/,
 });
 ```
 

@@ -5,13 +5,17 @@ Asserts that a messy.HttpResponse instance satisfies the given spec:
 
 ```js
 var httpResponse = new messy.HttpResponse({
-    headers: {
-        'Content-Type': 'image/png'
-    },
-    body: require('fs').readFileSync('documentation/assertions/messy.HttpResponse/magic-pen-6-colours.jpg')
+  headers: {
+    'Content-Type': 'image/png',
+  },
+  body: require('fs').readFileSync(
+    'documentation/assertions/messy.HttpResponse/magic-pen-6-colours.jpg'
+  ),
 });
 
-expect(httpResponse, 'to satisfy', { headers: { 'Content-Type': 'image/gif' } });
+expect(httpResponse, 'to satisfy', {
+  headers: { 'Content-Type': 'image/gif' },
+});
 ```
 
 ```output

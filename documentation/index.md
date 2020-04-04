@@ -18,15 +18,22 @@ In particular, it adds support for the `to satisfy` assertion so that you can ex
 
 ```js#evaluate:false
 var messy = require('messy');
-var expect = require('unexpected').clone().installPlugin(require('./lib/unexpectedMessy'));
+var expect = require('unexpected')
+  .clone()
+  .installPlugin(require('./lib/unexpectedMessy'));
 ```
+
 ```js
-expect(new messy.HttpResponse(
+expect(
+  new messy.HttpResponse(
     'HTTP/1.1 200 OK\r\n' +
-    'Content-Type: application/json\r\n' +
-    '\r\n' +
-    '{"foo":"bar","baz":456}'
-), 'to satisfy', {statusCode: 404, body: {baz: expect.it('to be greater than', 1024)}});
+      'Content-Type: application/json\r\n' +
+      '\r\n' +
+      '{"foo":"bar","baz":456}'
+  ),
+  'to satisfy',
+  { statusCode: 404, body: { baz: expect.it('to be greater than', 1024) } }
+);
 ```
 
 ```output
