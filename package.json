@@ -59,7 +59,7 @@
     "nyc": "^15.0.0",
     "prettier": "~2.0.2",
     "unexpected": "^11.5.0",
-    "unexpected-documentation-site-generator": "^6.0.0",
+    "unexpected-documentation-site-generator": "^7.0.1",
     "unexpected-markdown": "^5.0.0"
   },
   "dependencies": {
