@@ -1,7 +1,12 @@
-package.json
-
 /testdata/
 /node_modules/
 /coverage/
+/.nyc_output/
 /site-build/
 /unexpectedMessy.min.js
+
+# Don't fight npm i --save
+/package.json
+
+# Generated
+/CHANGELOG.md
