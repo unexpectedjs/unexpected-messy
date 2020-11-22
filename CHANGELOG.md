@@ -1,3 +1,33 @@
+### v10.0.0 (2020-11-22)
+
+#### Pull requests
+
+- [#57](https://github.com/unexpectedjs/unexpected-messy/pull/57) Upgrade eslint-config-standard to version 16.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#55](https://github.com/unexpectedjs/unexpected-messy/pull/55) Upgrade eslint-config-standard to version 15.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#53](https://github.com/unexpectedjs/unexpected-messy/pull/53) Upgrade browserify to version 17.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#50](https://github.com/unexpectedjs/unexpected-messy/pull/50) Upgrade prettier to version 2.1.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#48](https://github.com/unexpectedjs/unexpected-messy/pull/48) Upgrade eslint-plugin-mocha to version 8.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#42](https://github.com/unexpectedjs/unexpected-messy/pull/42) Upgrade eslint-plugin-mocha to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#41](https://github.com/unexpectedjs/unexpected-messy/pull/41) Upgrade eslint to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#38](https://github.com/unexpectedjs/unexpected-messy/pull/38) Upgrade mocha to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#37](https://github.com/unexpectedjs/unexpected-messy/pull/37) Upgrade unexpected-markdown to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#36](https://github.com/unexpectedjs/unexpected-messy/pull/36) Upgrade eslint-plugin-node to version 11.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#35](https://github.com/unexpectedjs/unexpected-messy/pull/35) Upgrade nyc to version 15.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#34](https://github.com/unexpectedjs/unexpected-messy/pull/34) Upgrade prettier to version 1.19.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#33](https://github.com/unexpectedjs/unexpected-messy/pull/33) Upgrade eslint-plugin-node to version 10.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#32](https://github.com/unexpectedjs/unexpected-messy/pull/32) Upgrade eslint-config-standard to version 14.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#28](https://github.com/unexpectedjs/unexpected-messy/pull/28) Upgrade unexpected-markdown to version 4.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#29](https://github.com/unexpectedjs/unexpected-messy/pull/29) Upgrade magicpen-media to version 2.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
+#### Commits to master
+
+- [Update mocha to ^8.2.1, switch to .mocharc.json](https://github.com/unexpectedjs/unexpected-messy/commit/4801c525687b9e3ba628725aa23ccdcac2b43b64) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Add CHANGELOG.md + offline-github-changelog integration](https://github.com/unexpectedjs/unexpected-messy/commit/d998364593e63ba8879ceed9188b8b5462922786) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Drop node.js 8 support, add 14, lint with 14 \(semver-major\)](https://github.com/unexpectedjs/unexpected-messy/commit/30717b562ff672ed1f3006c139edcde059bad09a) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Accept unexpected ^12.0.0 as a peer dep](https://github.com/unexpectedjs/unexpected-messy/commit/d4ee3082121326fe35c0d83ca1f7a937b59297bc) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Update unexpected to ^12.0.0](https://github.com/unexpectedjs/unexpected-messy/commit/1b2091c0ace4a0447677e99a57bbee6504a3dfc5) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [+8 more](https://github.com/unexpectedjs/unexpected-messy/compare/v9.0.0...v10.0.0)
+
 ### v9.0.0 (2019-06-23)
 
 #### Pull requests
