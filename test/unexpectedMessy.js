@@ -13,47 +13,48 @@ describe('unexpected-messy', function () {
   var expect = unexpected
     .clone()
     .use(require('../lib/unexpectedMessy'))
-    .addAssertion('<array> to produce a diff of <string>', function (
-      expect,
-      subject,
-      value
-    ) {
-      expect.errorMode = 'bubble';
-      expect(expect.diff(subject[0], subject[1]).toString(), 'to equal', value);
-    })
-    .addAssertion('<any> to inspect as <string>', function (
-      expect,
-      subject,
-      value
-    ) {
-      expect.errorMode = 'bubble';
-      expect(expect.inspect(subject).toString(), 'to equal', value);
-    })
-    .addAssertion('<any> when delayed a little bit <assertion>', function (
-      expect,
-      subject
-    ) {
-      return expect.promise(function (run) {
-        setTimeout(
-          run(function () {
-            return expect.shift(subject);
-          }),
-          1
+    .addAssertion(
+      '<array> to produce a diff of <string>',
+      function (expect, subject, value) {
+        expect.errorMode = 'bubble';
+        expect(
+          expect.diff(subject[0], subject[1]).toString(),
+          'to equal',
+          value
         );
-      });
-    })
-    .addAssertion('<Error> 2 have message <string>', function (
-      expect,
-      subject,
-      value
-    ) {
-      expect.errorMode = 'nested';
-      expect(
-        subject._isUnexpected ? subject.output.toString() : subject.message,
-        'to equal',
-        value
-      );
-    });
+      }
+    )
+    .addAssertion(
+      '<any> to inspect as <string>',
+      function (expect, subject, value) {
+        expect.errorMode = 'bubble';
+        expect(expect.inspect(subject).toString(), 'to equal', value);
+      }
+    )
+    .addAssertion(
+      '<any> when delayed a little bit <assertion>',
+      function (expect, subject) {
+        return expect.promise(function (run) {
+          setTimeout(
+            run(function () {
+              return expect.shift(subject);
+            }),
+            1
+          );
+        });
+      }
+    )
+    .addAssertion(
+      '<Error> 2 have message <string>',
+      function (expect, subject, value) {
+        expect.errorMode = 'nested';
+        expect(
+          subject._isUnexpected ? subject.output.toString() : subject.message,
+          'to equal',
+          value
+        );
+      }
+    );
 
   expect.output.preferredWidth = 80;
 
