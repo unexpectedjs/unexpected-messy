@@ -1,0 +1,5 @@
+{
+  "reporter": "spec",
+  "recursive": true,
+  "require": ["./bootstrap-unexpected-markdown", "unexpected-markdown"]
+  }
