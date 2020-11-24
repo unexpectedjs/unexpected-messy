@@ -66,7 +66,7 @@
   },
   "dependencies": {
     "magicpen-media": "^3.0.0",
-    "messy": "^6.16.0",
+    "messy": "^7.0.0",
     "minimist": "^1.2.0",
     "qs": "^6.5.1",
     "underscore": "^1.8.3"
