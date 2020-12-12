@@ -1,3 +1,20 @@
+### v10.0.1 (2020-12-12)
+
+#### Pull requests
+
+- [#65](https://github.com/unexpectedjs/unexpected-messy/pull/65) Upgrade eslint-config-prettier to version 7.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#63](https://github.com/unexpectedjs/unexpected-messy/pull/63) Upgrade eslint-plugin-standard to version 5.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#62](https://github.com/unexpectedjs/unexpected-messy/pull/62) Upgrade magicpen-media to version 3.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
+#### Commits to master
+
+- [Don't rely on &lt;object&gt; to satisfy &lt;object&gt; with a messy.StatusLine instance as the RHS](https://github.com/unexpectedjs/unexpected-messy/commit/d8c1546021c2f371b5f864f1d582cdf638cbb773) ([Andreas Lind](mailto:andreas.lind@peakon.com))
+- [mocha --timeout 0 while debugging](https://github.com/unexpectedjs/unexpected-messy/commit/9e004d0f31c8b62fd0807094013a0539aeadceaa) ([Andreas Lind](mailto:andreas.lind@peakon.com))
+- [More var =&gt; let|const](https://github.com/unexpectedjs/unexpected-messy/commit/719d925471425755c53a760b739c28623981872f) ([Andreas Lind](mailto:andreas.lind@peakon.com))
+- [Add vscode debugger launch config for the test suite](https://github.com/unexpectedjs/unexpected-messy/commit/3c04f45179a53cc7cb8b3243bab05372b2a243e1) ([Andreas Lind](mailto:andreas.lind@peakon.com))
+- [var =&gt; let|const](https://github.com/unexpectedjs/unexpected-messy/commit/461561ca7655909ed280cc34127a22b0b327e29b) ([Andreas Lind](mailto:andreas.lind@peakon.com))
+- [+4 more](https://github.com/unexpectedjs/unexpected-messy/compare/v10.0.0...v10.0.1)
+
 ### v10.0.0 (2020-11-22)
 
 #### Pull requests
@@ -140,6 +157,12 @@
 
 - [Match against the decoded text when satisfying a JSON body against a string.](https://github.com/unexpectedjs/unexpected-messy/commit/389d01d87a8c2de7ec1dab0bc149fff7b308394b) ([Andreas Lind](mailto:andreas@one.com))
 - [Update messy to ^6.15.2.](https://github.com/unexpectedjs/unexpected-messy/commit/a8474c4996b32b9f39e94f99c449b223af927740) ([Andreas Lind](mailto:andreas@one.com))
+- [Fix satisfying Http\(Request|Response\) and Message against strings and Buffers.](https://github.com/unexpectedjs/unexpected-messy/commit/4aaea0f543de9be0f848a27e30845a831d3a16c9) ([Andreas Lind](mailto:andreas@one.com))
+
+### v6.5.0 (2017-03-17)
+
+- [Match against the decoded text when satisfying a JSON body against a string.](https://github.com/unexpectedjs/unexpected-messy/commit/1227220b3e6f097f7683c5338ae10b174a2b0328) ([Andreas Lind](mailto:andreas@one.com))
+- [Update messy to ^6.15.2.](https://github.com/unexpectedjs/unexpected-messy/commit/530a162e632a5447b9e7c0d37f943d0ce38e9d27) ([Andreas Lind](mailto:andreas@one.com))
 
 ### v6.4.1 (2017-03-18)
 
@@ -210,7 +233,6 @@
 - [+1 more](https://github.com/unexpectedjs/unexpected-messy/compare/v5.0.0...v5.1.0)
 
 ### v5.0.0
-
 - [Update unexpected to 10.0.0.](https://github.com/unexpectedjs/unexpected-messy/commit/e34f61b2bec7cef90f7a69e28e431d2e12df6a2f) ([Andreas Lind](mailto:andreas@one.com))
 - [Tests: Use the Unexpected v10 addAssertion syntax.](https://github.com/unexpectedjs/unexpected-messy/commit/5940e46758207001ea3760c50e78d87562969070) ([Andreas Lind](mailto:andreas@one.com))
 - [Switch to the Unexpected 10 addAssertion syntax.](https://github.com/unexpectedjs/unexpected-messy/commit/9b886ada26af204ab88e153923816aaf62ec1653) ([Andreas Lind](mailto:andreas@one.com))
@@ -224,7 +246,6 @@
 - [Update unexpected to 9.9.0.](https://github.com/unexpectedjs/unexpected-messy/commit/bcf51300aeebd27433c4528797448b3580c4d417) ([Andreas Lind](mailto:andreas@one.com))
 
 ### v4.8.0
-
 - [Revert "Turns out that actually didn't work in npm 2 :\("](https://github.com/unexpectedjs/unexpected-messy/commit/8e54ab17693dc5e4bcd581666354b61eaff3529e) ([Andreas Lind](mailto:andreas@one.com))
 - [Include the version number in the plugin spec.](https://github.com/unexpectedjs/unexpected-messy/commit/3066618e90b52911e7920087d6dcd5dfbe22b3ec) ([Andreas Lind](mailto:andreas@one.com))
 - [Require unexpected 9.5.0.](https://github.com/unexpectedjs/unexpected-messy/commit/f1ca97c118ce5e7917a0a8866f33257a79d5f55f) ([Andreas Lind](mailto:andreas@one.com))
@@ -568,4 +589,5 @@
 - [Added missing "it" block.](https://github.com/unexpectedjs/unexpected-messy/commit/bd9377a19ac03b73236ccf8ce73d00cb62ee0af3) ([Andreas Lind](mailto:andreas@one.com))
 - [HttpExchange: Support a missing request and\/or response.](https://github.com/unexpectedjs/unexpected-messy/commit/8d87f2a8d0a5abce13f35e35cb20fd570a9a4beb) ([Andreas Lind](mailto:andreas@one.com))
 - [Update messy.](https://github.com/unexpectedjs/unexpected-messy/commit/9b4a4b1343ca8752cb3694d55b40c69125ddd436) ([Andreas Lind](mailto:andreas@one.com))
-- [+27 more](https://github.com/unexpectedjs/unexpected-messy/compare/9b4a4b1343ca8752cb3694d55b40c69125ddd436...v1.0.0)
+- [+27 more](https://github.com/unexpectedjs/unexpected-messy/compare/59972af547abc9515e35393727013e0e00f03022%5E...v1.0.0)
+
