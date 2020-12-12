@@ -1,16 +1,16 @@
-var messy = require('messy');
-var Headers = messy.Headers;
-var Message = messy.Message;
-var RequestLine = messy.RequestLine;
-var HttpRequest = messy.HttpRequest;
-var StatusLine = messy.StatusLine;
-var HttpResponse = messy.HttpResponse;
-var HttpExchange = messy.HttpExchange;
-var HttpConversation = messy.HttpConversation;
-var unexpected = require('unexpected');
+const messy = require('messy');
+const Headers = messy.Headers;
+const Message = messy.Message;
+const RequestLine = messy.RequestLine;
+const HttpRequest = messy.HttpRequest;
+const StatusLine = messy.StatusLine;
+const HttpResponse = messy.HttpResponse;
+const HttpExchange = messy.HttpExchange;
+const HttpConversation = messy.HttpConversation;
+const unexpected = require('unexpected');
 
 describe('unexpected-messy', function () {
-  var expect = unexpected
+  const expect = unexpected
     .clone()
     .use(require('../lib/unexpectedMessy'))
     .addAssertion(
@@ -669,7 +669,7 @@ describe('unexpected-messy', function () {
       });
 
       it('should render a multipart message correctly', function () {
-        var message = new Message(
+        const message = new Message(
           'Content-Type: multipart/form-data;\r\n' +
             ' boundary=--------------------------231099812216460892104111\r\n' +
             '\r\n' +
@@ -701,7 +701,7 @@ describe('unexpected-messy', function () {
       });
 
       it('should render a multipart message parsed as a Buffer correctly', function () {
-        var message = new Message(
+        const message = new Message(
           Buffer.from(
             'Content-Type: multipart/form-data;\r\n' +
               ' boundary=--------------------------231099812216460892104111\r\n' +
@@ -1131,7 +1131,7 @@ describe('unexpected-messy', function () {
         });
       });
 
-      var rawSrc =
+      const rawSrc =
         'Content-Type: text/plain; charset=UTF-8\r\n' +
         'Transfer-Encoding: chunked\r\n' +
         '\r\n' +
@@ -1366,7 +1366,7 @@ describe('unexpected-messy', function () {
         );
       });
 
-      var multiPartMessage = new Message(
+      const multiPartMessage = new Message(
         'Content-Type: multipart/form-data;\r\n' +
           ' boundary=--------------------------231099812216460892104111\r\n' +
           '\r\n' +
@@ -2298,7 +2298,7 @@ describe('unexpected-messy', function () {
         it('should fail when asserting encrypted to be non-encrypted', function () {
           expect(
             function () {
-              var httpRequest = new HttpRequest('GET / HTTP/1.1');
+              const httpRequest = new HttpRequest('GET / HTTP/1.1');
               httpRequest.encrypted = true;
               expect(httpRequest, 'to satisfy', { encrypted: false });
             },
@@ -2314,7 +2314,7 @@ describe('unexpected-messy', function () {
         it('should fail when asserting encrypted against a non-boolean', function () {
           expect(
             function () {
-              var httpRequest = new HttpRequest('GET / HTTP/1.1');
+              const httpRequest = new HttpRequest('GET / HTTP/1.1');
               httpRequest.encrypted = false;
               expect(httpRequest, 'to satisfy', {
                 encrypted: expect.it('to be ok'),
