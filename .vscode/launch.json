@@ -10,6 +10,7 @@
       "request": "launch",
       "name": "Mocha Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": ["--timeout", "0"],
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**" // Prevent stepping through async_hooks.js et al.
