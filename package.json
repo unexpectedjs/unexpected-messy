@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
-    "messy": "^6.16.0",
+    "messy": "^7.0.0",
     "unexpected": "^10.27.0 || ^11.0.0-3 || ^12.0.0"
   },
   "devDependencies": {
@@ -66,10 +66,10 @@
   },
   "dependencies": {
     "magicpen-media": "^3.0.0",
-    "messy": "^6.16.0",
     "minimist": "^1.2.0",
     "qs": "^6.5.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "messy": "^7.0.0"
   },
   "nyc": {
     "include": [
