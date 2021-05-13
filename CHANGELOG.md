@@ -1,3 +1,11 @@
+### v10.0.1 (2021-05-13)
+
+- [Update messy to ^7.0.0](https://github.com/unexpectedjs/unexpected-messy/commit/b9ab605cba7adf472232e5a7c4c704a7e8f52745) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [prettier --write '\*\*\/\*.{js,json,md}'](https://github.com/unexpectedjs/unexpected-messy/commit/1e6ab2c03c35608129611ed4eb0e95e05ed3f10d) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [Update prettier to version 2.3.0](https://github.com/unexpectedjs/unexpected-messy/commit/f3c8b0ab3a93c2095fc566dac058e6716a71f0c6) ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [Fix eslint-plugin-prettier usage](https://github.com/unexpectedjs/unexpected-messy/commit/4a75a10be3fd03d9ca23616fb161f34badeedf79) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [Update eslint-config-prettier to version 8.3.0](https://github.com/unexpectedjs/unexpected-messy/commit/8c61d098b3e96d360a2d2a218476db83674ae38f) ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
 ### v10.0.1 (2020-12-12)
 
 #### Pull requests
