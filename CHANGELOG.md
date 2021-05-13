@@ -1,4 +1,8 @@
-### v10.0.1 (2021-05-13)
+### v11.0.0 (2021-05-13)
+
+- [Replace browserify with rollup](https://github.com/unexpectedjs/unexpected-messy/commit/5af98d4842f9cf8671d138324c8a7bb7fddb3466) ([Andreas Lind](mailto:andreas.lind@workday.com))
+
+### v11.0.0 (2021-05-13)
 
 - [Update messy to ^7.0.0](https://github.com/unexpectedjs/unexpected-messy/commit/b9ab605cba7adf472232e5a7c4c704a7e8f52745) ([Andreas Lind](mailto:andreas.lind@workday.com))
 - [prettier --write '\*\*\/\*.{js,json,md}'](https://github.com/unexpectedjs/unexpected-messy/commit/1e6ab2c03c35608129611ed4eb0e95e05ed3f10d) ([Andreas Lind](mailto:andreas.lind@workday.com))
