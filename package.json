@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "eslint . && prettier --check '**/*.{js,json,md}'",
     "test": "mocha && mocha $(find documentation -name '*.md')",
-    "prepublish": "rollup -c",
+    "prepublishOnly": "rollup -c",
     "test:ci": "npm run coverage && npm run generate-site",
     "coverage": "nyc --reporter=lcov --reporter=text --all -- npm test && echo google-chrome coverage/lcov-report/index.html",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
