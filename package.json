@@ -51,6 +51,7 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-mocha": "^10.0.1",
+    "eslint-plugin-n": "^15.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "mocha": "^8.2.1",
     "nyc": "^15.0.0",
@@ -66,7 +67,6 @@
     "unexpected-markdown": "^5.0.0"
   },
   "dependencies": {
-    "eslint-plugin-n": "^15.1.0",
     "magicpen-media": "^3.0.0",
     "messy": "^7.0.0",
     "minimist": "^1.2.0",
