@@ -1,4 +1,23 @@
-### v11.0.0 (2021-05-13)
+### v11.0.1 (2022-04-28)
+
+#### Pull requests
+
+- [#90](https://github.com/unexpectedjs/unexpected-messy/pull/90) Upgrade eslint-plugin-mocha to version 10.0.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#87](https://github.com/unexpectedjs/unexpected-messy/pull/87) Upgrade prettier to version 2.5.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#83](https://github.com/unexpectedjs/unexpected-messy/pull/83) Upgrade eslint-plugin-promise to version 5.1.1 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#79](https://github.com/unexpectedjs/unexpected-messy/pull/79) Upgrade prettier to version 2.4.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+- [#73](https://github.com/unexpectedjs/unexpected-messy/pull/73) Upgrade eslint-plugin-mocha to version 9.0.0 ([depfu[bot]](mailto:23717796+depfu[bot]@users.noreply.github.com))
+
+#### Commits to master
+
+- [Update unexpected the dev dep to ^13.0.0, allow 13 for the peer dep](https://github.com/unexpectedjs/unexpected-messy/commit/76068a4fe3d8403fcda56b89e22ad05f4d5e42c6) ([Andreas Lind](mailto:andreaslindpetersen@gmail.com))
+- [Whoops, make eslint-plugin-n a dev dep](https://github.com/unexpectedjs/unexpected-messy/commit/50147c3fb258dbf53ad59812331a2f45237bd700) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [eslint --fix .](https://github.com/unexpectedjs/unexpected-messy/commit/1cca1bfaf6de0340812d27e6cd9aac2a9cfed0c1) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [npm rm eslint-plugin-standard](https://github.com/unexpectedjs/unexpected-messy/commit/eefb5cc7be1ff5222aba9b2070fdb38e5bf0c8d5) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [npm i eslint-plugin-n eslint-config-standard@latest && npm uninstall eslint-plugin-node](https://github.com/unexpectedjs/unexpected-messy/commit/49ed755ecba6c97e60bfe987033d48e7cd1288ca) ([Andreas Lind](mailto:andreas.lind@workday.com))
+- [+4 more](https://github.com/unexpectedjs/unexpected-messy/compare/v11.0.1...v11.0.1)
+
+### v11.0.1 (2021-05-13)
 
 - [Replace browserify with rollup](https://github.com/unexpectedjs/unexpected-messy/commit/5af98d4842f9cf8671d138324c8a7bb7fddb3466) ([Andreas Lind](mailto:andreas.lind@workday.com))
 
@@ -169,12 +188,6 @@
 
 - [Match against the decoded text when satisfying a JSON body against a string.](https://github.com/unexpectedjs/unexpected-messy/commit/389d01d87a8c2de7ec1dab0bc149fff7b308394b) ([Andreas Lind](mailto:andreas@one.com))
 - [Update messy to ^6.15.2.](https://github.com/unexpectedjs/unexpected-messy/commit/a8474c4996b32b9f39e94f99c449b223af927740) ([Andreas Lind](mailto:andreas@one.com))
-- [Fix satisfying Http\(Request|Response\) and Message against strings and Buffers.](https://github.com/unexpectedjs/unexpected-messy/commit/4aaea0f543de9be0f848a27e30845a831d3a16c9) ([Andreas Lind](mailto:andreas@one.com))
-
-### v6.5.0 (2017-03-17)
-
-- [Match against the decoded text when satisfying a JSON body against a string.](https://github.com/unexpectedjs/unexpected-messy/commit/1227220b3e6f097f7683c5338ae10b174a2b0328) ([Andreas Lind](mailto:andreas@one.com))
-- [Update messy to ^6.15.2.](https://github.com/unexpectedjs/unexpected-messy/commit/530a162e632a5447b9e7c0d37f943d0ce38e9d27) ([Andreas Lind](mailto:andreas@one.com))
 
 ### v6.4.1 (2017-03-18)
 
