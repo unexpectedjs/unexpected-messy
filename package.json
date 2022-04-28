@@ -42,7 +42,7 @@
   "homepage": "https://github.com/unexpectedjs/unexpected-messy",
   "peerDependencies": {
     "messy": "^7.0.0",
-    "unexpected": "^10.27.0 || ^11.0.0-3 || ^12.0.0"
+    "unexpected": "^10.27.0 || ^11.0.0-3 || ^12.0.0 || ^13.0.0"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
@@ -62,7 +62,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
-    "unexpected": "^12.0.0",
+    "unexpected": "^13.0.0",
     "unexpected-documentation-site-generator": "^6.0.0",
     "unexpected-markdown": "^5.0.0"
   },
